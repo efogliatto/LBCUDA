@@ -21,6 +21,11 @@ include_directories(include)
 
 
 
+# Bibliotecas para compilar CUDA
+
+find_package( CUDA REQUIRED )
+
+
 # Compiler options for C
 
 SET( CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -lm -pedantic -funroll-loops" )

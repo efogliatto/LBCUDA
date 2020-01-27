@@ -1,1 +1,1 @@
-../src/latticeMesh/latticeMesh.h
+../src/C/latticeMesh/latticeMesh.h

@@ -1,1 +1,1 @@
-../src/latticeModel/latticeReverseDir.h
+../src/C/latticeModel/latticeReverseDir.h

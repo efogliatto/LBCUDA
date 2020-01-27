@@ -1,1 +1,1 @@
-../src/latticeModel/D2Q9/D2Q9.h
+../src/C/latticeModel/D2Q9/D2Q9.h

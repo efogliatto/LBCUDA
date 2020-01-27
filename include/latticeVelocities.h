@@ -1,1 +1,1 @@
-../src/latticeModel/latticeVelocities.h
+../src/C/latticeModel/latticeVelocities.h
