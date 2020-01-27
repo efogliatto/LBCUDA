@@ -6,21 +6,21 @@
 
 */
 
-/* #include <io.h> */
-/* #include <dictIO.h> */
-/* #include <latticeModel.h> */
-/* #include <basic.h> */
-
-
-/* void periodicX( basicMesh* mesh, uint nx, uint ny ); */
-/* void periodicY( basicMesh* mesh, uint nx, uint ny ); */
-/* void periodicXY( basicMesh* mesh, uint nx, uint ny ); */
-/* void genericBoundary( basicMesh* mesh, uint nx, uint ny ); */
-
-
 
 
 #include <stdio.h>
+
+#include <stdlib.h>
+
+#include "include/basicMesh.h"
+
+#include "int2dArray.h"
+
+#include "latticeVelocities.h"
+
+#include "latticeReverseDir.h"
+
+#include "writeBasicMesh.h"
 
 
 int main(int argc, char** argv) {
@@ -29,228 +29,182 @@ int main(int argc, char** argv) {
     printf( "                    \n" );
     printf( "     o-----o-----o  \n" );
     printf( "     | -   |   - |  \n" );
-    printf( "     |   - | -   |  \n" );
-    printf( "     o<----o---->o  Grilla bidimensional en dominio rectangular\n" );
-    printf( "     |   - | -   |  \n" );
+    printf( "     |   - | -   |                latticeBox2D\n" );
+    printf( "     o<----o---->o  \n" );
+    printf( "     |   - | -   |  Grilla bidimensional en dominio rectangular\n" );
     printf( "     | -   |   - |  \n" );
-    printf( "     o-----o-----o  \n" );
+    printf( "     o-----o-----o  \n\n" );
 
 
-
-    
-    /* // Basic lattice properties */
-
-    /* basicMesh mesh; */
-
-    /* uint status; */
-    
-
-    /* // Lattice size */
-
-    /* scalar dn; */
-
-    /* uint nx = 0, */
-    /* 	ny = 0;     */
-
-    /* if(  lookUpScalarEntry("properties/latticeProperties", "Nx", -1, &dn)  ) */
-    /* 	nx = (uint)dn; */
-
-    /* if(  lookUpScalarEntry("properties/latticeProperties", "Ny", -1, &dn)  ) */
-    /* 	ny = (uint)dn;     */
-
-
-    /* mesh.nPoints = nx*ny; */
-
-
+    // Argumentos:
+    //
+    // - argv[1] = nx
+    // - argv[2] = ny
 
 
     
-    /* // Lattice model */
+    // Propiedades basicas de grilla
 
-    /* char* modelName; */
+    basicMesh mesh;
+
+    uint nx = (uint)atoi( argv[1] );
+
+    uint ny = (uint)atoi( argv[2] );
+
+    mesh.nPoints = nx*ny;    
+
+    printf( " Generación de grilla con %d x %d = %d nodos \n\n ", nx, ny, mesh.nPoints );
     
-    /* latticeInfo lattice; */
-
-    /* lattice.model = D2Q9; */
-    
-    /* status = lookUpStringEntry( "properties/latticeProperties", "LBModel", &modelName, "D2Q9" ); */
-
-    /* if(status) {} */
-
-    /* if( strcmp(modelName, "D2Q9") == 0 ) { */
-
-    /* 	lattice.model = D2Q9; */
-
-    /* } */
-
-    /* else { */
-
-    /* 	if( strcmp(modelName, "D3Q15") == 0 ) { */
-
-    /* 	    lattice.model = D3Q15; */
-
-    /* 	} */
-
-    /* 	else { */
-
-    /* 	    char msg[100]; */
-
-    /* 	    sprintf(msg, "Unrecognized model %s", modelName); */
-	    
-    /* 	    errorMsg( msg ); */
-
-    /* 	} */
-
-    /* } */
-    
-    
-
-  
 
 
 
     
 
-    /* // ******************************************************************** // */
-    /* //                         Points inside geometry                       // */
-    /* // ******************************************************************** // */
+    // ******************************************************************** //
+    //                         Generacion de puntos                         //
+    // ******************************************************************** //
 
     
-    /* printf("Adding points to lattice\n\n"); */
+    printf("Incorporando puntos a la grilla\n\n");
 
-    /* mesh.points = matrixIntAlloc(mesh.nPoints,3,0); */
+    uint status = int2dArray(&mesh.points, mesh.nPoints, 3, 0);
 
-        
-    /* // Move over indices */
+    if( status ) {
+        	
+	int i,j;
 
-    /* int i,j; */
-
-    /* for( j = 0 ; j < ny ; j++) { */
+	for( j = 0 ; j < ny ; j++) {
 	
-    /* 	for( i = 0 ; i < nx ; i++) { */
+	    for( i = 0 ; i < nx ; i++) {
 			    
-    /* 	    mesh.points[i+j*nx][0] = i; */
-    /* 	    mesh.points[i+j*nx][1] = j; */
-		
-    /* 	} */
-    /* } */
+		mesh.points[i+j*nx][0] = i;
+		mesh.points[i+j*nx][1] = j;
+	    
+	    }
+	}
 
-
+    }
 
 
     
     
 
-    /* // ******************************************************************** // */
-    /* //                             Neighbours                               // */
-    /* // ******************************************************************** // */
+    // ******************************************************************** //
+    //                               Vecinos                                //
+    // ******************************************************************** //
 
     
-    /* printf("Computing neighbour indices\n\n"); */
+    printf(" Cálculo de vecinos\n\n");
 
     
-    /* // Lattice velocities */
-    
-    /* int** velocities = latticeVelocities(lattice.model); */
+    // Velocidades de grilla
 
-    /* int* rev = latticeReverseDir(lattice.model); */
+    latticeInfo lattice;
 
+    lattice.model = D2Q9;
     
-    
-    /* // Create and resize neighbour matrix */
-    
-    /* mesh.Q = latticeQ( lattice.model ); */
+    int** velocities = latticeVelocities(lattice.model);
 
-    /* mesh.nb = matrixIntAlloc(mesh.nPoints, mesh.Q,-1); */
-    
+    int* rev = latticeReverseDir(lattice.model);
 
     
+    
+    // Alocacion de arreglo para vecinos
 
-    /* // Check for neighbouring */
-    /* // There is no need to iterate over all points to look for a neighbour. Given a lattice velocity vector (x,y,z), the neighbour of a point */
-    /* // p with index pointId is at most at pointId + x + (y*Nx). */
+    mesh.Q = 9;
+
+    status = int2dArray(&mesh.nb, mesh.nPoints, mesh.Q, -1);
+    
 
     
-    /* // Internal points first */
 
-    /* int pointId, velId; */
+    // Check for neighbouring
+    // There is no need to iterate over all points to look for a neighbour. Given a lattice velocity vector (x,y,z), the neighbour of a point
+    // p with index pointId is at most at pointId + x + (y*Nx).
+
     
-    /* for( j = 1 ; j < (ny-1) ; j++) { */
+    // Internal points first
+
+    int pointId, velId;
+
+    uint i,j;
+    
+    for( j = 1 ; j < (ny-1) ; j++) {
 	
-    /* 	for( i = 1 ; i < (nx-1) ; i++) { */
+    	for( i = 1 ; i < (nx-1) ; i++) {
 
-    /* 	    pointId = i+j*nx; */
+    	    pointId = i+j*nx;
 
 
-    /* 	    // Iterate on velocities */
-    /* 	    for( velId = 0 ; velId < mesh.Q ; velId++ ) { */
+    	    // Iterate on velocities
+    	    for( velId = 0 ; velId < mesh.Q ; velId++ ) {
 
-    /* 		mesh.nb[pointId][velId] = pointId   +   velocities[ rev[velId] ][0]   +   velocities[ rev[velId] ][1] * nx; */
+    		mesh.nb[pointId][velId] = pointId   +   velocities[ rev[velId] ][0]   +   velocities[ rev[velId] ][1] * nx;
 
-    /* 	    } */
+    	    }
 	    
-    /* 	} */
+    	}
 
-    /* } */
+    }
 
     
 
-    /* // For boundary nodes, check neighbouring using distance to point */
+    // For boundary nodes, check neighbouring using distance to point
 
-    /* for( j = 0 ; j < ny ; j+=(ny-1)) { */
+    for( j = 0 ; j < ny ; j+=(ny-1)) {
 	
-    /* 	for( i = 0 ; i < nx ; i++) { */
+    	for( i = 0 ; i < nx ; i++) {
 
-    /* 	    pointId = i+j*nx; */
+    	    pointId = i+j*nx;
 
-    /* 	    // Iterate on velocities */
-    /* 	    for( velId = 0 ; velId < mesh.Q ; velId++ ) { */
+    	    // Iterate on velocities
+    	    for( velId = 0 ; velId < mesh.Q ; velId++ ) {
 
-    /* 		int newId = pointId   +   velocities[ rev[velId] ][0]   +   velocities[ rev[velId] ][1] * nx; */
+    		int newId = pointId   +   velocities[ rev[velId] ][0]   +   velocities[ rev[velId] ][1] * nx;
 
-    /* 		if( newId >= 0   &&   newId <= nx*ny-1 ) { */
+    		if( newId >= 0   &&   newId <= nx*ny-1 ) {
 
-    /* 		    if ( (  abs( mesh.points[pointId][0] - mesh.points[newId][0] ) <= 1  )   &&   (  abs( mesh.points[pointId][1] - mesh.points[newId][1] ) <= 1  )  ) { */
+    		    if ( (  abs( mesh.points[pointId][0] - mesh.points[newId][0] ) <= 1  )   &&   (  abs( mesh.points[pointId][1] - mesh.points[newId][1] ) <= 1  )  ) {
 	    
-    /* 			mesh.nb[pointId][velId] = newId; */
+    			mesh.nb[pointId][velId] = newId;
 
-    /* 		    } */
+    		    }
 
-    /* 		} */
+    		}
 
-    /* 	    } */
+    	    }
 	    
-    /* 	} */
+    	}
 
-    /* } */
+    }
 
 
-    /* for( j = 1 ; j < ny-1 ; j++ ) { */
+    for( j = 1 ; j < ny-1 ; j++ ) {
 	
-    /* 	for( i = 0 ; i < nx ; i+=(nx-1)) { */
+    	for( i = 0 ; i < nx ; i+=(nx-1)) {
 
-    /* 	    pointId = i+j*nx; */
+    	    pointId = i+j*nx;
 
-    /* 	    // Iterate on velocities */
-    /* 	    for( velId = 0 ; velId < mesh.Q ; velId++ ) { */
+    	    // Iterate on velocities
+    	    for( velId = 0 ; velId < mesh.Q ; velId++ ) {
 
-    /* 		int newId = pointId   +   velocities[ rev[velId] ][0]   +   velocities[ rev[velId] ][1] * nx; */
+    		int newId = pointId   +   velocities[ rev[velId] ][0]   +   velocities[ rev[velId] ][1] * nx;
 
-    /* 		if( newId >= 0   &&   newId <= nx*ny-1 ) { */
+    		if( newId >= 0   &&   newId <= nx*ny-1 ) {
 
-    /* 		    if ( (  abs( mesh.points[pointId][0] - mesh.points[newId][0] ) <= 1  )   &&   (  abs( mesh.points[pointId][1] - mesh.points[newId][1] ) <= 1  )  ) { */
+    		    if ( (  abs( mesh.points[pointId][0] - mesh.points[newId][0] ) <= 1  )   &&   (  abs( mesh.points[pointId][1] - mesh.points[newId][1] ) <= 1  )  ) {
 	    
-    /* 			mesh.nb[pointId][velId] = newId; */
+    			mesh.nb[pointId][velId] = newId;
 
-    /* 		    } */
+    		    }
 
-    /* 		} */
+    		}
 
-    /* 	    } */
+    	    }
 	    
-    /* 	} */
+    	}
 
-    /* } */
+    }
     
 
 
@@ -381,13 +335,13 @@ int main(int argc, char** argv) {
 	    
 
 
-    /* // ******************************************************************** // */
-    /* //                             Writing                                  // */
-    /* // ******************************************************************** // */
+    // ******************************************************************** //
+    //                             Writing                                  //
+    // ******************************************************************** //
     
-    /* printf("Writting Mesh\n\n"); */
+    printf(" Escritura de grilla\n\n");
 
-    /* writeBasicMesh( &mesh ); */
+    writeBasicMesh( &mesh );
 
 
     
