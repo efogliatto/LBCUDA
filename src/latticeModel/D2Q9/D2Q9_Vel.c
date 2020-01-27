@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "D2Q9_Vel.h"
+#include <D2Q9_Vel.h>
 
 
 int** D2Q9_Vel() {

@@ -1,25 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "latticeVelocities.h"
+#include <latticeReverseDir.h>
 
-int** latticeVelocities( DdQq model ) {
+int* latticeReverseDir( DdQq model ) {
 
-    int** vel = NULL;
+    int* vel = NULL;
 
-    
+
     switch( model ) {
 
 	
     case D2Q9:
 
-	vel = D2Q9_Vel();
+	vel = D2Q9_Reverse();
 
 	break;
 
 	
     /* case D3Q15: */
 
-    /* 	vel = D3Q15_Vel(); */
+    /* 	vel = D3Q15_Reverse(); */
 
     /* 	break; */
 

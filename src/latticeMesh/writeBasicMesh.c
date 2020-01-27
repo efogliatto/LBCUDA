@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "writeBasicMesh.h"
-/* #include <latticeModel.h> */
+#include <writeBasicMesh.h>
+
 
 
 void writeBasicMesh( basicMesh* mesh ) {

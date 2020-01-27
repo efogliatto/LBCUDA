@@ -1,9 +1,9 @@
 #ifndef LATTICEREVERSEDIR_H
 #define LATTICEREVERSEDIR_H
 
-#include "D2Q9.h"
+#include <D2Q9.h>
 /* #include "D3Q15.h" */
-#include "include/latticeInfo.h"
+#include <latticeInfo.h>
 
 /**
  * @file latticeReverseDir.h

@@ -1,7 +1,7 @@
 #ifndef D2Q9_VEL_H
 #define D2Q9_VEL_H
 
-#include "include/dataTypes.h"
+#include <dataTypes.h>
 
 int** D2Q9_Vel();
 

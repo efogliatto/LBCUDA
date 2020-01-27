@@ -1,0 +1,15 @@
+#------------------ Generacion de bibliotecas ------------------#
+ 
+# LBMmodel library
+add_library(latticemodel SHARED 
+  latticeVelocities.c
+  latticeReverseDir.c
+  )
+
+
+# D2Q9
+add_subdirectory (D2Q9)
+
+
+# # D3Q15
+# add_subdirectory (D3Q15)

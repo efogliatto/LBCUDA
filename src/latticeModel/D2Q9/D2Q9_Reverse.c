@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "D2Q9_Reverse.h"
+#include <D2Q9_Reverse.h>
 
 int* D2Q9_Reverse() {
 

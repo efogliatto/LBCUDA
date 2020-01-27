@@ -12,15 +12,15 @@
 
 #include <stdlib.h>
 
-#include "include/basicMesh.h"
+#include <basicMesh.h>
 
-#include "int2dArray.h"
+#include <int2dArray.h>
 
-#include "latticeVelocities.h"
+#include <latticeVelocities.h>
 
-#include "latticeReverseDir.h"
+#include <latticeReverseDir.h>
 
-#include "writeBasicMesh.h"
+#include <writeBasicMesh.h>
 
 
 int main(int argc, char** argv) {

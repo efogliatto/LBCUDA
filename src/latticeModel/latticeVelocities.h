@@ -1,8 +1,8 @@
 #ifndef LATTICEVELOCITIES_H
 #define LATTICEVELOCITIES_H
 
-#include "D2Q9.h"
-#include "include/latticeInfo.h"
+#include <D2Q9.h>
+#include <latticeInfo.h>
 
 /**
  * @file latticeVelocities.h

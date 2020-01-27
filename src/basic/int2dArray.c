@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "int2dArray.h"
+#include <int2dArray.h>
 
 unsigned int int2dArray(int*** M, unsigned int nrow, unsigned int ncol, int df) {
 
