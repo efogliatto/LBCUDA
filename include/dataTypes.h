@@ -27,5 +27,16 @@ typedef float scalar;
 #endif
 
 
+#ifdef DP_CUDA
+
+typedef double cuscalar;
+
+#elif SP_CUDA
+
+typedef float cuscalar;
+
+#endif
+
+
 
 #endif // DATATYPES_H
