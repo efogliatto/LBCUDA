@@ -19,6 +19,11 @@ extern "C" {
 
 #include <cuda_runtime.h>
 
+#include <cudaTest.h>
+
+#include <cudaLatticeMesh.h>
+
+#define NTh 1048576
 
 
 
@@ -40,11 +45,8 @@ int main(int argc, char** argv) {
     // Argumentos:
     //
     // - argv[1] = numero de iteraciones
-    // - argv[2] = tamanio de bloque
 
     uint nit = atoi( argv[1] );
-
-    uint blsize = atoi( argv[2] );
     
 
 
@@ -75,6 +77,10 @@ int main(int argc, char** argv) {
     // Lectura de malla
 
     basicMesh mesh = readBasicMesh();
+
+    cudaBasicMesh cmesh;
+
+    hostToDeviceMesh( &cmesh, &mesh );
 
 
     // Alocacion de funcion de distribucion como arreglo unidimensional
@@ -135,7 +141,7 @@ int main(int argc, char** argv) {
 
     for( uint k = 0 ; k < nit ; k++ ) {
 
-	
+	zerothMoment<<<NTh,1>>>(deviceField, deviceSum, &cmesh);
 
     }
 

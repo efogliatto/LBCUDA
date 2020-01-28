@@ -8,7 +8,7 @@
 
 
 
-__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, basicMesh* mesh ) {
+__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, cudaBasicMesh* mesh ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
 

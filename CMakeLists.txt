@@ -54,6 +54,12 @@ set ( PROJECT_LINK_LIBS
   )
 
 
+set ( CUDATEST_LINK_LIBS
+  cudatest.a
+  cudalatticemesh.a  
+  )
+
+
 link_directories( ${CMAKE_SOURCE_DIR}/lib )
 
 

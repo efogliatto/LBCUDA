@@ -18,9 +18,9 @@
 
 #include <dataTypes.h>
 
-#include <basicMesh.h>
+#include <cudaBasicMesh.h>
 
 
-__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, basicMesh* mesh );
+__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, cudaBasicMesh* mesh );
 
 #endif // ZEROTHMOMENT_H
