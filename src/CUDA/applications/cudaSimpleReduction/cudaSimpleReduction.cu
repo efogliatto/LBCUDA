@@ -7,10 +7,13 @@
  */
 
 
-
+extern "C" {
+    
 #include <latticeMesh.h>
 
 #include <basic.h>
+
+}
 
 #include <stdio.h>
 
@@ -18,15 +21,18 @@
 
 
 
+
 int main(int argc, char** argv) {
 
+
+    
     
     printf( "                    \n" );
     printf( "     o-----o-----o  \n" );
     printf( "     | -   |   - |  \n" );
-    printf( "     |   - | -   |                simpleReduction\n" );
+    printf( "     |   - | -   |                cuSimpleReduction\n" );
     printf( "     o<----o---->o  \n" );
-    printf( "     |   - | -   |  Operacion de reduccion sobre funcion de distribucion\n" );
+    printf( "     |   - | -   |  Operacion de reduccion en GPU  sobre funcion de distribucion\n" );
     printf( "     | -   |   - |  \n" );
     printf( "     o-----o-----o  \n\n" );
 
@@ -42,88 +48,115 @@ int main(int argc, char** argv) {
     
 
 
+    // Informacion sobre el device
+
+    cudaDeviceProp prop;
+
+    {
+	int count;
+	
+	cudaGetDeviceCount( &count );
+	
+	for (int i=0; i< count; i++)
+	    cudaGetDeviceProperties( &prop, i );
+
+	printf( "\n -- Informacion general del device --  \n\n" );
+	printf( "  Nombre: %s\n", prop.name );
+	printf( "  Compute capability: %d.%d\n", prop.major, prop.minor );
+	printf( "  Total global mem: %.2f GB\n", (float)prop.totalGlobalMem / 1000000000 );
+	printf( "  Total constant Mem: %ld\n", prop.totalConstMem );
+	printf( "\n\n" );
+
+    }
+    
+
+    
+
     // Lectura de malla
 
     basicMesh mesh = readBasicMesh();
 
 
-    /* // Alocacion de funcion de distribucion como arreglo unidimensional */
-    /* // */
-    /* // Si se desea acceder a los componentes de field usando dos indices, */
-    /* // entonces puede hacerse algo como */
-    /* // */
-    /* // for( i = 0 ; i < mesh.nPoints ; i++) */
-    /* //     for( j = 0 ; j < mesh.Q ; j++) */
-    /* //         idx = i*mesh.Q + j; */
+    // Alocacion de funcion de distribucion como arreglo unidimensional
+    //
+    // Si se desea acceder a los componentes de field usando dos indices,
+    // entonces puede hacerse algo como
+    //
+    // for( i = 0 ; i < mesh.nPoints ; i++)
+    //     for( j = 0 ; j < mesh.Q ; j++)
+    //         idx = i*mesh.Q + j;
 
-    /* uint fsize = mesh.nPoints * mesh.Q; */
+    uint fsize = mesh.nPoints * mesh.Q;
     
-    /* cuscalar* field = (cuscalar*)malloc( fsize * sizeof(cuscalar) ); */
+    cuscalar* field = (cuscalar*)malloc( fsize * sizeof(cuscalar) );
 
 
-    /* // Alocacion de arreglo de salida */
+    // Alocacion de arreglo de salida
 
-    /* cuscalar* sum = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); */
-
-
-    
-    /* // Inicializacion (puede ser otra) */
-
-    /* for( uint i = 0 ; i < fsize ; i++ ) */
-    /* 	field[i] = i; */
-
-
-
+    cuscalar* sum = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
 
 
     
-    /* // Alocacion de memoria en el device y copia */
+    // Inicializacion (puede ser otra)
 
-    /* cuscalar* deviceField; */
+    for( uint i = 0 ; i < fsize ; i++ )
+    	field[i] = i;
 
-    /* cudaMalloc( (void**)&deviceField, fsize*sizeof(cuscalar) ); */
 
 
-    /* cuscalar* deviceSum; */
 
-    /* cudaMalloc( (void**)&deviceSum, mesh.nPoints*sizeof(cuscalar) ); */
 
+    
+    // Alocacion de memoria en el device y copia
+
+    cuscalar* deviceField;
+
+    cudaMalloc( (void**)&deviceField, fsize*sizeof(cuscalar) );
+
+    cudaMemcpy( &deviceField, field, fsize*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    cuscalar* deviceSum;
+
+    cudaMalloc( (void**)&deviceSum, mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( &deviceSum, sum, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );    
     
 
 
 
-    /* // Reduccion */
+    // Reduccion
 
-    /* printf(" Aplicando reducción en %d iteraciones\n\n", nit); */
+    printf(" Aplicando reducción en %d iteraciones\n\n", nit);
 
-    /* timeInfo Time; */
+    timeInfo Time;
 
-    /* startTime(&Time); */
+    startTime(&Time);
 
-    /* for( uint k = 0 ; k < nit ; k++ ) { */
+    for( uint k = 0 ; k < nit ; k++ ) {
 
 	
 
-    /* } */
+    }
 
 
-    /* printf( "\n   Reduccion finalizada en %f segundos\n\n", elapsedTime(&Time) ); */
+    printf( "\n   Reduccion finalizada en %f segundos\n\n", elapsedTime(&Time) );
 
 
 
 
     
-    /* // Limpieza de memoria */
+    // Limpieza de memoria
 
-    /* free( field ); */
+    free( field );
 
-    /* free( sum ); */
+    free( sum );
 
-    /* freeBasicMesh( &mesh ); */
+    freeBasicMesh( &mesh );
 
-    /* cudaFree( deviceField ); */
+    cudaFree( deviceField );
 
-    /* cudaFree( deviceSum );     */
+    cudaFree( deviceSum );
     
     return 0;
 

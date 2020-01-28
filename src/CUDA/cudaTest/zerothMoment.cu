@@ -8,24 +8,24 @@
 
 
 
-__host__ __device__ void zerothMoment(cuscalar* field, cuscalar* zeroth, basicMesh* mesh ) {
+__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, basicMesh* mesh ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
 
-    if( idx <  mesh.nPoints) {
+    if( idx <  mesh->nPoints) {
 
-	uint j;
+    	uint j;
 
-	cuscalar sum = 0;
+    	cuscalar sum = 0;
 
-	for( j = 0 ; j < mesh.Q ; j++ ) {
+    	for( j = 0 ; j < mesh->Q ; j++ ) {
 
-	    sum += field[ idx*mesh.Q + j ];
+    	    sum += field[ idx*mesh->Q + j ];
 
-	}
+    	}
 
 
-	zeroth[idx] = sum;
+    	zeroth[idx] = sum;
 
     }
 

@@ -21,6 +21,6 @@
 #include <basicMesh.h>
 
 
-__host__ __device__ void zerothMoment(cuscalar* field, cuscalar* zeroth, basicMesh* mesh );
+__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, basicMesh* mesh );
 
 #endif // ZEROTHMOMENT_H
