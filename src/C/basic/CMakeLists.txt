@@ -5,4 +5,5 @@ add_library(basic SHARED
   int2dArray.c
   scalar2dArray.c
   timeOptions.c
+  zerothMomentCPU.c
   )

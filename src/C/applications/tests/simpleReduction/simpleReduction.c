@@ -76,23 +76,10 @@ int main(int argc, char** argv) {
 
     startTime(&Time);
 
-    for( uint k = 0 ; k < nit ; k++ ) {
+    for( uint k = 0 ; k < nit ; k++ )
+	zerothMomentCPU( sum, field, &mesh );
 
-
-	for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
-
-	    sum[i] = 0;	    
-
-	    for( uint j = 0 ; j < mesh.Q ; j++ ) {
-
-		sum[i] += field[ i*mesh.Q + j ];
-
-	    }
-
-	}
-	
-
-    }
+    
 
 
     printf( "\n   Reduccion finalizada en %f segundos\n\n", elapsedTime(&Time) );

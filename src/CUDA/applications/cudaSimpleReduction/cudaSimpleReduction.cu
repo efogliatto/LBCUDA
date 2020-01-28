@@ -151,6 +151,31 @@ int main(int argc, char** argv) {
 
 
 
+    // Verificacion de calculo contra version de CPU
+
+    zerothMomentCPU(sum, field, &mesh);
+
+    cuscalar* dsum = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
+
+    cudaMemcpy( &dsum, deviceSum, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+
+
+    uint eq = 0;
+
+    for(uint i = 0 ; i < mesh.nPoints ; i++) {
+
+	if(dsum[i] != sum[i])
+	    eq = 1;
+
+	printf("%f\n", dsum);
+
+    }
+
+    if(eq != 0)
+	printf( " Los resultados de host y device difieren!\n " );
+    
+
+
     
     // Limpieza de memoria
 
