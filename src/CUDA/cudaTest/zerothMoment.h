@@ -21,6 +21,6 @@
 #include <cudaBasicMesh.h>
 
 
-__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, cudaBasicMesh* mesh );
+__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, uint npoints, uint Q );
 
 #endif // ZEROTHMOMENT_H

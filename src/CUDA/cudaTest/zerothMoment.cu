@@ -8,25 +8,25 @@
 
 
 
-__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, cudaBasicMesh* mesh ) {
+__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, uint npoints, uint Q ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
 
-    if( idx <  mesh->nPoints) {
+    if( idx < npoints ) {
 
     	uint j;
 
     	cuscalar sum = 0;
 
-    	for( j = 0 ; j < mesh->Q ; j++ ) {
+    	for( j = 0 ; j < Q ; j++ ) {
 
-    	    sum += field[ idx*mesh->Q + j ];
+    	    sum += field[ idx*Q + j ];
 
     	}
 
 
     	zeroth[idx] = sum;
-
+	
     }
 
 }

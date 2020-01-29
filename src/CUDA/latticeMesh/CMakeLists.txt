@@ -1,6 +1,6 @@
 # Biblioteca de pruebas de CUDA
 
-add_library(cudalatticemesh STATIC
+add_library(cudalatticemesh SHARED
   hostToDeviceMesh.cu
   )
 

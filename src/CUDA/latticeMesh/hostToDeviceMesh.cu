@@ -1,5 +1,6 @@
 #include <hostToDeviceMesh.h>
 
+
 __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
 
 
@@ -27,7 +28,7 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
     
     cudaMalloc( (void**)&cmesh->points, hmesh->nPoints*3*sizeof(int) );
 
-    cudaMemcpy( &cmesh->points, hostPoints, hmesh->nPoints*3*sizeof(int), cudaMemcpyHostToDevice );
+    cudaMemcpy( cmesh->points, hostPoints, hmesh->nPoints*3*sizeof(int), cudaMemcpyHostToDevice );
 
     free(hostPoints);
 
@@ -60,7 +61,7 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
     
     cudaMalloc( (void**)&cmesh->nb, hmesh->nPoints*hmesh->Q*sizeof(int) );
 
-    cudaMemcpy( &cmesh->nb, hostNb, hmesh->nPoints*hmesh->Q*sizeof(int), cudaMemcpyHostToDevice );
+    cudaMemcpy( cmesh->nb, hostNb, hmesh->nPoints*hmesh->Q*sizeof(int), cudaMemcpyHostToDevice );
 
     free(hostNb);
 
@@ -72,6 +73,8 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
     /*               Other                */
     /**************************************/    
 
+    cmesh->nPoints = hmesh->nPoints;
+    
     cmesh->Q = hmesh->Q;
 
     cmesh->D = hmesh->D;

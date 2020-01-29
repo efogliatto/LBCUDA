@@ -1,6 +1,6 @@
 # Biblioteca de pruebas de CUDA
 
-add_library(cudatest STATIC
+add_library(cudatest SHARED
   zerothMoment.cu
   )
 

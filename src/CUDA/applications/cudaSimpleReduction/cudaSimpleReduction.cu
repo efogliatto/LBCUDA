@@ -23,7 +23,32 @@ extern "C" {
 
 #include <cudaLatticeMesh.h>
 
-#define NTh 1048576
+#define NTh 1048577
+
+
+
+__global__ void zm(cuscalar* field, cuscalar* zeroth, uint np, uint Q ) {
+
+    int idx = threadIdx.x + blockIdx.x*blockDim.x;
+   
+    if( idx < np) {
+
+    	uint j;
+
+    	cuscalar sum = 0;
+
+    	for( j = 0 ; j < Q ; j++ ) {
+
+    	    sum += field[ idx*Q + j ];
+
+    	}
+
+
+    	zeroth[idx] = sum;
+	
+    }
+
+}
 
 
 
@@ -83,6 +108,8 @@ int main(int argc, char** argv) {
     hostToDeviceMesh( &cmesh, &mesh );
 
 
+
+
     // Alocacion de funcion de distribucion como arreglo unidimensional
     //
     // Si se desea acceder a los componentes de field usando dos indices,
@@ -97,6 +124,7 @@ int main(int argc, char** argv) {
     cuscalar* field = (cuscalar*)malloc( fsize * sizeof(cuscalar) );
 
 
+    
     // Alocacion de arreglo de salida
 
     cuscalar* sum = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
@@ -108,8 +136,9 @@ int main(int argc, char** argv) {
     for( uint i = 0 ; i < fsize ; i++ )
     	field[i] = i;
 
-
-
+    
+    for( uint i = 0 ; i < mesh.nPoints ; i++ )
+    	sum[i] = 1.0;
 
 
     
@@ -119,17 +148,19 @@ int main(int argc, char** argv) {
 
     cudaMalloc( (void**)&deviceField, fsize*sizeof(cuscalar) );
 
-    cudaMemcpy( &deviceField, field, fsize*sizeof(cuscalar), cudaMemcpyHostToDevice );
+    cudaMemcpy( deviceField, field, fsize*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
     cuscalar* deviceSum;
 
     cudaMalloc( (void**)&deviceSum, mesh.nPoints*sizeof(cuscalar) );
 
-    cudaMemcpy( &deviceSum, sum, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );    
+    cudaMemcpy( deviceSum, sum, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );    
     
 
 
+
+    
 
     // Reduccion
 
@@ -141,40 +172,44 @@ int main(int argc, char** argv) {
 
     for( uint k = 0 ; k < nit ; k++ ) {
 
-	zerothMoment<<<NTh,1>>>(deviceField, deviceSum, &cmesh);
+    	/* zerothMoment<<<NTh,1>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q); */
+    	zm<<<NTh,1>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q);
 
     }
-
-
+  
     printf( "\n   Reduccion finalizada en %f segundos\n\n", elapsedTime(&Time) );
+    
 
 
+    
+    // Resultados vuelta al host
+    
+    cuscalar* dsum = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
 
+    cudaMemcpy( dsum, deviceSum, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+
+
+    
 
     // Verificacion de calculo contra version de CPU
 
     zerothMomentCPU(sum, field, &mesh);
 
-    cuscalar* dsum = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
+    {
+	
+	uint eq = 0;
 
-    cudaMemcpy( &dsum, deviceSum, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+	for(uint i = 0 ; i < mesh.nPoints ; i++) {
 
+	    if(dsum[i] != sum[i])
+		eq = 1;
 
-    uint eq = 0;
+	}
 
-    for(uint i = 0 ; i < mesh.nPoints ; i++) {
-
-	if(dsum[i] != sum[i])
-	    eq = 1;
-
-	printf("%f\n", dsum);
-
-    }
-
-    if(eq != 0)
-	printf( " Los resultados de host y device difieren!\n " );
+	if(eq != 0)
+	    printf( " Los resultados de host y device difieren!\n " );
     
-
+    }
 
     
     // Limpieza de memoria
