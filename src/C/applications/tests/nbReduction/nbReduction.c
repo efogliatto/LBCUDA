@@ -66,6 +66,9 @@ int main(int argc, char** argv) {
     for( uint i = 0 ; i < fsize ; i++ )
 	field[i] = i;
 
+    for( uint i = 0 ; i < mesh.nPoints ; i++ )
+	sum[i] = 1.0;
+
 
 
     // Reduccion
@@ -76,46 +79,10 @@ int main(int argc, char** argv) {
 
     startTime(&Time);
 
-    for( uint k = 0 ; k < nit ; k++ ) {
+    for( uint k = 0 ; k < nit ; k++ )
+    	nbReductionCPU(sum, field, &mesh);
 
-
-	for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
-
-	    sum[i] = 0;
-
-
-	    // Reduccion en cada vecino
-
-	    for( uint j = 0 ; j < mesh.Q ; j++ ) {
-
-		// El indice del nodo vecino es nb[i][j]
-		// Por lo tanto para iterar sobre sus componentes usando l es
-		//
-		//    for( uint l = 0 ; l < mesh.Q ; l++ )
-		//	nbsum += field[ mesh.nb[i][j]*mesh.Q + l  ];
-		//
-		
-		scalar nbsum = 0;
-		
-		if( mesh.nb[i][j] != -1 ) {
-
-		    for( uint l = 0 ; l < mesh.Q ; l++ ) {
-
-			nbsum += field[ mesh.nb[i][j]*mesh.Q + l  ];
-
-		    }
-
-		}
-
-		sum[i] += nbsum;
-
-
-	    }
-
-	}
-	
-
-    }
+    
 
 
     printf( "\n   Reduccion finalizada en %f segundos\n\n", elapsedTime(&Time) );

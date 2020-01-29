@@ -11,4 +11,6 @@
 
 #include <zerothMomentCPU.h>
 
+#include <nbReductionCPU.h>
+
 #endif // BASIC_H
