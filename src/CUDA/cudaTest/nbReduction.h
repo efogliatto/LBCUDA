@@ -21,7 +21,7 @@
 #include <cudaBasicMesh.h>
 
 
-__global__ void nbReduction(cuscalar* field, cuscalar* sum, int* nb, uint np, uint Q );
+extern "C" __global__ void nbReduction(cuscalar* field, cuscalar* sum, int* nb, uint np, uint Q );
 
 
 #endif // NBREDUCTION_H
