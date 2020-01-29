@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-project(LBCUDA_Test LANGUAGES C CUDA)
+project(LBCUDA_Test LANGUAGES CUDA C)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 
@@ -55,8 +55,8 @@ set ( PROJECT_LINK_LIBS
 
 
 set ( CUDATEST_LINK_LIBS
-  cudatest.so
-  cudalatticemesh.so
+  cudatest.a
+  cudalatticemesh.a
   )
 
 

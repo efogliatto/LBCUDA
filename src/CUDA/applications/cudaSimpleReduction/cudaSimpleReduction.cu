@@ -23,32 +23,8 @@ extern "C" {
 
 #include <cudaLatticeMesh.h>
 
-#define NTh 1048577
+#define NTh 1048580
 
-
-
-__global__ void zm(cuscalar* field, cuscalar* zeroth, uint np, uint Q ) {
-
-    int idx = threadIdx.x + blockIdx.x*blockDim.x;
-   
-    if( idx < np) {
-
-    	uint j;
-
-    	cuscalar sum = 0;
-
-    	for( j = 0 ; j < Q ; j++ ) {
-
-    	    sum += field[ idx*Q + j ];
-
-    	}
-
-
-    	zeroth[idx] = sum;
-	
-    }
-
-}
 
 
 
@@ -170,14 +146,13 @@ int main(int argc, char** argv) {
 
     startTime(&Time);
 
-    for( uint k = 0 ; k < nit ; k++ ) {
+    for( uint k = 0 ; k < nit ; k++ )
+    	zerothMoment<<<NTh,1>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q);
 
-    	/* zerothMoment<<<NTh,1>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q); */
-    	zm<<<NTh,1>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q);
 
-    }
-  
-    printf( "\n   Reduccion finalizada en %f segundos\n\n", elapsedTime(&Time) );
+    scalar elap = elapsedTime(&Time);
+    
+    printf( "\n   Reduccion finalizada en %f segundos\n\n", elap );
     
 
 
@@ -212,17 +187,17 @@ int main(int argc, char** argv) {
     }
 
     
-    // Limpieza de memoria
+    /* // Limpieza de memoria */
 
-    free( field );
+    /* free( field ); */
 
-    free( sum );
+    /* free( sum ); */
 
-    freeBasicMesh( &mesh );
+    /* freeBasicMesh( &mesh ); */
 
-    cudaFree( deviceField );
+    /* cudaFree( deviceField ); */
 
-    cudaFree( deviceSum );
+    /* cudaFree( deviceSum ); */
     
     return 0;
 

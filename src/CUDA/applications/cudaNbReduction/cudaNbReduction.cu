@@ -23,46 +23,8 @@ extern "C" {
 
 #include <cudaLatticeMesh.h>
 
-#define NTh 1048577
+#define NTh 1048580
 
-
-
-__global__ void nbred(cuscalar* field, cuscalar* zeroth, int* nb, uint np, uint Q ) {
-
-    int idx = threadIdx.x + blockIdx.x*blockDim.x;
-   
-    if( idx < np ) {
-
-    	uint j;
-
-	cuscalar sum = 0;
-
-    	for( j = 0 ; j < Q ; j++ ) {
-
-	    cuscalar nbsum = 0;
-
-	    int nbid = nb[idx*Q + j];
-	    
-	    if( nbid != -1 ) {
-
-		for( uint l = 0 ; l < Q ; l++ ) {
-
-		    nbsum += field[ nbid*Q + l  ];
-
-		}
-
-	    }
-
-	    sum += nbsum;
-
-    	}
-
-
-    	zeroth[idx] = sum;
-	
-    }
-
-}
 
 
 
@@ -224,13 +186,13 @@ int main(int argc, char** argv) {
 
     startTime(&Time);
 
-    for( uint k = 0 ; k < nit ; k++ ) {
+    for( uint k = 0 ; k < nit ; k++ )
+    	nbReduction<<<NTh,1>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
 
-    	nbred<<<NTh,1>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
 
-    }
-  
-    printf( "\n   Reduccion finalizada en %f segundos\n\n", elapsedTime(&Time) );    
+    scalar elap = elapsedTime(&Time);
+    
+    printf( "\n   Reduccion finalizada en %f segundos\n\n", elap );    
 
 
     

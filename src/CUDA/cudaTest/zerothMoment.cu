@@ -8,11 +8,11 @@
 
 
 
-__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, uint npoints, uint Q ) {
+__global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, uint np, uint Q ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
-
-    if( idx < npoints ) {
+   
+    if( idx < np) {
 
     	uint j;
 
