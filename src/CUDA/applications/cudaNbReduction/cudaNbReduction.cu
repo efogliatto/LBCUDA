@@ -23,8 +23,6 @@ extern "C" {
 
 #include <cudaLatticeMesh.h>
 
-#define NTh 1048580
-
 
 
 
@@ -187,7 +185,7 @@ int main(int argc, char** argv) {
     startTime(&Time);
 
     for( uint k = 0 ; k < nit ; k++ )
-    	nbReduction<<<NTh,1>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
+    	nbReduction<<<mesh.nPoints,1>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
 
 
     scalar elap = elapsedTime(&Time);
