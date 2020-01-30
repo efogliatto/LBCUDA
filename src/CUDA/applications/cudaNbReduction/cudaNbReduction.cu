@@ -190,7 +190,8 @@ int main(int argc, char** argv) {
 
     scalar elap = elapsedTime(&Time);
     
-    printf( "\n   Reduccion finalizada en %f segundos\n\n", elap );    
+    printf( "\n   Reduccion finalizada en %f segundos\n", elap );
+    printf( "\n   Tiempo promedio de ejecución por iteración: %g segundos\n\n", elap/nit );    
 
 
     
