@@ -8,13 +8,13 @@
 
 
 
-extern "C" __global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, uint np, uint Q ) {
+extern "C" __global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, int np, int Q ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
    
     if( idx < np) {
 
-    	uint j;
+    	int j;
 
     	cuscalar sum = 0;
 
