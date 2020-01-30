@@ -184,8 +184,13 @@ int main(int argc, char** argv) {
 
     startTime(&Time);
 
-    for( uint k = 0 ; k < nit ; k++ )
+    for( uint k = 0 ; k < nit ; k++ ) {
+	
     	nbReduction<<<mesh.nPoints,1>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
+
+	cudaDeviceSynchronize();	
+
+    }
 
 
     scalar elap = elapsedTime(&Time);
