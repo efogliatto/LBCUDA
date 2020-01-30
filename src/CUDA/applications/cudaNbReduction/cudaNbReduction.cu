@@ -44,8 +44,11 @@ int main(int argc, char** argv) {
     // Argumentos:
     //
     // - argv[1] = numero de iteraciones
+    // - argv[2] = xgrid    
 
     uint nit = atoi( argv[1] );
+
+    int xgrid = atoi( argv[2] );    
     
 
 
@@ -186,7 +189,7 @@ int main(int argc, char** argv) {
 
     for( uint k = 0 ; k < nit ; k++ ) {
 	
-    	nbReduction<<<mesh.nPoints,1>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
+    	nbReduction<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
 
 	cudaDeviceSynchronize();	
 
