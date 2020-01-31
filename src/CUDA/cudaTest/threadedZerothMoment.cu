@@ -1,4 +1,4 @@
-#include <zerothMoment.h>
+#include <threadedZerothMoment.h>
 
 #include <cuda_runtime.h>
 
@@ -8,11 +8,11 @@
 
 
 
-extern "C" __global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, int np, int Q ) {
+extern "C" __global__ void threadedZerothMoment(cuscalar* field, cuscalar* zeroth, int np, int Q ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
    
-    if( idx < np ) {
+    while( idx < np ) {
 
     	int j;
 
@@ -26,6 +26,11 @@ extern "C" __global__ void zerothMoment(cuscalar* field, cuscalar* zeroth, int n
 
 
     	zeroth[idx] = sum;
+
+
+	// Increade thread index
+
+	idx += blockDim.x * gridDim.x;	
 	
     }
 

@@ -3,6 +3,8 @@
 
 #include <zerothMoment.h>
 
+#include <threadedZerothMoment.h>
+
 #include <nbReduction.h>
 
 #endif // CUDATEST_H
