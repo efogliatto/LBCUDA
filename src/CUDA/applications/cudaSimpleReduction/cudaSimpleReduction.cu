@@ -152,8 +152,8 @@ int main(int argc, char** argv) {
 
     for( uint k = 0 ; k < nit ; k++ ) {
 	
-    	/* zerothMoment<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q); */
-    	threadedZerothMoment<<<(mesh.nPoints+xgrid-1)/xgrid,xgrid>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q);	
+    	zerothMoment<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q);
+    	/* threadedZerothMoment<<<(mesh.nPoints+xgrid-1)/xgrid,xgrid>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q); */	
 
 	cudaDeviceSynchronize();
 	
@@ -198,17 +198,17 @@ int main(int argc, char** argv) {
     }
 
     
-    /* // Limpieza de memoria */
+    // Limpieza de memoria
 
-    /* free( field ); */
+    free( field );
 
-    /* free( sum ); */
+    free( sum );
 
-    /* freeBasicMesh( &mesh ); */
+    freeBasicMesh( &mesh );
 
-    /* cudaFree( deviceField ); */
+    cudaFree( deviceField );
 
-    /* cudaFree( deviceSum ); */
+    cudaFree( deviceSum );
     
     return 0;
 

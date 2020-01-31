@@ -1,5 +1,9 @@
 # Mesh
 add_subdirectory (mesh)
 
-# Tests
-add_subdirectory (tests)
+# Solvers
+add_subdirectory (solvers)
+
+
+# # Tests
+# add_subdirectory (tests)
