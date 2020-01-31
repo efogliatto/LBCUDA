@@ -108,7 +108,7 @@ if(CUDA_PRECISION STREQUAL "simple")
 
     add_definitions(-DDP_CUDA)
 
-    message("-- DOUBLE precision")
+    message("-- CUDA: Double precision")
 
   else()
 

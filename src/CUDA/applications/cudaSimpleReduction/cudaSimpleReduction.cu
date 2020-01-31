@@ -153,7 +153,7 @@ int main(int argc, char** argv) {
     for( uint k = 0 ; k < nit ; k++ ) {
 	
     	zerothMoment<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q);
-    	/* threadedZerothMoment<<<(mesh.nPoints+xgrid-1)/xgrid,xgrid>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q); */	
+    	/* threadedZerothMoment<<<xgrid,ceil(mesh.nPoints/xgrid)+1>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q); */
 
 	cudaDeviceSynchronize();
 	
