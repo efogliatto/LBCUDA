@@ -7,4 +7,6 @@
 
 #include <nbReduction.h>
 
+#include <thomasModel.h>
+
 #endif // CUDATEST_H
