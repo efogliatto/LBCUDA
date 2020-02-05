@@ -14,9 +14,7 @@ extern "C" __global__ void thomasModel(cuscalar* field, cuscalar* zeroth, int np
 
     int idy = threadIdx.y + blockIdx.y * blockDim.y;
 
-    int idz = threadIdx.z + blockIdx.z * blockDim.z;
-
-	
+    	
    // int j=0;	
    
     if( idx < np ) {
@@ -24,11 +22,10 @@ extern "C" __global__ void thomasModel(cuscalar* field, cuscalar* zeroth, int np
 
     	cuscalar sum = 0;
 	if( idy < Q ) {
-    		if( idz < Q ) {
+    		
+    	    	sum += field[ idx*Q + idy ];
 
-    	    	sum += field[ idx*Q + idz ];
-
-		}
+		
 
     	}
 
