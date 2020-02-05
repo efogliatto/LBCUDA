@@ -3,6 +3,7 @@
 add_library(cudatest STATIC
   zerothMoment.cu
   nbReduction.cu
+  thomasReduction.cu
   threadedZerothMoment.cu
   thomasModel.cu
   )
@@ -17,6 +18,7 @@ set_target_properties( cudatest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 add_library(cudaTestPTX OBJECT
   zerothMoment.cu
   nbReduction.cu
+  thomasReduction.cu
   threadedZerothMoment.cu
   thomasModel.cu  
   )
