@@ -60,30 +60,31 @@ void writeBasicMesh( basicMesh* mesh ) {
     
 
 
-    /* // Boundary */
-    /* outFile = fopen("lattice/boundary","w"); */
+    // Boundary
+
+    outFile = fopen("lattice/boundary","w");
 	
-    /* fprintf(outFile,"%d\n\n", mesh->bd.nbd); */
+    fprintf(outFile,"%d\n\n", mesh->bd.nbd);
 
-    /* for( i = 0 ; i < mesh->bd.nbd ; i++ ) { */
+    for( i = 0 ; i < mesh->bd.nbd ; i++ ) {
 
-    /* 	fprintf(outFile,"%s\n",mesh->bd.bdNames[i]); */
+    	fprintf(outFile,"%s\n",mesh->bd.bdNames[i]);
 	
-    /* 	fprintf(outFile,"%d\n",mesh->bd.nbdelem[i]); */
+    	fprintf(outFile,"%d\n",mesh->bd.nbdelem[i]);
 
-    /* 	for( j = 0 ; j < mesh->bd.nbdelem[i] ; j++ ) { */
+    	for( j = 0 ; j < mesh->bd.nbdelem[i] ; j++ ) {
 
-    /* 	    fprintf(outFile,"%d\n",mesh->bd.bdPoints[i][j]); */
+    	    fprintf(outFile,"%d\n",mesh->bd.bdPoints[i][j]);
 
-    /* 	} */
+    	}
 
-    /* 	fprintf(outFile,"\n"); */
+    	fprintf(outFile,"\n");
 	
 
-    /* } */
+    }
 	
 	
-    /* fclose(outFile); */
+    fclose(outFile);
 
 
 

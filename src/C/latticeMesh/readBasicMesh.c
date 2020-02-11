@@ -113,88 +113,88 @@ basicMesh readBasicMesh() {
 
     
 
-    /* // ******************************************************************** // */
-    /* //                             VTK Cells                                // */
-    /* // ******************************************************************** // */
+    // ******************************************************************** //
+    //                             VTK Cells                                //
+    // ******************************************************************** //
 
-    /* printf("Reading vtkCells\n\n"); */
+    printf(" Lectura de celdas\n\n");
 
-    /* // Open file */
-    /* inFile = fopen( "lattice/vtkCells", "r" ); */
+    // Open file
+    inFile = fopen( "lattice/vtkCells", "r" );
 
-    /* // Number of cells and points per cell     */
-    /* status = fscanf(inFile, "%d", &iaux); */
-    /* mesh.ncells = (uint)iaux; */
+    // Number of cells and points per cell
+    status = fscanf(inFile, "%d", &iaux);
+    mesh.ncells = (uint)iaux;
     
-    /* status = fscanf(inFile, "%d", &iaux); */
-    /* mesh.cellType = (uint)iaux; */
+    status = fscanf(inFile, "%d", &iaux);
+    mesh.cellType = (uint)iaux;
     
-    /* // Read cells */
-    /* mesh.vtkCells = matrixIntAlloc(mesh.ncells, mesh.cellType, -1); */
+    // Read cells
+    status = int2dArray( &mesh.vtkCells, mesh.ncells, mesh.cellType, -1);
     
-    /* for( i = 0 ; i < mesh.ncells ; i++ ) { */
+    for( i = 0 ; i < mesh.ncells ; i++ ) {
 
-    /* 	for( j = 0 ; j < mesh.cellType ; j++ ) { */
+    	for( j = 0 ; j < mesh.cellType ; j++ ) {
 
-    /* 	    status = fscanf(inFile, "%d", &mesh.vtkCells[i][j]); */
+    	    status = fscanf(inFile, "%d", &mesh.vtkCells[i][j]);
 
-    /* 	} */
+    	}
 
-    /* } */
+    }
 
-    /* fclose(inFile); */
-
-
+    fclose(inFile);
 
 
 
 
 
 
-    /* // ******************************************************************** // */
-    /* //                        Reading boundary nodes                        // */
-    /* // ******************************************************************** // */
 
-    /* printf("Reading boundary nodes\n\n"); */
 
-    /* // Open boundary file */
-    /* inFile = fopen( "lattice/boundary", "r" ); */
+    // ******************************************************************** //
+    //                        Reading boundary nodes                        //
+    // ******************************************************************** //
+
+    printf(" Lectura de nodos de frontera\n\n");
+
+    // Open boundary file
+    inFile = fopen( "lattice/boundary", "r" );
     
-    /* // Number of boundary types */
-    /* status = fscanf(inFile, "%d\n", &iaux); */
-    /* mesh.bd.nbd = (uint)iaux; */
+    // Number of boundary types
+    status = fscanf(inFile, "%d\n", &iaux);
+    mesh.bd.nbd = (uint)iaux;
     
-    /* // Total number of elements per boundary type */
-    /* mesh.bd.nbdelem = (uint*)malloc(mesh.bd.nbd * sizeof(uint)); */
+    // Total number of elements per boundary type
+    mesh.bd.nbdelem = (uint*)malloc(mesh.bd.nbd * sizeof(uint));
 
-    /* // Elements in boundary */
-    /* mesh.bd.bdPoints = (uint**)malloc( mesh.bd.nbd * sizeof(uint*) ); */
+    // Elements in boundary
+    mesh.bd.bdPoints = (uint**)malloc( mesh.bd.nbd * sizeof(uint*) );
     
 
-    /* // Read boundary */
-    /* for( i = 0 ; i < mesh.bd.nbd ; i++ ) { */
+    // Read boundary
+    for( i = 0 ; i < mesh.bd.nbd ; i++ ) {
 
-    /* 	// Boundary name */
-    /* 	status = fscanf(inFile, "%s", mesh.bd.bdNames[i]); */
+    	// Boundary name
+    	status = fscanf(inFile, "%s", mesh.bd.bdNames[i]);
 
-    /* 	// Elements in boundary */
-    /* 	status = fscanf(inFile, "%d", &iaux); */
-    /* 	mesh.bd.nbdelem[i] = (uint)iaux; */
+    	// Elements in boundary
+    	status = fscanf(inFile, "%d", &iaux);
+    	mesh.bd.nbdelem[i] = (uint)iaux;
 
-    /* 	// Resize bdPoints */
-    /* 	mesh.bd.bdPoints[i] = (uint*)malloc( mesh.bd.nbdelem[i] * sizeof(uint) ); */
+    	// Resize bdPoints
+    	mesh.bd.bdPoints[i] = (uint*)malloc( mesh.bd.nbdelem[i] * sizeof(uint) );
 	
-    /* 	for( j = 0 ; j < mesh.bd.nbdelem[i] ; j++ ) { */
+    	for( j = 0 ; j < mesh.bd.nbdelem[i] ; j++ ) {
 
-    /* 	    status = fscanf(inFile, "%d", &iaux); */
-    /* 	    mesh.bd.bdPoints[i][j] = (uint)iaux; */
+    	    status = fscanf(inFile, "%d", &iaux);
+    	    mesh.bd.bdPoints[i][j] = (uint)iaux;
 
-    /* 	} */
+    	}
 
-    /* } */
+    }
     
 
-    /* fclose(inFile); */
+    fclose(inFile);
 
 
 

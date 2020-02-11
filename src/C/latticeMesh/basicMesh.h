@@ -18,14 +18,25 @@
  */
 
 typedef struct {
+
+    /** Numero total de fronteras */
     
-    uint nbd;         /**< Number of boundary types */
+    uint nbd;
     
-    uint* nbdelem;    /**< Total number of elements per boundary type */
+
+    /** Numero de elementos por frontera */
     
-    char bdNames[100][100];   /**< Boundary names (max 100 boundaries) */
+    uint* nbdelem;
+
+
+    /** Nombre de fronteras */
     
-    uint** bdPoints;  /**< Elements in boundary */
+    char bdNames[100][100];
+
+
+    /** Indice de nodos para cada frontera */
+    
+    uint** bdPoints;
 
 } basicBoundary;
 
@@ -85,7 +96,7 @@ typedef struct {
 
     /** Arreglo de celdas */
     
-    uint** vtkCells;
+    int** vtkCells;
 
    
 
