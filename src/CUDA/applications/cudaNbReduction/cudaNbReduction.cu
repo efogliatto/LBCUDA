@@ -189,7 +189,8 @@ int main(int argc, char** argv) {
 
     for( uint k = 0 ; k < nit ; k++ ) {
 	
-    	nbReduction<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
+    	//nbReduction<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
+	thomasReduction<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, deviceNb, cmesh.nPoints, cmesh.Q);
 
 	cudaDeviceSynchronize();	
 
