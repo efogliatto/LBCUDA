@@ -89,25 +89,25 @@ void writeBasicMesh( basicMesh* mesh ) {
 
 
 
-    /* // Write VTK cells */
+    // Write VTK cells
     
-    /* outFile = fopen("lattice/vtkCells","w"); */
+    outFile = fopen("lattice/vtkCells","w");
     
-    /* fprintf(outFile,"%d %d\n", mesh->ncells, mesh->cellType); */
+    fprintf(outFile,"%d %d\n", mesh->ncells, mesh->cellType);
     
-    /* for( i = 0 ; i < mesh->ncells ; i++ ) { */
+    for( i = 0 ; i < mesh->ncells ; i++ ) {
 	
-    /* 	for( j = 0 ; j < mesh->cellType ; j++ ) { */
+    	for( j = 0 ; j < mesh->cellType ; j++ ) {
 	    
-    /* 	    fprintf(outFile,"%d ",mesh->vtkCells[i][j]); */
+    	    fprintf(outFile,"%d ",mesh->vtkCells[i][j]);
 	    
-    /* 	} */
+    	}
 	
-    /* 	fprintf(outFile,"\n"); */
+    	fprintf(outFile,"\n");
 	
-    /* } */
+    }
     
-    /* fclose(outFile); */
+    fclose(outFile);
     
 
 

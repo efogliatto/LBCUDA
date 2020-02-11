@@ -10,23 +10,24 @@
 
 #include "dataTypes.h"
 
-/* /\** */
-/*  * @brief Boundary information */
-/*  * */
-/*  * Information about boundary elements */
-/*  *\/ */
 
-/* typedef struct { */
-    
-/*     uint nbd;         /\**< Number of boundary types *\/ */
-    
-/*     std::vector<uint> nbdelem;    /\**< Total number of elements per boundary type *\/ */
-    
-/*     std::vector<std::string> bdNames;   /\**< Boundary names *\/ */
-    
-/*     std::vector< std::vector<uint> > bdPoints;  /\**< Elements in boundary *\/ */
+/**
+ * @brief Boundary information
+ *
+ * Information about boundary elements
+ */
 
-/* } basicBoundary; */
+typedef struct {
+    
+    uint nbd;         /**< Number of boundary types */
+    
+    uint* nbdelem;    /**< Total number of elements per boundary type */
+    
+    char bdNames[100][100];   /**< Boundary names (max 100 boundaries) */
+    
+    uint** bdPoints;  /**< Elements in boundary */
+
+} basicBoundary;
 
 
 
@@ -69,21 +70,29 @@ typedef struct {
     int** nb;
 
 
+  
+
+
+    /** Numero total de celdas */
     
-    /* basicBoundary bd;   /\**< Boundary information *\/ */
+    uint ncells;
 
+
+    /** Tipo de celda (VTK) */
     
-    /* uint ncells;   /\**< Number of VTK cells per patch *\/ */
+    uint cellType;
+
+
+    /** Arreglo de celdas */
     
-    /* uint cellType;   /\**< VTK cell type *\/ */
+    uint** vtkCells;
+
+   
+
+    /** Fronteras */
+
+    basicBoundary bd;
     
-    /* std::vector< std::vector<int> > vtkCells;   /\**< VTK cell indices array *\/ */
-
-
-    /* /\** Array with cell conectivity *\/ */
-
-    /* std::vector< std::vector<uint> > nodeToCells; */
-
 
 } basicMesh;
 
