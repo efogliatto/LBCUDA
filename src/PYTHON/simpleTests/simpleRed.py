@@ -19,9 +19,9 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Suma de componentes de funciones de distribucion')
 
-    parser.add_argument('--nit', help='Número de iteraciones', type = int, default = 1)
+    parser.add_argument('--nit', help='Numero de iteraciones', type = int, default = 1)
 
-    parser.add_argument('--gsize', help='Tamaño de grilla', type = int, default = 1)    
+    parser.add_argument('--gsize', help='Tamano de grilla', type = int, default = 1)    
 
     args = parser.parse_args()
 
@@ -83,8 +83,8 @@ if __name__ == '__main__':
     t2 = time()
 
     print('\n Reduccion finalizada en {:g} segundos\n'.format( t2 - t1 ))
-    print('\n Tiempo promedio por iteración: {:g} segundos\n'.format( (t2 - t1)/args.nit ))      
-    
+    print('\n Tiempo promedio por iteracion: {:g} segundos\n'.format( (t2 - t1)/args.nit ))      
+    print(' --------------------------------------------')
 
     
     # # De vuelta al host
