@@ -22,6 +22,23 @@
 
 #include <writeBasicMesh.h>
 
+#include <string.h>
+
+
+
+
+// Condiciones de contorno
+
+void genericBoundary( basicMesh* mesh, uint nx, uint ny );
+
+void periodicX( basicMesh* mesh, uint nx, uint ny );
+
+void periodicY( basicMesh* mesh, uint nx, uint ny );
+
+void periodicXY( basicMesh* mesh, uint nx, uint ny );
+
+
+
 
 int main(int argc, char** argv) {
 
@@ -40,6 +57,10 @@ int main(int argc, char** argv) {
     //
     // - argv[1] = nx
     // - argv[2] = ny
+    // - argv[3] = tipo de condicion de contorno
+    //    . generic
+    //    . periodicX
+    //    . periodicXY
 
 
     
@@ -217,77 +238,72 @@ int main(int argc, char** argv) {
 
 	    
     
-    /* // ******************************************************************** // */
-    /* //                             Boundary                                 // */
-    /* // ******************************************************************** // */
+    // ******************************************************************** //
+    //                             Boundary                                 //
+    // ******************************************************************** //
 
-    /* printf("Computing boundary nodes\n\n"); */
+    printf(" Actualización de nodos sobre frontera\n\n");
 
-    /* sprintf(mesh.bd.bdNames[0],"X0"); */
-    /* sprintf(mesh.bd.bdNames[1],"X1"); */
-    /* sprintf(mesh.bd.bdNames[2],"Y0"); */
-    /* sprintf(mesh.bd.bdNames[3],"Y1"); */
-
-    
-    /* // Boundary type */
-    
-    /* char* bdt; */
-
-    /* status = lookUpStringEntry("properties/latticeProperties","boundaryType", &bdt, "generic"); */
+    sprintf(mesh.bd.bdNames[0],"X0");
+    sprintf(mesh.bd.bdNames[1],"X1");
+    sprintf(mesh.bd.bdNames[2],"Y0");
+    sprintf(mesh.bd.bdNames[3],"Y1");
 
     
-    /* // Assign points on boundary based on bdType */
 
-    /* // Generic */
-    /* if( strcmp(bdt,"generic") == 0) { */
+    
+    // Assign points on boundary based on bdType
 
-    /* 	genericBoundary( &mesh, nx, ny ); */
+    // Generic
+    if( strcmp(argv[3],"generic") == 0) {
 
-    /* } */
+    	genericBoundary( &mesh, nx, ny );
 
-
-    /* // periodicX */
-    /* else { */
-
-    /* 	if( strcmp(bdt,"periodicX")  == 0 ) { */
-
-    /* 	    periodicX( &mesh, nx, ny ); */
-
-    /* 	} */
+    }
 
 
-    /* 	// periodicY */
-    /* 	else { */
+    // periodicX
+    else {
 
-    /* 	    if( strcmp(bdt,"periodicY")  == 0 ) { */
+    	if( strcmp(argv[3],"periodicX")  == 0 ) {
 
-    /* 		periodicY( &mesh, nx, ny ); */
+    	    periodicX( &mesh, nx, ny );
 
-    /* 	    } */
+    	}
 
 
-    /* 	    // periodicXY */
-    /* 	    else { */
+    	// periodicY
+    	else {
 
-    /* 		if( strcmp(bdt,"periodicXY")  == 0 ) { */
+    	    if( strcmp(argv[3],"periodicY")  == 0 ) {
 
-    /* 		    periodicXY( &mesh, nx, ny ); */
+    		periodicY( &mesh, nx, ny );
 
-    /* 		} */
+    	    }
 
-    /* 		else { */
 
-    /* 		    printf("[ERROR]   Unrecognized boundary type %s\n\n", bdt); */
-    /* 		    exit(0); */
+    	    // periodicXY
+    	    else {
 
-    /* 		} */
+    		if( strcmp(argv[3],"periodicXY")  == 0 ) {
+
+    		    periodicXY( &mesh, nx, ny );
+
+    		}
+
+    		else {
+
+    		    printf("[ERROR]   Condición %s no reconocida\n\n", argv[3]);
+    		    exit(0);
+
+    		}
 	
-    /* 	    } */
+    	    }
 	
-    /* 	} */
+    	}
 
 	
-    /* } */
+    }
     
 
 
@@ -298,31 +314,31 @@ int main(int argc, char** argv) {
     
 
 
-    /* // ******************************************************************** // */
-    /* //                             VTK Cells                                // */
-    /* // ******************************************************************** // */
+    // ******************************************************************** //
+    //                             VTK Cells                                //
+    // ******************************************************************** //
 
-    /* printf("Creating VTK Cells\n\n"); */
+    printf(" Cálculo de celdas\n\n");
     
-    /* mesh.vtkCells = matrixIntAlloc((nx-1)*(ny-1),4,0); */
+    status = int2dArray(&mesh.vtkCells, (nx-1)*(ny-1), 4,0);
 
-    /* mesh.ncells = 0; */
-    /* mesh.cellType = 4; */
+    mesh.ncells = 0;
+    mesh.cellType = 4;
     
-    /* for( j = 0 ; j < ny-1 ; j++ ) { */
+    for( j = 0 ; j < ny-1 ; j++ ) {
 	
-    /* 	for( i = 0 ; i < (nx-1) ; i++ ) { */
+    	for( i = 0 ; i < (nx-1) ; i++ ) {
 
-    /* 	    mesh.vtkCells[mesh.ncells][0] = i + j*nx; */
-    /* 	    mesh.vtkCells[mesh.ncells][1] = i + j*nx + 1; */
-    /* 	    mesh.vtkCells[mesh.ncells][2] = i + j*nx + nx; */
-    /* 	    mesh.vtkCells[mesh.ncells][3] = i + j*nx + nx + 1; */
+    	    mesh.vtkCells[mesh.ncells][0] = i + j*nx;
+    	    mesh.vtkCells[mesh.ncells][1] = i + j*nx + 1;
+    	    mesh.vtkCells[mesh.ncells][2] = i + j*nx + nx;
+    	    mesh.vtkCells[mesh.ncells][3] = i + j*nx + nx + 1;
 	
-    /* 	    mesh.ncells++; */
+    	    mesh.ncells++;
 
-    /* 	} */
+    	}
 
-    /* } */
+    }
     
 
     

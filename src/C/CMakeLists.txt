@@ -4,6 +4,9 @@ add_subdirectory (latticeModel)
 # Mesh library
 add_subdirectory (latticeMesh)
 
+# Esquemas LB
+add_subdirectory (lbEquation)
+
 # Some basic utilities
 add_subdirectory (basic)
 

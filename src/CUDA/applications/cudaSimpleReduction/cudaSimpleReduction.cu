@@ -155,6 +155,7 @@ int main(int argc, char** argv) {
     	/* zerothMoment<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q); 
     	threadedZerothMoment<<<xgrid,ceil((mesh.nPoints+1)/xgrid)>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q);*/
 	thomasModel<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceSum, cmesh.nPoints, cmesh.Q);
+
 	cudaDeviceSynchronize();
 	
     }

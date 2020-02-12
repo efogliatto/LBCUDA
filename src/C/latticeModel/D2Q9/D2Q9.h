@@ -5,4 +5,8 @@
 
 #include <D2Q9_Reverse.h>
 
+#include <D2Q9_MRT_Matrix.h>
+
+#include <D2Q9_MRT_invMatrix.h>
+
 #endif // D2Q9_H
