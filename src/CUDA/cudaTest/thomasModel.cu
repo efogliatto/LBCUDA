@@ -15,15 +15,17 @@ extern "C" __global__ void thomasModel(cuscalar* field, cuscalar* zeroth, int np
     int idy = threadIdx.y + blockIdx.y * blockDim.y;
 
     	
-   // int j=0;	
+    int j=0;	
    
     if( idx < np ) {
   	
 
     	cuscalar sum = 0;
-	if( idy < Q ) {
+	while( j < Q ) {
     		
-    	    	sum += field[ idx*Q + idy ];
+    	    	sum += field[ idx*Q + j ];
+
+		j++;
 
 		
 

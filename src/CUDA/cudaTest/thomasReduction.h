@@ -2,7 +2,7 @@
 #define THOMASREDUCTION_H
 
 /**
- * @file nbReduction.h
+ * @file thomasReduction.h
  * @author Thomas Coronel
  * @date 5 Feb 2020
  * @brief C\'alculo de momento de orden cero en vecinos y suma en nodo local

@@ -10,33 +10,30 @@
 extern "C" __global__ void thomasReduction(cuscalar* field, cuscalar* sum, int* nb, int np, int Q ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
- 
-    int idy = threadIdx.y + blockIdx.y*blockDim.y;
-  
-    int idz = threadIdx.z + blockIdx.z*blockDim.z;
-
+   
     if( idx < np ) {
 
-
+    	uint j=0;
 
 	cuscalar nodesum = 0;
 
-    	if ( idy < Q  ) {
+    	while( j < Q ) {
 
 	    cuscalar nbsum = 0;
 
-	    int nbid = nb[idx*Q + idy];
+	    int nbid = nb[idx*Q + j];
 
-
+	    j++;
 	    
 	    if( nbid != -1 ) {
-		
 
-		if( idz < Q ) {
+		uint l = 0 ;
 
-		    nbsum += field[ nbid*Q + idz  ];
- 
+		while(  l < Q ) {
 
+		    nbsum += field[ nbid*Q + l  ];
+		    
+		    l++;
 		}
 
 	    }
