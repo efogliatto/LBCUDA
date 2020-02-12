@@ -6,7 +6,7 @@ import pycuda.autoinit
 import argparse
 
 
-zm_mod = pycuda.driver.module_from_file('/users/fogliate/IB/Direccion/PI/LB_GPU/LBCUDA_Test/ptx/objects-Release/cudaTestPTX/zerothMoment.ptx')
+zm_mod = pycuda.driver.module_from_file('/users/coronelth/Seguir_Proyecto/LBCUDA_Test/ptx/objects-Release/cudaTestPTX/zerothMoment.ptx')
 
 zm_ker = zm_mod.get_function('zerothMoment')
 

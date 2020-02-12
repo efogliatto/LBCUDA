@@ -12,9 +12,9 @@ num_iter = 10 ** np.arange(2,6)
 
 shape=np.shape(num_blocks)
 #%%
-np.savetxt("mesh_size.txt", mesh_size, fmt="%s")
-np.savetxt("num_blocks.txt", num_blocks, fmt="%s")
-np.savetxt("num_iter.txt", num_iter, fmt="%s")
+#np.savetxt("mesh_size.txt", mesh_size, fmt="%s")
+#np.savetxt("num_blocks.txt", num_blocks, fmt="%s")
+#np.savetxt("num_iter.txt", num_iter, fmt="%s")
 
 
 #%%
@@ -42,19 +42,48 @@ time_cu_256 = np.array([1.47901e-05,1.2908e-05,1.7499e-05,3.7652e-05,0.000107454
 
 time_cu_512 = np.array([1.4734e-05,1.5965e-05,1.75018e-05,3.86848e-05,0.000107951,0.00036502,0.00131293,0.0052077,0.0207714])
 
-time_py = np.array([ ])
+time_py_1 = np.array([4.65727e-05,7.3247e-05,0.000178638,0.000602665,0.00227318,0.00823726,0.0319054,0.127004,0.50661 ])
+
+time_py_2 = np.array([4.43268e-05,5.80978e-05,0.000113652,0.000326431,0.0010656,0.00405179,0.0162745,0.0645982,0.256975 ])
+
+time_py_4 = np.array([4.20856e-05,4.95887e-05,7.91168e-05,0.000189748,0.000557544,0.00210381,0.00831499,0.0330819,0.13221 ])
+
+time_py_8 = np.array([4.08912e-05,4.14658e-05,5.80549e-05,0.000122433,0.000315595,0.001137,0.00441913,0.0175629,0.0700855 ])
+
+time_py_16 = np.array([4.19211e-05,3.97944e-05,4.95791e-05,9.28092e-05,0.00020185,0.000680604, 0.00259262,0.0102468,0.0410308 ])
+
+time_py_32 = np.array([4.45032e-05,4.02045e-05,4.51612e-05,7.98988e-05,0.000160725,0.000519016,0.00195418,0.00768237,0.0305965 ])
+
+time_py_64 = np.array([4.35758e-05,4.03476e-05,4.53019e-05,7.16019e-05,0.000139055,0.000434217,0.00161738,0.00635362,0.0254497 ])
+
+time_py_128 = np.array([4.23598e-05,4.06432e-05,4.35615e-05,7.20239e-05,0.000128264,0.000400155,0.00158705,0.00593013,0.0231288 ])
+
+time_py_256 = np.array([4.33493e-05,4.01855e-05,4.43912e-05,7.61127e-05,0.00012851,0.000399578,0.00147916,0.00579614,0.0232974 ])
+
+time_py_512 = np.array([4.11439e-05,4.30417e-05,4.64201e-05,7.55596e-05,0.000127473,0.000401514,0.00148567,0.00581523,0.0231366 ])
 
 #%%
-prom_1 = (time_c-time_cu_1)/time_cu_1 *100
-prom_2 = (time_c-time_cu_2)/time_cu_2 *100
-prom_4 = (time_c-time_cu_4)/time_cu_4 *100
-prom_8 = (time_c-time_cu_8)/time_cu_8 *100
-prom_16 = (time_c-time_cu_16)/time_cu_16 *100
-prom_32 = (time_c-time_cu_32)/time_cu_32 *100
-prom_64 = (time_c-time_cu_64)/time_cu_64 *100
-prom_128 = (time_c-time_cu_128)/time_cu_128 *100
-prom_256 = (time_c-time_cu_256)/time_cu_256 *100 
-prom_512 = (time_c-time_cu_512)/time_cu_512*100
+prom_1 = time_c /time_cu_1 
+prom_2 = time_c /time_cu_2 
+prom_4 = time_c /time_cu_4 
+prom_8 = time_c /time_cu_8 
+prom_16 = time_c /time_cu_16 
+prom_32 = time_c /time_cu_32 
+prom_64 = time_c /time_cu_64 
+prom_128 = time_c /time_cu_128
+prom_256 = time_c /time_cu_256
+prom_512 = time_c /time_cu_512
+
+prom_1_py = time_c /time_py_1 
+prom_2_py = time_c /time_py_2 
+prom_4_py = time_c /time_py_4 
+prom_8_py = time_c /time_py_8 
+prom_16_py = time_c /time_py_16 
+prom_32_py = time_c /time_py_32 
+prom_64_py = time_c /time_py_64 
+prom_128_py = time_c /time_py_128
+prom_256_py = time_c /time_py_256
+prom_512_py = time_c /time_py_512
 
 #%%
 plt.figure()
@@ -77,6 +106,7 @@ plt.ylabel('Time of execution (s)',fontsize=14)
 plt.xticks(fontsize=14)
 plt.yticks(fontsize=14)
 plt.xscale('log') 
+plt.yscale('log') 
 plt.grid(True)
 plt.savefig('time_c_cuda.png')
 plt.close
@@ -95,9 +125,9 @@ plt.plot(mesh_size,prom_256,label='CUDA C 256')
 plt.plot(mesh_size,prom_512,label='CUDA C 512')
 
 plt.legend()
-plt.title('Rendimiento de CUDA sobre C GTX 760',fontsize=14)
+plt.title('Spyder de CUDA sobre C GTX 760',fontsize=14)
 plt.xlabel('Cuadrangular Mesh Size',fontsize=14)
-plt.ylabel('Performance \%',fontsize=14)
+plt.ylabel('Spyder',fontsize=14)
 plt.xticks(fontsize=14)
 plt.yticks(fontsize=14)
 plt.xscale('log') 
