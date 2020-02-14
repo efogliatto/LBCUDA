@@ -1,0 +1,1 @@
+../src/CUDA/lbEquation/cudaExampleModel/cudaExampleCollision.h
