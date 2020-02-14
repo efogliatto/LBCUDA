@@ -2,7 +2,7 @@
 #define LATTICEMESH_H
 
 
-#include <latticeInfo.h>
+#include <latticeModelInfo.h>
 
 #include <readBasicMesh.h>
 

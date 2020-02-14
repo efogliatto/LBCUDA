@@ -6,9 +6,9 @@
 
 
 
-int* MRT_Matrix( DdQq model ) {
+scalar* MRT_Matrix( DdQq model ) {
 
-    int* M = NULL;
+    scalar* M = NULL;
 
     
     switch( model ) {

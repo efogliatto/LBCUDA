@@ -14,8 +14,8 @@
  */
 
 
-#include <latticeInfo.h>
+#include <latticeModelInfo.h>
 
-int* MRT_invMatrix( DdQq model );
+scalar* MRT_invMatrix( DdQq model );
 
 #endif // MRT_INVMATRIX_H

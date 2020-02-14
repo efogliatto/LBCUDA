@@ -3,6 +3,8 @@
 
 #include <D2Q9_Vel.h>
 
+#include <D2Q9_VelArray.h>
+
 #include <D2Q9_Reverse.h>
 
 #include <D2Q9_MRT_Matrix.h>

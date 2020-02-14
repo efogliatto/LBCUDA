@@ -8,7 +8,9 @@
  * @brief Estructura de grilla para LB
  */
 
-#include "dataTypes.h"
+#include <dataTypes.h>
+
+#include <latticeModelInfo.h>
 
 
 /**
@@ -103,6 +105,11 @@ typedef struct {
     /** Fronteras */
 
     basicBoundary bd;
+
+
+    /** Constantes del modelo de grilla */
+
+    latticeModelInfo lattice;
     
 
 } basicMesh;

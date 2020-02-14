@@ -16,9 +16,7 @@
 
 #include <int2dArray.h>
 
-#include <latticeVelocities.h>
-
-#include <latticeReverseDir.h>
+#include <latticeModel.h>
 
 #include <writeBasicMesh.h>
 
@@ -120,7 +118,7 @@ int main(int argc, char** argv) {
     
     // Velocidades de grilla
 
-    latticeInfo lattice;
+    latticeModelInfo lattice;
 
     lattice.model = D2Q9;
     

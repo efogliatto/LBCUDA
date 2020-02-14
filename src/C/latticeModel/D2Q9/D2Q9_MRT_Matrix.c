@@ -2,11 +2,11 @@
 
 #include <stdlib.h>
 
-int* D2Q9_MRT_Matrix() {
+scalar* D2Q9_MRT_Matrix() {
 
-    int* M;
+    scalar* M;
   
-    M = (int*)malloc( 81 * sizeof(int));
+    M = (scalar*)malloc( 81 * sizeof(scalar));
 
 
     M[0] = 1;

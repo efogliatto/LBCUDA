@@ -2,7 +2,8 @@
 #define LATTICEVELOCITIES_H
 
 #include <D2Q9.h>
-#include <latticeInfo.h>
+
+#include <latticeModelInfo.h>
 
 /**
  * @file latticeVelocities.h

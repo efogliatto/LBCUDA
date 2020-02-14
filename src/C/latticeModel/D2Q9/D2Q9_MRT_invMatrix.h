@@ -16,7 +16,7 @@
 
 #include <dataTypes.h>
 
-int* D2Q9_MRT_invMatrix();
+scalar* D2Q9_MRT_invMatrix();
 
 
 #endif // D2Q9_MRT_INVMATRIX_H

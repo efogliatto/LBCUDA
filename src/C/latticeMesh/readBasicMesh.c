@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <readBasicMesh.h>
+#include <latticeModel.h>
 #include <basic.h>
 
 
@@ -89,8 +90,6 @@ basicMesh readBasicMesh() {
 
 
 
-
-
     
     // Read neighbours
     
@@ -110,6 +109,30 @@ basicMesh readBasicMesh() {
 
 
 
+
+
+    // Asignacion de propiedades de grilla
+
+    if( (mesh.D == 2)  &&  (mesh.Q == 9) ) {
+
+	mesh.lattice.model = D2Q9;
+
+    }
+
+    mesh.lattice.q = mesh.Q;
+
+    mesh.lattice.d = mesh.D;
+
+    mesh.lattice.vel     = latticeVel( mesh.lattice.model );
+
+    mesh.lattice.reverse = latticeReverseDir( mesh.lattice.model );
+
+    mesh.lattice.M       = MRT_Matrix( mesh.lattice.model );
+
+    mesh.lattice.invM    = MRT_invMatrix( mesh.lattice.model );        
+
+
+    
 
     
 

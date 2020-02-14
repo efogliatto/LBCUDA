@@ -1,7 +1,11 @@
 #ifndef LATTICEMODEL_H
 #define LATTICEMODEL_H
 
+#include <latticeModelInfo.h>
+
 #include <latticeVelocities.h>
+
+#include <latticeVel.h>
 
 #include <latticeReverseDir.h>
 

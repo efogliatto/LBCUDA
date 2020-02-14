@@ -50,6 +50,7 @@ set ( PROJECT_LINK_LIBS
   liblatticemesh.so
   libbasic.so
   libd2q9.so
+  liblbequation.so
   m
   )
 

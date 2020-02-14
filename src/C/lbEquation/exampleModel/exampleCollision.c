@@ -3,17 +3,16 @@
 #include <stdlib.h>
 
 
-void exampleCollision( basicMesh* mesh, scalar* field, scalar* rho, scalar* U) {
+
+void exampleCollision( basicMesh* mesh, exampleModelCoeffs* relax, scalar* field, scalar* rho, scalar* U) {
 
 
     
-    // Partial distributions
+    // Distribuciones parciales
     
-    scalar* m     = (scalar*)malloc( mesh->Q * sizeof(scalar) );   // m:  momentum space
+    scalar m[9];   // m:  Distribucion en espacio de momentos
     
-    scalar* m_eq  = (scalar*)malloc( mesh->Q * sizeof(scalar) );   // meq: equilibrium in momentum space
-
-    scalar* S     = (scalar*)malloc( mesh->Q * sizeof(scalar) );   // MRT force
+    scalar m_eq[9];   // meq: Distribucion de equilibrio en espacio de momentos
 
 
 
@@ -33,7 +32,7 @@ void exampleCollision( basicMesh* mesh, scalar* field, scalar* rho, scalar* U) {
 
 
 	
-	// Compute equilibrium in momentum space
+	// Distribucion de equilibrio en espacio de momentos
 	
 	m_eq[0] = rho[id];
 	m_eq[1] = rho[id] * (-2 + 3*umag);
@@ -45,52 +44,53 @@ void exampleCollision( basicMesh* mesh, scalar* field, scalar* rho, scalar* U) {
 	m_eq[7] = rho[id] * (U[id*3]*U[id*3] - U[id*3+1]*U[id*3+1]);
 	m_eq[8] = rho[id] * U[id*3] * U[id*3+1];
 
-	
-	/* // Distribution in momentum space */
-
-	/* matVecMult(mesh->lattice.M, field->value[id], m, mesh->lattice.Q); */
-
 
 	
-	/* // Total Force */
+	// Distribucion en espacio de momentos. m = M*field[id]
+
+	for( uint i = 0 ; i < mesh->Q ; i++ ) {
+
+	    m[i] = 0;
+
+	    for( uint j = 0 ; j < mesh->Q ; j++ ) {
+
+		m[i] += mesh->lattice.M[i*mesh->Q + j] * field[ id*mesh->Q + j ];
+
+	    }
+
+	}
+
+
+      
+
 	
-	/* liMRTForce( mesh, mfields, field, S, id ); */
-
-
-       
-
+	// Collision in momentum space
 	
-	/* // Collision in momentum space */
-	
-	/* for( k = 0 ; k < mesh->lattice.Q ; k++ ) { */
-
-	/*     m[k] = m[k]  -  field->lbparam.liMRT.Lambda[k]*( m[k] - m_eq[k] )  +  ( 1 - 0.5*field->lbparam.liMRT.Lambda[k] ) * S[k]; */
-
-	/*     if(field->lbparam.liMRT.surfaceTension == liSurfTen) { */
-
-	/*     	m[k] = m[k] + C[k]; */
-
-	/*     } */
+	for( uint k = 0 ; k < mesh->Q ; k++ )
+	    m[k] = m[k]  -  relax->Tau[k]*( m[k] - m_eq[k] );
 	    
-	/* } */
 
 	
 	
-	/* // Back to phase space */
+	// Vuelta al espacio de fases. field = invM * m
+
+	for( uint i = 0 ; i < mesh->Q ; i++ ) {
+
+	    field[id*mesh->Q + i] = 0;
+
+	    for( uint j = 0 ; j < mesh->Q ; j++ ) {
+
+		field[id*mesh->Q + i] += mesh->lattice.invM[i*mesh->Q + j] * m[j];
+
+	    }
+
+	}
 	
-	/* matVecMult(mesh->lattice.invM, m, field->value[id], mesh->lattice.Q); */
+
 
 	
     }
 
-
-    // Deallocate memory
-
-    free(m);
-    
-    free(m_eq);
-
-    free(S);
 
 
 }
