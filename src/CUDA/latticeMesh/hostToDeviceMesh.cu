@@ -69,6 +69,52 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
 
 
 
+
+    /**************************************/
+    /*        Informacion de grilla       */
+    /**************************************/    
+
+    cmesh->lattice.model = hmesh->lattice.model;
+
+    cmesh->lattice.d = hmesh->lattice.d;
+
+    cmesh->lattice.q = hmesh->lattice.q;
+
+
+
+    // Velocidades de grilla
+    
+    cudaMalloc( (void**)&cmesh->lattice.vel, 3*hmesh->Q*sizeof(int) );
+
+    cudaMemcpy( cmesh->lattice.vel, hmesh->lattice.vel, 3*hmesh->Q*sizeof(int), cudaMemcpyHostToDevice );
+    
+
+    
+    // Indices inversos
+    
+    cudaMalloc( (void**)&cmesh->lattice.reverse, hmesh->Q*sizeof(int) );
+
+    cudaMemcpy( cmesh->lattice.reverse, hmesh->lattice.reverse, hmesh->Q*sizeof(int), cudaMemcpyHostToDevice );
+
+
+    
+    // Matriz de transformacion MRT
+    
+    cudaMalloc( (void**)&cmesh->lattice.M, hmesh->Q*hmesh->Q*sizeof(int) );
+
+    cudaMemcpy( cmesh->lattice.M, hmesh->lattice.M, hmesh->Q*hmesh->Q*sizeof(int), cudaMemcpyHostToDevice );
+
+
+    
+    // Inversa de matriz de transformacion MRT
+    
+    cudaMalloc( (void**)&cmesh->lattice.invM, hmesh->Q*hmesh->Q*sizeof(int) );
+
+    cudaMemcpy( cmesh->lattice.invM, hmesh->lattice.invM, hmesh->Q*hmesh->Q*sizeof(int), cudaMemcpyHostToDevice );        
+    
+    
+
+
     /**************************************/
     /*               Other                */
     /**************************************/    

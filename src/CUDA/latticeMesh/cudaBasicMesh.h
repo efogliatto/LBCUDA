@@ -17,6 +17,8 @@
 
 #include <dataTypes.h>
 
+#include <cudaLatticeModelInfo.h>
+
 typedef struct {
 
     
@@ -49,7 +51,11 @@ typedef struct {
     
     int* nb;
 
-   
+
+    /** Constantes del modelo de grilla */
+
+    cudaLatticeModelInfo lattice;
+    
 
 
 } cudaBasicMesh;

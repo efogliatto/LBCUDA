@@ -1,8 +1,8 @@
-#ifndef LATTICEMODELINFO_H
-#define LATTICEMODELINFO_H
+#ifndef CUDALATTICEMODELINFO_H
+#define CUDALATTICEMODELINFO_H
 
 /**
- * @file latticeModelInfo.h
+ * @file cudaLatticeModelInfo.h
  * @author Ezequiel O. Fogliatto
  * @date 14 Feb 2020
  * @brief Información sobre el modelo de grilla
@@ -11,10 +11,8 @@
 
 #include <dataTypes.h>
 
-typedef enum {
-    D2Q9,
-    D3Q15
-} DdQq;
+#include <latticeModelInfo.h>
+
 
 typedef struct {
 
@@ -46,15 +44,15 @@ typedef struct {
 
     /** Matriz de transformacion MRT */
 
-    scalar* M;
+    cuscalar* M;
 
 
     /** Inversa de matriz de transformacion MRT */
 
-    scalar* invM;
+    cuscalar* invM;
     
 
-} latticeModelInfo;
+} cudaLatticeModelInfo;
 
 
-#endif // LATTICEMODELINFO_H
+#endif // CUDALATTICEMODELINFO_H

@@ -3,6 +3,8 @@
 
 #include <cudaBasicMesh.h>
 
+#include <cudaLatticeModelInfo.h>
+
 #include <hostToDeviceMesh.h>
 
 #endif // CUDALATTICEMESH_H
