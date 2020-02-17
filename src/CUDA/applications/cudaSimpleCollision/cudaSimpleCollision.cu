@@ -13,6 +13,8 @@ extern "C" {
 
 #include <basic.h>
 
+#include <exampleModel.h>    
+
 }
 
 #include <stdio.h>
@@ -149,8 +151,25 @@ int main(int argc, char** argv) {
 
     cudaMalloc( (void**)&deviceU, 3*mesh.nPoints*sizeof(cuscalar) );
 
-    cudaMemcpy( deviceU, U, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );    
+    cudaMemcpy( deviceU, U, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+
+
+    // Factores de relajacion para colision
+
+    exampleModelCoeffs relax;
+
+    for( uint i = 0 ; i < 9 ; i++ )
+	relax.Tau[i] = 1;
+
+
     
+    cuscalar* deviceTau;
+
+    cudaMalloc( (void**)&deviceTau, 9*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceTau, relax.Tau, 9*sizeof(cuscalar), cudaMemcpyHostToDevice );    
 
 
 
@@ -166,7 +185,7 @@ int main(int argc, char** argv) {
 
     for( uint k = 0 ; k < nit ; k++ ) {
 	
-    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( &cmesh, deviceField, deviceRho, deviceU );
+    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
 
     	cudaDeviceSynchronize();
 	
@@ -192,7 +211,7 @@ int main(int argc, char** argv) {
 
     // Verificacion de calculo contra version de CPU
 
-    /* exampleCollision( &mesh, &relax, field, rho, U );     */
+    exampleCollision( &mesh, &relax, field, rho, U );
 
     {
 	

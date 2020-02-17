@@ -21,7 +21,7 @@
 #include <cudaLatticeMesh.h>
 
 
-extern "C" __global__ void cudaExampleCollision(cudaBasicMesh* mesh, cuscalar* field, cuscalar* rho, cuscalar* U );
+extern "C" __global__ void cudaExampleCollision( cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* Tau, cuscalar* M, cuscalar* invM, uint np, uint Q );
 
 
 #endif // CUDAEXAMPLECOLLISION_H

@@ -41,6 +41,9 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
 endif()
 
 
+# # Compiler options for CUDA
+
+# SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )
 
 
 # Link libraries
