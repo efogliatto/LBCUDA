@@ -67,7 +67,11 @@ extern "C" __global__ void cudaExampleCollision( cuscalar* field, cuscalar* rho,
 
 	}
 
+	
+	/* cudaThreadedMatMult<<<1,9>>>(M, field, id, Q); */
 
+	/* __syncthreads(); */
+	
 
 	
 	// Collision in momentum space
