@@ -5,4 +5,8 @@
 
 #include <exampleCollision.h>
 
+#include <exampleDensity.h>
+
+#include <exampleVelocity.h>
+
 #endif // EXAMPLEMODEL_H

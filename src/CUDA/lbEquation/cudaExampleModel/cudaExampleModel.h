@@ -3,4 +3,6 @@
 
 #include <cudaExampleCollision.h>
 
+#include <cudaExampleDensity.h>
+
 #endif // CUDAEXAMPLEMODEL_H

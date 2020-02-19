@@ -3,6 +3,8 @@
 add_library(cudalbequation STATIC
   cudaExampleModel/cudaThreadedMatMult.cu    
   cudaExampleModel/cudaExampleCollision.cu
+  cudaExampleModel/cudaExampleDensity.cu
+  cudaExampleModel/cudaExampleVelocity.cu  
   )
 
 set_target_properties( cudatest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
@@ -15,6 +17,8 @@ set_target_properties( cudatest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 add_library(cudalbequationPTX OBJECT
   cudaExampleModel/cudaThreadedMatMult.cu    
   cudaExampleModel/cudaExampleCollision.cu
+  cudaExampleModel/cudaExampleDensity.cu
+  cudaExampleModel/cudaExampleVelocity.cu
   )
 
 set_property(TARGET cudalbequationPTX PROPERTY CUDA_PTX_COMPILATION ON)
