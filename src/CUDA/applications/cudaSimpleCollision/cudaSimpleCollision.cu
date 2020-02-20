@@ -13,7 +13,9 @@ extern "C" {
 
 #include <basic.h>
 
-#include <exampleModel.h>    
+#include <exampleModel.h>   
+
+#include <momentoFunciondist.h>   
 
 }
 
@@ -26,6 +28,8 @@ extern "C" {
 #include <cudaLatticeMesh.h>
 
 #include <cudaExampleModel.h>
+
+#include <cudaMomentoFunciondist.h>
 
 #include <math.h>
 
@@ -160,6 +164,8 @@ int main(int argc, char** argv) {
 
     exampleModelCoeffs relax;
 
+//    momentoModelCoeffs relax;
+
     for( uint i = 0 ; i < 9 ; i++ )
 	relax.Tau[i] = 1;
 
@@ -172,7 +178,7 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceTau, relax.Tau, 9*sizeof(cuscalar), cudaMemcpyHostToDevice );    
 
 
-
+    cuscalar delta_t_cu = 0.0;
     
 
     // Reduccion
@@ -185,13 +191,15 @@ int main(int argc, char** argv) {
 
     for( uint k = 0 ; k < nit ; k++ ) {
 	
-    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
+//    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
+
+	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu );
 
     	cudaDeviceSynchronize();
 	
     }
 
-
+    scalar delta_t = 0.0;	
     scalar elap = elapsedTime(&Time);
     
     printf( "\n   Colisión finalizada en %f segundos\n", elap );
@@ -212,7 +220,7 @@ int main(int argc, char** argv) {
     // Verificacion de calculo contra version de CPU
 
     exampleCollision( &mesh, &relax, field, rho, U );
-
+//    momentoCollision( &mesh, &relax, field, rho, U,delta_t );
     {
 	
     	uint eq = 0;

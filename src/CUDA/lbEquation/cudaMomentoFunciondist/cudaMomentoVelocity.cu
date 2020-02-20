@@ -41,7 +41,7 @@ extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, c
 
 	    }
 
-	    lv[j] += 0.5 * delta_t * F[j]
+	    lv[j] += 0.5 * delta_t * F[j];
 
 	    j++;
 

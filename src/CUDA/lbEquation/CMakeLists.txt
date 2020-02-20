@@ -1,10 +1,16 @@
 # Biblioteca de pruebas para CUDA C/CXX
 
 add_library(cudalbequation STATIC
+
   cudaExampleModel/cudaThreadedMatMult.cu    
   cudaExampleModel/cudaExampleCollision.cu
   cudaExampleModel/cudaExampleDensity.cu
-  cudaExampleModel/cudaExampleVelocity.cu  
+  cudaExampleModel/cudaExampleVelocity.cu
+  
+  cudaMomentoFunciondist/cudaMomentoCollision.cu
+  cudaMomentoFunciondist/cudaMomentoDensity.cu
+  cudaMomentoFunciondist/cudaMomentoVelocity.cu
+
   )
 
 set_target_properties( cudatest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
@@ -19,6 +25,11 @@ add_library(cudalbequationPTX OBJECT
   cudaExampleModel/cudaExampleCollision.cu
   cudaExampleModel/cudaExampleDensity.cu
   cudaExampleModel/cudaExampleVelocity.cu
+
+  cudaMomentoFunciondist/cudaMomentoCollision.cu
+  cudaMomentoFunciondist/cudaMomentoDensity.cu
+  cudaMomentoFunciondist/cudaMomentoVelocity.cu
+
   )
 
 set_property(TARGET cudalbequationPTX PROPERTY CUDA_PTX_COMPILATION ON)
