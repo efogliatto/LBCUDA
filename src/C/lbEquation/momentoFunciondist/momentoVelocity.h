@@ -15,11 +15,12 @@
  * @param rho Velocidad macroscópica
  * @param field Función de distribución
  * @param mesh Malla básica
+ * @param delta_t Paso de tiempo
  */
 
 #include <basicMesh.h>
 
-void momentoVelocity(scalar* rho, scalar* U, scalar* field, basicMesh* mesh);
+void momentoVelocity(scalar* rho, scalar* U, scalar* field, basicMesh* mesh, scalar delta_t);
 
 
 #endif // MOMENTOVELOCITY_H
