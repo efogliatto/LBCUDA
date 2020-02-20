@@ -1,0 +1,1 @@
+../src/CUDA/lbEquation/cudaMomentoFunciondist/cudaMomentoCollision.h
