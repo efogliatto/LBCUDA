@@ -12,9 +12,7 @@ extern "C" __global__ void thomasModel(cuscalar* field, cuscalar* zeroth, int np
 
     int idx = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int idy = threadIdx.y + blockIdx.y * blockDim.y;
-
-    	
+   	
     int j=0;	
    
     if( idx < np ) {

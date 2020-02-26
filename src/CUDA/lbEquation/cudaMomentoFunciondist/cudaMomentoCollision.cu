@@ -97,11 +97,12 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
 	// Vuelta al espacio de fases. field = invM * m
 
 	i=0;
-	uint j = 0 ;		
 
 	while ( i < Q ) {
 
 	    field[id*Q + i] = 0;
+
+	    uint j = 0 ;
 
 	    while ( j < Q ) {
 

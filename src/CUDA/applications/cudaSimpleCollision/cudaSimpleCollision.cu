@@ -227,6 +227,8 @@ int main(int argc, char** argv) {
 
     	for(uint i = 0 ; i < fsize ; i++) {
 
+//	    printf( "%f \t %f \n", dcol[i],field[i]);	
+
     	    if(dcol[i] != field[i])
     		eq = 1;
 
