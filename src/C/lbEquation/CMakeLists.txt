@@ -8,5 +8,11 @@ add_library(lbequation SHARED
 
   momentoFunciondist/momentoCollision.c
   momentoFunciondist/momentoDensity.c
-  momentoFunciondist/momentoVelocity.c  
+  momentoFunciondist/momentoVelocity.c
+
+  fuerza/fuerzaPresionEOS.c
+  fuerza/fuerzaPsi.c
+  fuerza/fuerzaFuerzaint.c
+  fuerza/fuerzaFuerzatotal.c
+
   )
