@@ -28,7 +28,7 @@ void momentoVelocity(scalar* rho, scalar* U, scalar* field, basicMesh* mesh, sca
 		    
 	    }
 	
-	    lv[j] += 0.5 * delta_t * F[j]     
+	    lv[j] += 0.5 * delta_t * F[j];     
 	
 	}
 

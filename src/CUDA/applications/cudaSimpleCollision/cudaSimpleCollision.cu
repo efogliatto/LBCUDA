@@ -162,9 +162,9 @@ int main(int argc, char** argv) {
 
     // Factores de relajacion para colision
 
-    exampleModelCoeffs relax;
+//    exampleModelCoeffs relax;
 
-//    momentoModelCoeffs relax;
+    momentoModelCoeffs relax;
 
     for( uint i = 0 ; i < 9 ; i++ )
 	relax.Tau[i] = 1;
@@ -219,8 +219,8 @@ int main(int argc, char** argv) {
 
     // Verificacion de calculo contra version de CPU
 
-    exampleCollision( &mesh, &relax, field, rho, U );
-//    momentoCollision( &mesh, &relax, field, rho, U,delta_t );
+//    exampleCollision( &mesh, &relax, field, rho, U );
+    momentoCollision( &mesh, &relax, field, rho, U,delta_t );
     {
 	
     	uint eq = 0;
