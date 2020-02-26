@@ -38,7 +38,7 @@ void fuerzaFuerzaint(scalar* fint, scalar* psi, basicMesh* mesh, scalar G) {
 	    // Move over model velocities
 	    for(uint k = 0 ; k < mesh->Q ; k++) {
 
-		lf[j] += (scalar)mesh->lattice.vel[k*3+j] * weight[k] * psi[mesh->nb[i * mesh->Q +k]];
+		lf[j] += (scalar)mesh->lattice.vel[k*3+j] * weight[k] * psi[ mesh->nb[i][k] ];
 		    
 	    }
 	

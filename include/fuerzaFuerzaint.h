@@ -1,1 +1,1 @@
-../src/C/lbEquation/Fuerza/fuerzaFuerzaint.h
+../src/C/lbEquation/fuerza/fuerzaFuerzaint.h

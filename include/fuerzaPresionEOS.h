@@ -1,1 +1,1 @@
-../src/C/lbEquation/Fuerza/fuerzaPresionEOS.h
+../src/C/lbEquation/fuerza/fuerzaPresionEOS.h

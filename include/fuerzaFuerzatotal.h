@@ -1,1 +1,1 @@
-../src/C/lbEquation/Fuerza/fuerzaFuerzatotal.h
+../src/C/lbEquation/fuerza/fuerzaFuerzatotal.h

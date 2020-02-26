@@ -8,13 +8,13 @@
 
 #include <stdio.h>
 
-void fuerzaFuerzaint(scalar* f, scalar* fint, scalar* rho, scalar* g, basicMesh* mesh, scalar* psi, scalar* T, scalar* p, scalar G, int a, int b, scalar c, scalar cs_2) {
+void fuerzaFuerzatotal(scalar* f, scalar* fint, scalar* rho, scalar* g, basicMesh* mesh, scalar* psi, scalar* T, scalar* p, scalar G, int a, int b, scalar c, scalar cs_2) {
 	
     // Suma de todas las componentes
 
-    fuerzaPresionEOS(p, rho, T, mesh) 
-    fuerzaPsi(psi, p, rho, c, cs_2, G, mesh)
-    fuerzaFuerzaint(fint, psi, mesh, G) 
+    fuerzaPresionEOS(p, rho, T, mesh, a, b);
+    fuerzaPsi(psi, p, rho, c, cs_2, G, mesh);
+    fuerzaFuerzaint(fint, psi, mesh, G);
 
     for( uint i = 0 ; i < mesh->nPoints ; i++ ) {
 

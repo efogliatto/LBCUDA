@@ -1,1 +1,1 @@
-../src/C/lbEquation/Fuerza/fuerzaPsi.h
+../src/C/lbEquation/fuerza/fuerzaPsi.h
