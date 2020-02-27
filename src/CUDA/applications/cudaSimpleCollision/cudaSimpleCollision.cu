@@ -35,6 +35,8 @@ extern "C" {
 
 #include <cudaMomentoFunciondist.h>
 
+#include <cudaFuerza.h>
+
 #include <math.h>
 
 
@@ -209,6 +211,47 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceU, U, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
+    cuscalar* deviceT;
+
+    cudaMalloc( (void**)&deviceT, mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceT, T, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    cuscalar* deviceP;
+ 
+    cudaMalloc( (void**)&deviceP, mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceP, p, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    cuscalar* devicePsi;
+
+    cudaMalloc( (void**)&devicePsi, mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( devicePsi, psi, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    cuscalar* deviceFint;
+
+    cudaMalloc( (void**)&deviceFint, 3*mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceFint, fint, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    cuscalar* deviceF;
+
+    cudaMalloc( (void**)&deviceF, 3*mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceF, f, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    cuscalar* deviceS;
+
+    cudaMalloc( (void**)&deviceS, mesh.Q*mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceS, S, mesh.Q*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
 
 
     // Factores de relajacion para colision
@@ -247,6 +290,35 @@ int main(int argc, char** argv) {
 	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu );
 
     	cudaDeviceSynchronize();
+
+       cudaFuerzaPresionEOS<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceP, deviceRho, deviceT, cmesh.nPoints, a, b);    
+
+    	cudaDeviceSynchronize();
+  
+ /*        cudaFuerzaPsi<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( devicePsi, deviceP, deviceRho, c, cs_2, G, cmesh.nPoints); 
+
+    	cudaDeviceSynchronize();
+
+        cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, devicePsi, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, cmesh.nb, G);  
+
+    	cudaDeviceSynchronize();
+
+        cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, g, cmesh.nPoints);	
+
+    	cudaDeviceSynchronize();
+
+        cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceRho, deviceU, cmesh.lattice.vel, cmesh.nPoints, cmesh.Q, delta_t_cu );
+
+    	cudaDeviceSynchronize();
+
+        cudaMomentoDensity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, cmesh.nPoints, cmesh.Q);  
+
+    	cudaDeviceSynchronize();
+
+        cudaFuerzaS<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceS, deviceF, deviceFint, deviceU, devicePsi, sigma, deviceTau[1], deviceTau[2], delta_t_cu,cmesh.nPoints, cmesh.Q);
+
+    	cudaDeviceSynchronize();*/
+
 	
     }
 
@@ -265,8 +337,51 @@ int main(int argc, char** argv) {
 
     cudaMemcpy( dcol, deviceField, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
 
+/*-----------------------------------------------------------------------------------------*/
 
-    
+    cuscalar* dP = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
+
+    cudaMemcpy( dP, deviceP, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
+
+/*
+    cuscalar* dRho = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
+
+    cudaMemcpy( dRho, deviceRho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
+
+
+    cuscalar* dU = (cuscalar*)malloc( 3 * mesh.nPoints * sizeof(cuscalar) );
+
+    cudaMemcpy( dU, deviceU, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
+
+
+    cuscalar* dT = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); 
+
+    cudaMemcpy( dT, deviceT, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
+
+
+    cuscalar* dPsi = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); 
+
+    cudaMemcpy( dPsi, devicePsi, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
+
+
+    cuscalar* dFint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) );
+
+    cudaMemcpy( dFint, deviceFint, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
+
+
+    cuscalar* dF = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) );
+
+    cudaMemcpy( dF, deviceF, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
+
+
+    cuscalar* dS = (cuscalar*)malloc( mesh.nPoints * mesh.Q * sizeof(cuscalar) ); 
+
+    cudaMemcpy( dS, deviceS, mesh.Q*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
+*/
+   
+/*-----------------------------------------------------------------------------------------*/
+
+
 
     // Verificacion de calculo contra version de CPU
 
@@ -277,7 +392,7 @@ int main(int argc, char** argv) {
     
     fuerzaPresionEOS(p, rho, T, &mesh, a, b);    
 
-    fuerzaPsi(psi, p, rho, c, cs_2, G, &mesh);
+/*    fuerzaPsi(psi, p, rho, c, cs_2, G, &mesh);
 
     fuerzaFuerzaint(fint, psi, &mesh, G);
 
@@ -288,7 +403,7 @@ int main(int argc, char** argv) {
     momentoDensity( rho, field, &mesh);  
 
     fuerzaS(S, f, fint, U, psi, sigma, relax.Tau[1], relax.Tau[2], &mesh, delta_t);
-
+*/
 
     {
 	
@@ -296,10 +411,11 @@ int main(int argc, char** argv) {
 
     	for(uint i = 0 ; i < fsize ; i++) {
 
-	    printf( "%f \t %f \n", dcol[i],field[i]);	
+	    printf( "%f \t %f \n", dP[i],p[i]);
+//	    printf( "%d \n", eq);	
 //	    printf( "%f \n", S[i]);	
 
-    	    if(dcol[i] != field[i])
+    	    if(dP[i] != p[i])
     		eq = 1;
 
     	}

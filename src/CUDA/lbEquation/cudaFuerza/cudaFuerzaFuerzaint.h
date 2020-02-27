@@ -13,14 +13,16 @@
  * Calculo de fuerza de interaccion
  * @param fint Fuerza de Interaccion
  * @param psi Valor de la funcion
- * @param mesh Malla básica
+ * @param np Numero de puntos
+ * @param Q Cantidad de vecinos 
+ * @param nb Matriz de vecinos
  * @param G Parametro del modelo de LB
 
  */
 
 #include <basicMesh.h>
 
-extern "C" __global__ void cudaFuerzaFuerzaint(scalar* fint, scalar* psi, basicMesh* mesh, scalar G)  ;
+extern "C" __global__ void cudaFuerzaFuerzaint(scalar* fint, scalar* psi, int np, int Q,  int* lvel,int* nb, scalar G)   ;
 
 
 #endif // CUDAFUERZAFUERZAINT_H

@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 
-extern "C" __global__ void cudaFuerzaPresionEOS(scalar* p, scalar* rho, scalar* T, basicMesh* mesh, int a, int b) {
+extern "C" __global__ void cudaFuerzaPresionEOS(scalar* p, scalar* rho, scalar* T, int np, int a, int b) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
 
@@ -13,7 +13,7 @@ extern "C" __global__ void cudaFuerzaPresionEOS(scalar* p, scalar* rho, scalar* 
 
     // Calculo de la presion
     
-    if( idx < mesh->nPoints ) {
+    if( idx < np ) {
 
 	p[idx] = ( ( rho[idx] * R * T[idx] ) / ( 1 - rho[idx] * b ) ) - ( a * rho[idx] * rho[idx] ) ;	    
 

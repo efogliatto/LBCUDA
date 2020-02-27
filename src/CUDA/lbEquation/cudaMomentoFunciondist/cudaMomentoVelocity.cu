@@ -8,7 +8,7 @@
 
 
 
-extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* lvel, int np, int Q, cuscalar delta_t ) {
+extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q, cuscalar delta_t ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
     

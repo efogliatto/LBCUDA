@@ -10,13 +10,13 @@
 
 
 
-extern "C" __global__ void cudaFuerzaFuerzatotal(scalar* f, scalar* fint, scalar* rho, scalar* g, basicMesh* mesh) {
+extern "C" __global__ void cudaFuerzaFuerzatotal(scalar* f, scalar* fint, scalar* rho, scalar* g, int np) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
 	
     // Suma de todas las componentes
 
-    if( idx < mesh->nPoints ) {
+    if( idx < np ) {
 
 
 	// Volumetric force add Interaccion force

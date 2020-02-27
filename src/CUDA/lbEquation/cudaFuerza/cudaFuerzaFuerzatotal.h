@@ -15,12 +15,12 @@
  * @param fint Fuerza de Interaccion
  * @param rho Densidad macroscópica
  * @param g Aceleracion macroscópica
- * @param mesh Malla básica
+ * @param np Numero de puntos
  */
 
 #include <basicMesh.h>
 
-extern "C" __global__ void cudaFuerzaFuerzatotal(scalar* f, scalar* fint, scalar* rho, scalar* g, basicMesh* mesh)   ;
+extern "C" __global__ void cudaFuerzaFuerzatotal(scalar* f, scalar* fint, scalar* rho, scalar* g, int np)   ;
 
 
 #endif // CUDAFUERZAFUERZATOTAL_H

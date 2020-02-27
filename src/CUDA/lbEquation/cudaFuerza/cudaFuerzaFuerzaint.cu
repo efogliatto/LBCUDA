@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 
-extern "C" __global__ void cudaFuerzaFuerzaint(scalar* fint, scalar* psi, basicMesh* mesh, scalar G) {
+extern "C" __global__ void cudaFuerzaFuerzaint(scalar* fint, scalar* psi, int np, int Q,  int* lvel,int* nb, scalar G) {
 
 
        int idx = threadIdx.x + blockIdx.x*blockDim.x;
@@ -27,7 +27,7 @@ extern "C" __global__ void cudaFuerzaFuerzaint(scalar* fint, scalar* psi, basicM
 	
     // Suma de todas las componentes
     
-    if(  idx < mesh->nPoints ) {
+    if(  idx < np ) {
 
 
 	// Local force
@@ -45,9 +45,9 @@ extern "C" __global__ void cudaFuerzaFuerzaint(scalar* fint, scalar* psi, basicM
 
 	    uint k = 0 ;
 
-	    while( k < mesh->Q ) {
+	    while( k < Q ) {
 
-		lf[j] += (scalar)mesh->lattice.vel[k*3+j] * weight[k] * psi[ mesh->nb[idx][k] ];
+		lf[j] += (scalar)lvel[k*3+j] * weight[k] * psi[ nb[idx * Q + k] ];
 		
 		k++;
     

@@ -20,12 +20,13 @@
  * @param tau_e Parametro que es uno de los valores de relajacion
  * @param tau_chi Parametro que es uno de los valores de relajacion
  * @param delta_t Paso de tiempo
- * @param mesh Malla básica
+ * @param np Numero de vecinos
+ * @param Q Modelo de LB de DdQq
  */
 
 #include <basicMesh.h>
 
-extern "C" __global__ void cudaFuerzaS(scalar* S, scalar* f, scalar* fint, scalar* U, scalar* psi, scalar sigma, scalar tau_e, scalar tau_chi, basicMesh* mesh, scalar delta_t) ;
+extern "C" __global__ void cudaFuerzaS(scalar* S, scalar* f, scalar* fint, scalar* U, scalar* psi, scalar sigma, scalar tau_e, scalar tau_chi, scalar delta_t, uint np, uint Q) ;
 
 
 #endif // CUDAFUERZAS_H
