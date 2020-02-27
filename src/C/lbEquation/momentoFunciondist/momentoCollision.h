@@ -20,6 +20,7 @@
  * @param rho Densidad
  * @param U Velocidad
  * @param delta_t Paso de tiempo
+ * @param S Termino de fuente
  */
 
 
@@ -27,6 +28,6 @@
 
 #include <momentoModelCoeffs.h>
 
-void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar delta_t);
+void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar delta_t, scalar* S);
 
 #endif // MOMENTOCOLLISION_H

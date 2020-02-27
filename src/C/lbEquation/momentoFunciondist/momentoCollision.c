@@ -4,7 +4,7 @@
 
 
 
-void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar delta_t) {
+void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar delta_t, scalar* S) {
 
 
     
@@ -13,8 +13,6 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
     scalar m[9];   // m:  Distribucion en espacio de momentos
     
     scalar m_eq[9];   // meq: Distribucion de equilibrio en espacio de momentos
-
-    scalar s[9] = {0,0,0,0,0,0,0,0,0};	// s: Termino de fuente que se debe traer ya calculado 
 
     
     // Colision sobre todos los nodos
@@ -67,7 +65,7 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
 	// Collision in momentum space
 	
 	for( uint k = 0 ; k < mesh->Q ; k++ )
-	    m[k] = ( m[k]  -  relax->Tau[k]*( m[k] - m_eq[k] ) ) + ( delta_t * ( 1 - 0.5 * relax->Tau[k] ) * s[k] );
+	    m[k] = ( m[k]  -  relax->Tau[k]*( m[k] - m_eq[k] ) ) + ( delta_t * ( 1 - 0.5 * relax->Tau[k] ) * S[ id*mesh->Q + k ] );
 	    
 
 	

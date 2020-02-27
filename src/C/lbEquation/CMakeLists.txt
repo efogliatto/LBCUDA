@@ -14,5 +14,6 @@ add_library(lbequation SHARED
   fuerza/fuerzaPsi.c
   fuerza/fuerzaFuerzaint.c
   fuerza/fuerzaFuerzatotal.c
+  fuerza/fuerzaS.c
 
   )

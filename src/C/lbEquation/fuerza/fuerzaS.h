@@ -25,7 +25,7 @@
 
 #include <basicMesh.h>
 
-void fuerzaSumidero(scalar* S, scalar* f, scalar* fint, scalar* U, scalar* psi, scalar sigma, scalar tau_e, scalar tau_chi, basicMesh* mesh, scalar delta_t) ;
+void fuerzaS(scalar* S, scalar* f, scalar* fint, scalar* U, scalar* psi, scalar sigma, scalar tau_e, scalar tau_chi, basicMesh* mesh, scalar delta_t) ;
 
 
 #endif // FUERZAS_H

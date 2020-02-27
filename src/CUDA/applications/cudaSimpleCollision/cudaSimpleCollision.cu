@@ -100,9 +100,13 @@ int main(int argc, char** argv) {
 
     cuscalar cs_2 = ( 1/3 ); 
 
+    scalar sigma = 1.0;
+
     // Aceleracion del problema
 
     cuscalar g[3] = {0,0,0};
+
+    
 
     // Lectura de malla
 
@@ -147,6 +151,9 @@ int main(int argc, char** argv) {
     cuscalar* fint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Interaction force
 
     cuscalar* f = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Total force ( volumetric add interaction ) 
+
+    cuscalar* S = (cuscalar*)malloc( mesh.nPoints * mesh.Q * sizeof(cuscalar) ); // Source term
+
     
     // Inicializacion (puede ser otra)
 
@@ -174,6 +181,9 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
     	f[i] = 0.0;
+
+    for( uint i = 0 ; i < (mesh.Q*mesh.nPoints) ; i++ )
+    	S[i] = 0.0;
 
     
     // Alocacion de memoria en el device y copia
@@ -219,7 +229,7 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceTau, relax.Tau, 9*sizeof(cuscalar), cudaMemcpyHostToDevice );    
 
 
-    cuscalar delta_t_cu = 0.0;
+    cuscalar delta_t_cu = 1.0;
     
 
     // Reduccion
@@ -240,7 +250,7 @@ int main(int argc, char** argv) {
 	
     }
 
-    scalar delta_t = 0.0;	
+    scalar delta_t = 1.0;	
     scalar elap = elapsedTime(&Time);
     
     printf( "\n   Colisión finalizada en %f segundos\n", elap );
@@ -261,7 +271,7 @@ int main(int argc, char** argv) {
     // Verificacion de calculo contra version de CPU
 
 //    exampleCollision( &mesh, &relax, field, rho, U );
-    momentoCollision( &mesh, &relax, field, rho, U,delta_t ); // Calculo de la funcion de distribucion con valores de los parametros seteados para inicializar
+    momentoCollision( &mesh, &relax, field, rho, U, delta_t, S ); // Calculo de la funcion de distribucion con valores de los parametros seteados para inicializar
 
 							      // A continuacion se calculan el resto de los parametroz para ir actualizandolos
     
@@ -277,6 +287,8 @@ int main(int argc, char** argv) {
 
     momentoDensity( rho, field, &mesh);  
 
+    fuerzaS(S, f, fint, U, psi, sigma, relax.Tau[1], relax.Tau[2], &mesh, delta_t);
+
 
     {
 	
@@ -285,6 +297,7 @@ int main(int argc, char** argv) {
     	for(uint i = 0 ; i < fsize ; i++) {
 
 //	    printf( "%f \t %f \n", dcol[i],field[i]);	
+	    printf( "%f \n", S[i]);	
 
     	    if(dcol[i] != field[i])
     		eq = 1;
@@ -314,6 +327,8 @@ int main(int argc, char** argv) {
     free( f );   
 
     free( fint );
+
+    free( S );
 
     freeBasicMesh( &mesh );
 

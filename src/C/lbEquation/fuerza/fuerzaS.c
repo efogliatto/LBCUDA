@@ -2,7 +2,9 @@
 
 #include <stdio.h>
 
-void fuerzaSumidero(scalar* S, scalar* f, scalar* fint, scalar* U, scalar* psi, scalar sigma, scalar tau_e, scalar tau_chi, basicMesh* mesh, scalar delta_t) {
+#include <math.h>
+
+void fuerzaS(scalar* S, scalar* f, scalar* fint, scalar* U, scalar* psi, scalar sigma, scalar tau_e, scalar tau_chi, basicMesh* mesh, scalar delta_t) {
 
 	// Valores de los pesos del modelo D2Q9
 
@@ -18,11 +20,11 @@ void fuerzaSumidero(scalar* S, scalar* f, scalar* fint, scalar* U, scalar* psi, 
 
 	    fintmag += fint[i*3 + k] * fint[i*3 + k];
 
-	    scalar dot += U[i*3 + k] * f[i*3 + k];
+	    dot += U[i*3 + k] * f[i*3 + k];
 
 	}
 
-	scalar aux = 12 * sigma * abs( fintmag ) / ( psi[i] * psi[i] * delta_t )
+	scalar aux = 12 * sigma * fabsf( fintmag ) / ( psi[i] * psi[i] * delta_t );
 
 	S[i * mesh->Q + 0] = 0.0 ;	
 	S[i * mesh->Q + 1] = 6 * dot + ( aux / (tau_e - 0.5) )  ;    
