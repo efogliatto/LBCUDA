@@ -273,7 +273,7 @@ int main(int argc, char** argv) {
 
     fuerzaFuerzatotal(f, fint, rho, g, &mesh);
 
-    momentoVelocity( rho,  U, field, &mes	h, delta_t, f);
+    momentoVelocity( rho,  U, field, &mesh, delta_t, f);
 
     momentoDensity( rho, field, &mesh);  
 

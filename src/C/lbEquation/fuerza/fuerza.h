@@ -9,4 +9,6 @@
 
 #include <fuerzaFuerzatotal.h>
 
+#include <fuerzaS.h>
+
 #endif // FUERZA_H
