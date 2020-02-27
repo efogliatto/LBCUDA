@@ -11,6 +11,12 @@ add_library(cudalbequation STATIC
   cudaMomentoFunciondist/cudaMomentoDensity.cu
   cudaMomentoFunciondist/cudaMomentoVelocity.cu
 
+  cudaFuerza/cudaFuerzaPresionEOS.cu
+  cudaFuerza/cudaFuerzaPsi.cu
+  cudaFuerza/cudaFuerzaFuerzaint.cu
+  cudaFuerza/cudaFuerzaFuerzatotal.cu
+  cudaFuerza/cudaFuerzaS.cu
+
   )
 
 set_target_properties( cudatest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
@@ -29,6 +35,12 @@ add_library(cudalbequationPTX OBJECT
   cudaMomentoFunciondist/cudaMomentoCollision.cu
   cudaMomentoFunciondist/cudaMomentoDensity.cu
   cudaMomentoFunciondist/cudaMomentoVelocity.cu
+
+  cudaFuerza/cudaFuerzaPresionEOS.cu
+  cudaFuerza/cudaFuerzaPsi.cu
+  cudaFuerza/cudaFuerzaFuerzaint.cu
+  cudaFuerza/cudaFuerzaFuerzatotal.cu
+  cudaFuerza/cudaFuerzaS.cu
 
   )
 
