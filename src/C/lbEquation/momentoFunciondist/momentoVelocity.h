@@ -16,11 +16,12 @@
  * @param field Función de distribución
  * @param mesh Malla básica
  * @param delta_t Paso de tiempo
+ * @param F Fuerza total ( volumetrica + interaccion ) 
  */
 
 #include <basicMesh.h>
 
-void momentoVelocity(scalar* rho, scalar* U, scalar* field, basicMesh* mesh, scalar delta_t);
+void momentoVelocity(scalar* rho, scalar* U, scalar* field, basicMesh* mesh, scalar delta_t, scalar* F);
 
 
 #endif // MOMENTOVELOCITY_H

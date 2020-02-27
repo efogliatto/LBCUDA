@@ -17,6 +17,10 @@ extern "C" {
 
 #include <momentoFunciondist.h>   
 
+#include <momentoVelocity.h>
+
+#include <fuerza.h>   
+
 }
 
 #include <stdio.h>
@@ -84,8 +88,21 @@ int main(int argc, char** argv) {
 
     }
     
+    // Parametros del modelo D2Q9
 
-    
+    int a = 1;
+
+    int b = 4;
+
+    cuscalar G = -1.0; 
+
+    cuscalar c = 1.0; 
+
+    cuscalar cs_2 = ( 1/3 ); 
+
+    // Aceleracion del problema
+
+    cuscalar g[3] = {0,0,0};
 
     // Lectura de malla
 
@@ -115,11 +132,21 @@ int main(int argc, char** argv) {
     
     // Alocacion de arreglo de salida
 
-    cuscalar* rho = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
+    cuscalar* rho = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); //Density
 
-    cuscalar* U = (cuscalar*)malloc( 3 * mesh.nPoints * sizeof(cuscalar) );    
+    cuscalar* U = (cuscalar*)malloc( 3 * mesh.nPoints * sizeof(cuscalar) ); // Velocity macroscopic    
 
+    // Alocacion de arreglo de otros parametros
 
+    cuscalar* T = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Temperature
+
+    cuscalar* p = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Presion
+
+    cuscalar* psi = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Arreglo con la funcion psi calculada
+
+    cuscalar* fint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Interaction force
+
+    cuscalar* f = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Total force ( volumetric add interaction ) 
     
     // Inicializacion (puede ser otra)
 
@@ -133,6 +160,20 @@ int main(int argc, char** argv) {
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
     	U[i] = 0;
 
+    for( uint i = 0 ; i < mesh.nPoints ; i++ )
+    	T[i] = 0.0;
+
+    for( uint i = 0 ; i < mesh.nPoints ; i++ )
+    	p[i] = 0.0;
+
+    for( uint i = 0 ; i < mesh.nPoints ; i++ )
+    	psi[i] = 0.0;
+
+    for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
+    	fint[i] = 0.0;
+
+    for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
+    	f[i] = 0.0;
 
     
     // Alocacion de memoria en el device y copia
@@ -220,7 +261,23 @@ int main(int argc, char** argv) {
     // Verificacion de calculo contra version de CPU
 
 //    exampleCollision( &mesh, &relax, field, rho, U );
-    momentoCollision( &mesh, &relax, field, rho, U,delta_t );
+    momentoCollision( &mesh, &relax, field, rho, U,delta_t ); // Calculo de la funcion de distribucion con valores de los parametros seteados para inicializar
+
+							      // A continuacion se calculan el resto de los parametroz para ir actualizandolos
+    
+    fuerzaPresionEOS(p, rho, T, &mesh, a, b);    
+
+    fuerzaPsi(psi, p, rho, c, cs_2, G, &mesh);
+
+    fuerzaFuerzaint(fint, psi, &mesh, G);
+
+    fuerzaFuerzatotal(f, fint, rho, g, &mesh);
+
+    momentoVelocity( rho,  U, field, &mes	h, delta_t, f);
+
+    momentoDensity( rho, field, &mesh);  
+
+
     {
 	
     	uint eq = 0;
@@ -246,7 +303,17 @@ int main(int argc, char** argv) {
 
     free( rho );
 
-    free( U );    
+    free( U ); 
+
+    free( T );
+
+    free( p );   
+
+    free( psi );
+
+    free( f );   
+
+    free( fint );
 
     freeBasicMesh( &mesh );
 

@@ -2,10 +2,10 @@
 
 #include <stdio.h>
 
-void momentoVelocity(scalar* rho, scalar* U, scalar* field, basicMesh* mesh, scalar delta_t) {
+void momentoVelocity(scalar* rho, scalar* U, scalar* field, basicMesh* mesh, scalar delta_t, scalar* F) {
 
 
-    scalar F[3] = {0,0,0}; // Fuerza de cada uno de los nodos (ahora de forma sencilla)
+    //scalar F[3] = {0,0,0}; // Fuerza de cada uno de los nodos (ahora de forma sencilla)
 	
     // Suma de todas las componentes
     
@@ -28,7 +28,7 @@ void momentoVelocity(scalar* rho, scalar* U, scalar* field, basicMesh* mesh, sca
 		    
 	    }
 	
-	    lv[j] += 0.5 * delta_t * F[j];     
+	    lv[j] += 0.5 * delta_t * F[ i * 3 + j ];     
 	
 	}
 
