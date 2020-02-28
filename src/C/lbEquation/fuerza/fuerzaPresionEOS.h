@@ -14,14 +14,13 @@
  * @param p Presion macroscópica
  * @param rho Densidad macroscópica
  * @param T Temperatura macroscópica
- * @param mesh Malla básica
  * @param a Parametro del modelo DdQq
  * @param b Parametro del modelo DdQq
  */
 
 #include <basicMesh.h>
 
-void fuerzaPresionEOS(scalar* p, scalar* rho, scalar* T, basicMesh* mesh, int a, int b) ;
+void fuerzaPresionEOS(scalar p, scalar rho, scalar T, int a, int b) ;
 
 
 #endif // FUERZAPRESIONEOS_H

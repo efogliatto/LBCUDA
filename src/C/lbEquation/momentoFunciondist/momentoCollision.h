@@ -20,7 +20,15 @@
  * @param rho Densidad
  * @param U Velocidad
  * @param delta_t Paso de tiempo
- * @param S Termino de fuente
+ * @param f Fuerza total ( volumetrica + Interaccion)
+ * @param fint Fuerza de interaccion
+ * @param T Temperatura macroscópica
+ * @param a Parametro del modelo DdQq
+ * @param b Parametro del modelo DdQq
+ * @param G Parametro del modelo de LB
+ * @param c Parametro del modelo de LB
+ * @param cs_2 Parametro del modelo de LB elevado al cuadrado
+ * @param sigma Parametro libre para la inconsistencia termodinamica.
  */
 
 
@@ -28,6 +36,6 @@
 
 #include <momentoModelCoeffs.h>
 
-void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar delta_t, scalar* S);
+void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar* f, scalar* fint, scalar* T, scalar delta_t, int a, int b, scalar c, scalar cs_2, scalar G, scalar sigma);
 
 #endif // MOMENTOCOLLISION_H

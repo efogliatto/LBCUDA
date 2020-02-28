@@ -386,11 +386,12 @@ int main(int argc, char** argv) {
     // Verificacion de calculo contra version de CPU
 
 //    exampleCollision( &mesh, &relax, field, rho, U );
-    momentoCollision( &mesh, &relax, field, rho, U, delta_t, S ); // Calculo de la funcion de distribucion con valores de los parametros seteados para inicializar
+ 
+    momentoCollision( &mesh, &relax, field, rho, U, f, fint, T, delta_t, a, b, c, cs_2, G, sigma);
+//    momentoCollision( &mesh, &relax, field, rho, U, delta_t, S ); // Calculo de la funcion de distribucion con valores de los parametros seteados para inicializar
 
 							      // A continuacion se calculan el resto de los parametroz para ir actualizandolos
     
-    fuerzaPresionEOS(p, rho, T, &mesh, a, b);    
 
 /*    fuerzaPsi(psi, p, rho, c, cs_2, G, &mesh);
 
@@ -402,7 +403,7 @@ int main(int argc, char** argv) {
 
     momentoDensity( rho, field, &mesh);  
 
-    fuerzaS(S, f, fint, U, psi, sigma, relax.Tau[1], relax.Tau[2], &mesh, delta_t);
+    fuerzaS(S, f, fint, U, psi, sigma, relax.Tau, &mesh, delta_t);
 */
 
     {
@@ -411,11 +412,11 @@ int main(int argc, char** argv) {
 
     	for(uint i = 0 ; i < fsize ; i++) {
 
-	    printf( "%f \t %f \n", dP[i],p[i]);
+	    printf( "%f \t %f \n", dcol[i],field[i]);
 //	    printf( "%d \n", eq);	
 //	    printf( "%f \n", S[i]);	
 
-    	    if(dP[i] != p[i])
+    	    if(dcol[i] != field[i])
     		eq = 1;
 
     	}
