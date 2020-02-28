@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
 
     cuscalar c = 1.0; 
 
-    cuscalar cs_2 = ( 1/3 ); 
+    cuscalar cs_2 = ( 1.0/3.0 ); 
 
     scalar sigma = 1.0;
 
@@ -146,9 +146,9 @@ int main(int argc, char** argv) {
 
     cuscalar* T = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Temperature
 
-    cuscalar* p = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Presion
+/*    cuscalar* p = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Presion
 
-    cuscalar* psi = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Arreglo con la funcion psi calculada
+    cuscalar* psi = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Arreglo con la funcion psi calculada	*/
 
     cuscalar* fint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Interaction force
 
@@ -172,11 +172,11 @@ int main(int argc, char** argv) {
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
     	T[i] = 0.0;
 
-    for( uint i = 0 ; i < mesh.nPoints ; i++ )
+/*    for( uint i = 0 ; i < mesh.nPoints ; i++ )
     	p[i] = 0.0;
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	psi[i] = 0.0;
+    	psi[i] = 0.0;					*/
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
     	fint[i] = 0.0;
@@ -184,8 +184,8 @@ int main(int argc, char** argv) {
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
     	f[i] = 0.0;
 
-    for( uint i = 0 ; i < (mesh.Q*mesh.nPoints) ; i++ )
-    	S[i] = 0.0;
+/*    for( uint i = 0 ; i < (mesh.Q*mesh.nPoints) ; i++ )
+    	S[i] = 0.0;						*/
 
     
     // Alocacion de memoria en el device y copia
@@ -218,7 +218,7 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceT, T, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
-    cuscalar* deviceP;
+/*    cuscalar* deviceP;
  
     cudaMalloc( (void**)&deviceP, mesh.nPoints*sizeof(cuscalar) );
 
@@ -229,7 +229,7 @@ int main(int argc, char** argv) {
 
     cudaMalloc( (void**)&devicePsi, mesh.nPoints*sizeof(cuscalar) );
 
-    cudaMemcpy( devicePsi, psi, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+    cudaMemcpy( devicePsi, psi, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );	*/
 
 
     cuscalar* deviceFint;
@@ -246,11 +246,11 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceF, f, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
-    cuscalar* deviceS;
+/*    cuscalar* deviceS;
 
     cudaMalloc( (void**)&deviceS, mesh.Q*mesh.nPoints*sizeof(cuscalar) );
 
-    cudaMemcpy( deviceS, S, mesh.Q*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+    cudaMemcpy( deviceS, S, mesh.Q*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );	*/
 
 
 
@@ -291,9 +291,9 @@ int main(int argc, char** argv) {
 
     	cudaDeviceSynchronize();
 
-       cudaFuerzaPresionEOS<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceP, deviceRho, deviceT, cmesh.nPoints, a, b);    
+/*       cudaFuerzaPresionEOS<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceP, deviceRho, deviceT, cmesh.nPoints, a, b);    
 
-    	cudaDeviceSynchronize();
+    	cudaDeviceSynchronize();*/
   
  /*        cudaFuerzaPsi<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( devicePsi, deviceP, deviceRho, c, cs_2, G, cmesh.nPoints); 
 
@@ -338,12 +338,12 @@ int main(int argc, char** argv) {
     cudaMemcpy( dcol, deviceField, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
 
 /*-----------------------------------------------------------------------------------------*/
-
+/*
     cuscalar* dP = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
 
     cudaMemcpy( dP, deviceP, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
 
-/*
+
     cuscalar* dRho = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) );
 
     cudaMemcpy( dRho, deviceRho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
@@ -386,7 +386,7 @@ int main(int argc, char** argv) {
     // Verificacion de calculo contra version de CPU
 
 //    exampleCollision( &mesh, &relax, field, rho, U );
- 
+
     momentoCollision( &mesh, &relax, field, rho, U, f, fint, T, delta_t, a, b, c, cs_2, G, sigma);
 //    momentoCollision( &mesh, &relax, field, rho, U, delta_t, S ); // Calculo de la funcion de distribucion con valores de los parametros seteados para inicializar
 
@@ -437,15 +437,15 @@ int main(int argc, char** argv) {
 
     free( T );
 
-    free( p );   
+//    free( p );   
 
-    free( psi );
+//    free( psi );
 
     free( f );   
 
     free( fint );
 
-    free( S );
+//    free( S );
 
     freeBasicMesh( &mesh );
 

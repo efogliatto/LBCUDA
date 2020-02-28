@@ -21,7 +21,7 @@
 
 #include <basicMesh.h>
 
-void fuerzaPsi(scalar psi, scalar p_EOS, scalar rho, scalar c, scalar cs_2, scalar G);
+void fuerzaPsi(scalar* psi, scalar p_EOS, scalar rho, scalar c, scalar cs_2, scalar G);
 
 
 #endif // FUERZAPSI_H

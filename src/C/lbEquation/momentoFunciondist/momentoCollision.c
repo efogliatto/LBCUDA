@@ -8,6 +8,8 @@
 
 #include <stdlib.h>
 
+#include <stdio.h>
+
 
 
 void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar* f, scalar* fint, scalar* T, scalar delta_t, int a, int b, scalar c, scalar cs_2, scalar G, scalar sigma) {
@@ -34,17 +36,24 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
 
 	// Magnitud de la velocidad y copia de parametros auxiliares para el calculo de S
 	
+
 	scalar umag = 0;
-	
+
+//	printf( "\n ");	
+
 	for( uint k = 0 ; k < 3 ; k++ )	{
 	    umag += U[id*3 + k] * U[id*3 + k];
 
     	    auxU[k] = U[id*3 + k];
 	    auxF[k] = f[id*3 + k];
 	    auxFint[k] = fint[id*3 + k];
+ 
+//   	    printf( "%f \t", auxFint[k] );
 
 	}
-	
+
+//	printf( "\n ");
+
 	// Distribucion de equilibrio en espacio de momentos
 	
 	m_eq[0] = rho[id];
@@ -76,13 +85,14 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
 	// Calulo de S termino de fuente
 
 	scalar p_EOS = 0.0;
+	
 	scalar psi = 0.0;
 
-	fuerzaPresionEOS( p_EOS, rho[id] , T[id], a, b); 	
+	fuerzaPresionEOS( &p_EOS, rho[id] , T[id], a, b); 	
 
-	fuerzaPsi( psi,  p_EOS, rho[id], c, cs_2, G);
+	fuerzaPsi( &psi, p_EOS, rho[id], c, cs_2, G);
 
-	fuerzaS(S, auxF, auxFint, auxU, psi, sigma, relax->Tau, delta_t) ;
+	//fuerzaS(S, auxF, auxFint, auxU, psi, sigma, relax->Tau, delta_t) ;
 	
 	// Collision in momentum space
 	
