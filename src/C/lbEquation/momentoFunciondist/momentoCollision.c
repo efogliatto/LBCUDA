@@ -92,8 +92,18 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
 
 	fuerzaPsi( &psi, p_EOS, rho[id], c, cs_2, G);
 
-	//fuerzaS(S, auxF, auxFint, auxU, psi, sigma, relax->Tau, delta_t) ;
-	
+	fuerzaS(S, auxF, auxFint, auxU, psi, sigma, relax->Tau, delta_t) ;
+
+/*
+	for( uint i = 0 ; i < mesh->Q ; i++ ) {
+
+        printf("%f \t ", S[i]);
+
+
+	}
+        printf("\n ");
+*/
+
 	// Collision in momentum space
 	
 	for( uint k = 0 ; k < mesh->Q ; k++ )
