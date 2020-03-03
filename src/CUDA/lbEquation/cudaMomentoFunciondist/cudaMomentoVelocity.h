@@ -18,6 +18,7 @@
  * @param np Cantidad de puntos
  * @param Q Cantidad de vecinos
  * @param delta_t Paso de tiempo
+ * @param F Fuerza total (volumetrica + interaccion)
  */
 
 #include <dataTypes.h>
@@ -25,7 +26,7 @@
 #include <cudaBasicMesh.h>
 
 
-extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q, cuscalar delta_t );
+extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q, cuscalar delta_t, cuscalar* F  );
 
 
 #endif // CUDAMOMENTOVELOCITY_H

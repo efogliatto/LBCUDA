@@ -146,15 +146,15 @@ int main(int argc, char** argv) {
 
     cuscalar* T = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Temperature
 
-/*    cuscalar* p = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Presion
+    cuscalar* p_EOS = (cuscalar*)malloc( sizeof(cuscalar) ); // Presion
 
-    cuscalar* psi = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Arreglo con la funcion psi calculada	*/
+    cuscalar* psi = (cuscalar*)malloc( sizeof(cuscalar) ); // Arreglo con la funcion psi calculada	
 
     cuscalar* fint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Interaction force
 
     cuscalar* f = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Total force ( volumetric add interaction ) 
 
-    cuscalar* S = (cuscalar*)malloc( mesh.nPoints * mesh.Q * sizeof(cuscalar) ); // Source term
+    cuscalar* S = (cuscalar*)malloc( mesh.Q * sizeof(cuscalar) ); // Source term
 
     
     // Inicializacion (puede ser otra)
@@ -172,11 +172,10 @@ int main(int argc, char** argv) {
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
     	T[i] = 0.0;
 
-/*    for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	p[i] = 0.0;
+    p_EOS[0] = 0.0;
 
-    for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	psi[i] = 0.0;					*/
+
+    psi[0] = 0.0;					
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
     	fint[i] = 0.0;
@@ -218,18 +217,18 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceT, T, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
-/*    cuscalar* deviceP;
+    cuscalar* deviceP_EOS;
  
-    cudaMalloc( (void**)&deviceP, mesh.nPoints*sizeof(cuscalar) );
+    cudaMalloc( (void**)&deviceP_EOS, sizeof(cuscalar) );
 
-    cudaMemcpy( deviceP, p, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+    cudaMemcpy( deviceP_EOS, p_EOS, sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
     cuscalar* devicePsi;
 
-    cudaMalloc( (void**)&devicePsi, mesh.nPoints*sizeof(cuscalar) );
+    cudaMalloc( (void**)&devicePsi, sizeof(cuscalar) );
 
-    cudaMemcpy( devicePsi, psi, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );	*/
+    cudaMemcpy( devicePsi, psi, sizeof(cuscalar), cudaMemcpyHostToDevice );		
 
 
     cuscalar* deviceFint;
@@ -246,11 +245,11 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceF, f, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
-/*    cuscalar* deviceS;
+    cuscalar* deviceS;
 
     cudaMalloc( (void**)&deviceS, mesh.Q*mesh.nPoints*sizeof(cuscalar) );
 
-    cudaMemcpy( deviceS, S, mesh.Q*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );	*/
+    cudaMemcpy( deviceS, S, mesh.Q*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );	
 
 
 
@@ -287,19 +286,11 @@ int main(int argc, char** argv) {
 	
 //    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
 
-	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu );
+	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma, deviceP_EOS, devicePsi, deviceS );
 
-    	cudaDeviceSynchronize();
+   	cudaDeviceSynchronize();
 
-/*       cudaFuerzaPresionEOS<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceP, deviceRho, deviceT, cmesh.nPoints, a, b);    
-
-    	cudaDeviceSynchronize();*/
-  
- /*        cudaFuerzaPsi<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( devicePsi, deviceP, deviceRho, c, cs_2, G, cmesh.nPoints); 
-
-    	cudaDeviceSynchronize();
-
-        cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, devicePsi, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, cmesh.nb, G);  
+/*      cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, devicePsi, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, cmesh.nb, G);  
 
     	cudaDeviceSynchronize();
 
@@ -307,7 +298,7 @@ int main(int argc, char** argv) {
 
     	cudaDeviceSynchronize();
 
-        cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceRho, deviceU, cmesh.lattice.vel, cmesh.nPoints, cmesh.Q, delta_t_cu );
+        cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceRho, deviceU, cmesh.lattice.vel, cmesh.nPoints, cmesh.Q, delta_t_cu, deviceF );
 
     	cudaDeviceSynchronize();
 
@@ -437,15 +428,15 @@ int main(int argc, char** argv) {
 
     free( T );
 
-//    free( p );   
+    free( p_EOS );   
 
-//    free( psi );
+    free( psi );
+
+    free( S );
 
     free( f );   
 
     free( fint );
-
-//    free( S );
 
     freeBasicMesh( &mesh );
 

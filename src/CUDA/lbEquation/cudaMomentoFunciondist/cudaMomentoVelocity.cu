@@ -8,7 +8,7 @@
 
 
 
-extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q, cuscalar delta_t ) {
+extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q, cuscalar delta_t, cuscalar* F ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
     
@@ -20,7 +20,6 @@ extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, c
 	
 	cuscalar lv[3] = {0,0,0};
 
-	cuscalar F[3] = {0,0,0}; // Fuerza de cada uno de los nodos (ahora de forma sencilla)
 
 	// Indice sobre componentes de velocidad
 	
@@ -41,7 +40,7 @@ extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, c
 
 	    }
 
-	    lv[j] += 0.5 * delta_t * F[j];
+	    lv[j] += 0.5 * delta_t * F[idx * 3 + j];
 
 	    j++;
 
