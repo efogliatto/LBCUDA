@@ -22,7 +22,7 @@
 
 #include <basicMesh.h>
 
-extern "C" __global__ void cudaFuerzaPsi(scalar* psi, scalar* p_EOS, scalar* rho, scalar c, scalar cs_2, scalar G, int np);
+extern "C" __device__ void cudaFuerzaPsi(cuscalar* psi, cuscalar p_EOS, cuscalar rho, cuscalar c, cuscalar cs_2, cuscalar G);
 
 
 #endif // CUDAFUERZAPSI_H

@@ -17,16 +17,13 @@
  * @param U Velocidad macroscopica
  * @param psi Valor de la funcion psi
  * @param sigma Parametro libre para la inconsistencia termodinamica.
- * @param tau_e Parametro que es uno de los valores de relajacion
- * @param tau_chi Parametro que es uno de los valores de relajacion
+ * @param tau_e Parametros de relajacion
  * @param delta_t Paso de tiempo
- * @param np Numero de vecinos
- * @param Q Modelo de LB de DdQq
  */
 
 #include <basicMesh.h>
 
-extern "C" __global__ void cudaFuerzaS(scalar* S, scalar* f, scalar* fint, scalar* U, scalar* psi, scalar sigma, scalar tau_e, scalar tau_chi, scalar delta_t, uint np, uint Q) ;
+extern "C" __device__ void cudaFuerzaS(cuscalar* S, cuscalar* f, cuscalar* fint, cuscalar* U, cuscalar psi, cuscalar sigma, cuscalar* tau, cuscalar delta_t) ;
 
 
 #endif // CUDAFUERZAS_H

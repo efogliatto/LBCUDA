@@ -6,11 +6,11 @@
 
 #include <stdlib.h>
 
-#include <cudaThreadedMatMult.h>
+#include <cudaFuerza.h>
 
+#include <cudaMomentoFunciondist.h>
 
-
-extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* Tau, cuscalar* M, cuscalar* invM, uint np, uint Q, cuscalar delta_t ) {
+extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* f, cuscalar* fint, cuscalar* T, cuscalar* Tau, cuscalar* M, cuscalar* invM, uint np, uint Q, cuscalar delta_t, int a, int b, cuscalar c, cuscalar cs_2, cuscalar G, cuscalar sigma, cuscalar* s ) {
     
 
     int id = threadIdx.x + blockIdx.x*blockDim.x;
@@ -25,8 +25,6 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
     
 	cuscalar m_eq[9];   // meq: Distribucion de equilibrio en espacio de momentos
 
-	cuscalar s[9] = {0,0,0,0,0,0,0,0,0};	// s: Termino de fuente que se debe traer ya calculado 
-
 
 	// Magnitud de la velocidad
 	
@@ -34,7 +32,27 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
 
 	cuscalar umag = ux*ux + uy*uy + uz*uz;
 	
+	// Copia de parametros auxiliares para el calculo de S
 
+
+	cuscalar auxU[3] = {0,0,0};
+	cuscalar auxF[3] = {0,0,0};
+	cuscalar auxFint[3] = {0,0,0};
+
+
+	for( uint k = 0 ; k < 3 ; k++ )	{
+		
+		auxU[k] = U[id*3 + k];
+		auxF[k] = f[id*3 + k];
+		auxFint[k] = fint[id*3 + k];
+	
+	}
+
+	for( uint k = 0 ; k < Q ; k++ )	{
+
+		s[k] = 0.0 ;
+
+	}	
 
 	
 	// Distribucion de equilibrio en espacio de momentos
@@ -74,6 +92,23 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
 	    i++;	
 
 	}
+
+
+	cuscalar p_EOS = 0.0;
+		
+	cuscalar psi = 0.0;
+
+  	printf("p_EOS antes :%f \n ", p_EOS);
+/*
+	cudaFuerzaPresionEOS( &p_EOS, rho[id] , T[id], a, b); 	
+  
+	printf("p_EOS despues :%f \n ", p_EOS);
+
+	cudaFuerzaPsi( &psi, p_EOS, rho[id], c, cs_2, G);
+
+	cudaFuerzaS(s, auxF, auxFint, auxU, psi, sigma, Tau, delta_t) ;
+*/
+
 
 	
 	/* cudaThreadedMatMult<<<1,9>>>(M, field, id, Q); */
