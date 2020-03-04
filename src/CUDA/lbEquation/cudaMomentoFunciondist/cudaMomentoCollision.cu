@@ -12,8 +12,9 @@
 
 
 
-extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* f, cuscalar* fint, cuscalar* T, cuscalar* Tau, cuscalar* M, cuscalar* invM, uint np, uint Q, cuscalar delta_t, int a, int b, cuscalar c, cuscalar cs_2, cuscalar G, cuscalar sigma, cuscalar* p_EOS, cuscalar* psi, cuscalar* s ) {
+extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* f, cuscalar* fint, cuscalar* T, cuscalar* Tau, cuscalar* M, cuscalar* invM, uint np, uint Q, cuscalar delta_t, int a, int b, cuscalar c, cuscalar cs_2, cuscalar G, cuscalar sigma, cuscalar* s ) {
     
+    printf("\n durante la colision	----------------------------------------------  : \n ");
 
     int id = threadIdx.x + blockIdx.x*blockDim.x;
 
@@ -109,13 +110,18 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
 
 
 
-//		p_EOS = 0.0;
+		cuscalar p_EOS = 0.0;
 		
-//		psi = 0.0;
+		cuscalar psi = 0.0;
 
-		cudaFuerzaPresionEOS<<<1,1>>>( *p_EOS, rho[id] , T[id], a, b); 	
+  	printf("p_EOS antes :%f \n ", p_EOS);
 
-		cudaFuerzaPsi<<<1,1>>>( *psi, *p_EOS, rho[id], c, cs_2, G);
+		cudaFuerzaPresionEOS( &p_EOS, rho[id] , T[id], a, b); 	
+  
+	printf("p_EOS despues :%f \n ", p_EOS);
+
+
+		cudaFuerzaPsi( &psi, p_EOS, rho[id], c, cs_2, G);
 
 //		cudaFuerzaS<<<1,1>>>(s, auxF, auxFint, auxU, *psi, sigma, Tau, delta_t) ;
 

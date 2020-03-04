@@ -146,9 +146,9 @@ int main(int argc, char** argv) {
 
     cuscalar* T = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Temperature
 
-    cuscalar* p_EOS = (cuscalar*)malloc( sizeof(cuscalar) ); // Presion
+//    cuscalar* p_EOS = (cuscalar*)malloc( sizeof(cuscalar) ); // Presion
 
-    cuscalar* psi = (cuscalar*)malloc( sizeof(cuscalar) ); // Arreglo con la funcion psi calculada	
+//    cuscalar* psi = (cuscalar*)malloc( sizeof(cuscalar) ); // Arreglo con la funcion psi calculada	
 
     cuscalar* fint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Interaction force
 
@@ -172,10 +172,10 @@ int main(int argc, char** argv) {
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
     	T[i] = 0.0;
 
-    p_EOS[0] = 0.0;
+//    p_EOS[0] = 0.0;
 
 
-    psi[0] = 0.0;					
+//    psi[0] = 0.0;					
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
     	fint[i] = 0.0;
@@ -217,7 +217,7 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceT, T, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
-    cuscalar* deviceP_EOS;
+/*    cuscalar* deviceP_EOS;
  
     cudaMalloc( (void**)&deviceP_EOS, sizeof(cuscalar) );
 
@@ -228,7 +228,7 @@ int main(int argc, char** argv) {
 
     cudaMalloc( (void**)&devicePsi, sizeof(cuscalar) );
 
-    cudaMemcpy( devicePsi, psi, sizeof(cuscalar), cudaMemcpyHostToDevice );		
+    cudaMemcpy( devicePsi, psi, sizeof(cuscalar), cudaMemcpyHostToDevice );			*/
 
 
     cuscalar* deviceFint;
@@ -255,9 +255,9 @@ int main(int argc, char** argv) {
 
     // Factores de relajacion para colision
 
-//    exampleModelCoeffs relax;
+    exampleModelCoeffs relax;
 
-    momentoModelCoeffs relax;
+//    momentoModelCoeffs relax;
 
     for( uint i = 0 ; i < 9 ; i++ )
 	relax.Tau[i] = 1;
@@ -284,9 +284,14 @@ int main(int argc, char** argv) {
 
     for( uint k = 0 ; k < nit ; k++ ) {
 	
-//    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
+    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
+		printf("\n antes de la colision	----------------------------------------------  : \n ");
 
-	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma, deviceP_EOS, devicePsi, deviceS );
+//	cudaMomentoCollision<<<8,8>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma, deviceS );
+
+
+
+//	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma, deviceS );
 
    	cudaDeviceSynchronize();
 
@@ -376,9 +381,9 @@ int main(int argc, char** argv) {
 
     // Verificacion de calculo contra version de CPU
 
-//    exampleCollision( &mesh, &relax, field, rho, U );
+    exampleCollision( &mesh, &relax, field, rho, U );
 
-    momentoCollision( &mesh, &relax, field, rho, U, f, fint, T, delta_t, a, b, c, cs_2, G, sigma);
+//    momentoCollision( &mesh, &relax, field, rho, U, f, fint, T, delta_t, a, b, c, cs_2, G, sigma);
 //    momentoCollision( &mesh, &relax, field, rho, U, delta_t, S ); // Calculo de la funcion de distribucion con valores de los parametros seteados para inicializar
 
 							      // A continuacion se calculan el resto de los parametroz para ir actualizandolos
@@ -402,11 +407,11 @@ int main(int argc, char** argv) {
     	uint eq = 0;
 
     	for(uint i = 0 ; i < fsize ; i++) {
-
+/*
 	    printf( "%f \t %f \n", dcol[i],field[i]);
 //	    printf( "%d \n", eq);	
 //	    printf( "%f \n", S[i]);	
-
+*/
     	    if(dcol[i] != field[i])
     		eq = 1;
 
@@ -428,9 +433,9 @@ int main(int argc, char** argv) {
 
     free( T );
 
-    free( p_EOS );   
+//    free( p_EOS );   
 
-    free( psi );
+//    free( psi );
 
     free( S );
 

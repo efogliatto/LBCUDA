@@ -73,11 +73,11 @@ link_directories( ${CMAKE_SOURCE_DIR}/lib )
 
 # Optional: precision
 
-set(PRECISION "double" CACHE STRING "Floating-point precision")
+set(PRECISION "simple" CACHE STRING "Floating-point precision")
 
 if(PRECISION STREQUAL "double")
 
-  message("-- Double precision")
+  message("-- C   : Double precision")
 
   add_definitions(-DDP)
 
@@ -86,7 +86,7 @@ if(PRECISION STREQUAL "double")
 
     add_definitions(-DSP)
 
-    message("-- Simple precision")
+    message("-- C   : Simple precision")
 
   else()
 
