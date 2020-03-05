@@ -1,14 +1,16 @@
 #include <cudaFuerzaFuerzaint.h>
 
+#include <cudaFuerzaPresionEOS.h>
+
 #include <cudaFuerzaPsi.h>
 
 #include <stdio.h>
 
 
-extern "C" __global__ void cudaFuerzaFuerzaint(scalar* fint, scalar* psi, int np, int Q,  int* lvel,int* nb, scalar G) {
+extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cuscalar* T, int np, int Q,  int* lvel,int* nb, cuscalar G, cuscalar c, cuscalar cs_2, int a, int b) {
 
 
-       int idx = threadIdx.x + blockIdx.x*blockDim.x;
+    int idx = threadIdx.x + blockIdx.x*blockDim.x;
 
 	// Valores de los pesos del modelo D2Q9
 
@@ -29,48 +31,63 @@ extern "C" __global__ void cudaFuerzaFuerzaint(scalar* fint, scalar* psi, int np
     
     if(  idx < np ) {
 
-
-	// Local force
+		// Local force
 	
-	scalar lf[3] = {0,0,0};
+		scalar lf[3] = {0,0,0};
 
 
-	// Move over velocity components
+		// Move over velocity components
 	
-	uint j = 0 ;
+		uint j = 0 ;
 
-	while( j < 3 ) {
+		while( j < 3 ) {
 
 	    // Move over model velocities
 
-	    uint k = 0 ;
+	    	uint k = 0 ;
 
-	    while( k < Q ) {
+			cuscalar p_EOS = 0.0;
+			cuscalar psi = 0.0;
 
-		lf[j] += (scalar)lvel[k*3+j] * weight[k] * psi[ nb[idx * Q + k] ];
+	    	while( k < Q ) {
+
+				uint idx_nb = nb[idx * Q + k];	// index of neighbour to analize
+
+				
+
+				cudaFuerzaPresionEOS( &p_EOS, rho[idx_nb] , T[idx_nb], a, b); 
+
+				cudaFuerzaPsi( &psi, p_EOS, rho[idx], c, cs_2, G);
+
+				
+				lf[j] += (cuscalar)lvel[k*3+j] * weight[k] * psi ;
 		
-		k++;
+				k++;
     
-	    }
+			}	
+			
+			cudaFuerzaPresionEOS( &p_EOS, rho[idx] , T[idx], a, b); 
+
+			cudaFuerzaPsi( &psi, p_EOS, rho[idx], c, cs_2, G);
 	
-	    lf[j] = ( - G ) * lf[j]  * psi[idx];     
+		    lf[j] = ( - G ) * lf[j]  * psi;     
 	    
             j++;
 
-	}
+		}
 
 
 	// Copy to global array
 	
-	j =0;
+		j =0;
 
-	while( j < 3 ) {
+		while( j < 3 ) {
 	
-	    fint[idx*3+j] = lf[j];
+	    	fint[idx*3+j] = lf[j];
 
-	    j++;
+	    	j++;
 	
-	}
+		}
 
     }
 

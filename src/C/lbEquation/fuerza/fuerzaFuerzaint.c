@@ -1,10 +1,10 @@
 #include <fuerzaFuerzaint.h>
 
-#include <fuerzaPsi.h>
+#include <fuerza.h>
 
 #include <stdio.h>
 
-void fuerzaFuerzaint(scalar* fint, scalar* psi, basicMesh* mesh, scalar G) {
+void fuerzaFuerzaint(scalar* fint, scalar* rho, scalar* T , basicMesh* mesh, scalar G, scalar c, scalar cs_2, int a, int b) {
 
 	// Valores de los pesos del modelo D2Q9
 
@@ -34,15 +34,31 @@ void fuerzaFuerzaint(scalar* fint, scalar* psi, basicMesh* mesh, scalar G) {
 	// Move over velocity components
 	
 	for( uint j = 0 ; j < 3 ; j++ ) {
+			
+		cuscalar p_EOS = 0.0;
+		
+		cuscalar psi = 0.0;
 
 	    // Move over model velocities
+
 	    for(uint k = 0 ; k < mesh->Q ; k++) {
 
-		lf[j] += (scalar)mesh->lattice.vel[k*3+j] * weight[k] * psi[ mesh->nb[i][k] ];
+			uint idx_nb = mesh->nb[i][k];	// index of neighbour to analize
+
+			fuerzaPresionEOS( &p_EOS, rho[idx_nb] , T[idx_nb], a, b); 
+
+			fuerzaPsi( &psi, p_EOS, rho[i], c, cs_2, G);
+
+				
+			lf[j] += (scalar)mesh->lattice.vel[k*3+j] * weight[k] * psi ;
 		    
 	    }
+
+		fuerzaPresionEOS( &p_EOS, rho[i] , T[i], a, b); 
+
+		fuerzaPsi( &psi, p_EOS, rho[i], c, cs_2, G);
 	
-	    lf[j] = ( - G ) * lf[j]  * psi[i];     
+	    lf[j] = ( - G ) * lf[j]  * psi;     
 	
 	}
 

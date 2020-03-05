@@ -266,15 +266,17 @@ int main(int argc, char** argv) {
 	
 //    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
 
-	cudaMomentoCollision<<<8,8>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma, deviceS );
+	    cudaMomentoCollision<<<8,8>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma, deviceS );
+
+        cudaDeviceSynchronize();
+        
+
+
+        cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q,  cmesh.lattice.vel, cmesh.nb, G, c, cs_2, a, b)   ;
 
     	cudaDeviceSynchronize();
 
- /*     cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, devicePsi, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, cmesh.nb, G);  
-
-    	cudaDeviceSynchronize();
-
-        cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, g, cmesh.nPoints);	
+   /*      cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, g, cmesh.nPoints);	
 
     	cudaDeviceSynchronize();
 
@@ -325,10 +327,10 @@ int main(int argc, char** argv) {
     cudaMemcpy( dT, deviceT, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
 
 
-    cuscalar* dFint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) );
+ */   cuscalar* dFint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) );
 
     cudaMemcpy( dFint, deviceFint, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
-
+/*
 
     cuscalar* dF = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) );
 
@@ -354,10 +356,9 @@ int main(int argc, char** argv) {
 							      // A continuacion se calculan el resto de los parametroz para ir actualizandolos
     
 
-/*    fuerzaPsi(psi, p, rho, c, cs_2, G, &mesh);
-
+    
     fuerzaFuerzaint(fint, psi, &mesh, G);
-
+/*
     fuerzaFuerzatotal(f, fint, rho, g, &mesh);
 
     momentoVelocity( rho,  U, field, &mesh, delta_t, f);
@@ -373,12 +374,12 @@ int main(int argc, char** argv) {
 
     	for(uint i = 0 ; i < fsize ; i++) {
 
-	    printf( "%f \t %f \n", dcol[i],field[i]);
+	    printf( "%f \t %f \n", dcol[i],fint[i]);
 //	    printf( "%d \n", eq);	
 //	    printf( "%f \n", S[i]);	
 
     	    if(dcol[i] != field[i])
-    		eq = 1;
+    		    eq = 1;
 
     	}
 
