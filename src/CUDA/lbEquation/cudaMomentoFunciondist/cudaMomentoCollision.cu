@@ -98,16 +98,12 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
 		
 	cuscalar psi = 0.0;
 
-  	printf("p_EOS antes :%f \n ", p_EOS);
-/*
-	cudaFuerzaPresionEOS( &p_EOS, rho[id] , T[id], a, b); 	
-  
-	printf("p_EOS despues :%f \n ", p_EOS);
+  	cudaFuerzaPresionEOS( &p_EOS, rho[id] , T[id], a, b); 
 
 	cudaFuerzaPsi( &psi, p_EOS, rho[id], c, cs_2, G);
 
 	cudaFuerzaS(s, auxF, auxFint, auxU, psi, sigma, Tau, delta_t) ;
-*/
+
 
 
 	
