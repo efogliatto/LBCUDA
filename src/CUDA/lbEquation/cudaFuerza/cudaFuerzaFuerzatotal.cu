@@ -2,15 +2,10 @@
 
 #include <stdio.h>
 
+extern "C" __global__ void cudaFuerzaFuerzatotal(cuscalar* f, cuscalar* fint, cuscalar* rho, cuscalar* g, int np) {
 
+	printf("ENTRE A LA FUNCION FUERZA TOTAL \n \n");
 
-
-
-
-
-
-
-extern "C" __global__ void cudaFuerzaFuerzatotal(scalar* f, scalar* fint, scalar* rho, scalar* g, int np) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
 	
@@ -18,19 +13,19 @@ extern "C" __global__ void cudaFuerzaFuerzatotal(scalar* f, scalar* fint, scalar
 
     if( idx < np ) {
 
+	// Volumetric force add Interaction force
 
-	// Volumetric force add Interaccion force
+		uint j = 0 ;
 
-	uint j = 0 ;
-
-	while( j < 3 ) {
+		while( j < 3 ) {
 	
-	    f[idx*3+j] = rho[idx] * g[j] + fint[idx*3+j];
+	    	f[idx*3+j] = rho[idx] * g[j] + fint[idx*3+j];
 
-	    j++;
-	
-	}
-
+	    	j++;
+			
+			printf("%lf \t",f[idx*3+j]);
+		}
+		printf("\n");
     }
 
 }

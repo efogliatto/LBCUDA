@@ -14,17 +14,20 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 
 	// Valores de los pesos del modelo D2Q9
 
-	scalar weight[9];
+	//const int aux = (const int)Q;
+	const int aux = 9;
+
+	scalar weight[aux];
 
 	weight[0] = 0.0 ;	
-	weight[1] = (1/3);    
-	weight[2] = (1/3);
-	weight[3] = (1/3);
-	weight[4] = (1/3);
-	weight[5] = (1/12);
-	weight[6] = (1/12);
-	weight[7] = (1/12);
-	weight[8] = (1/12);
+	weight[1] = (1.0/3.0);    
+	weight[2] = (1.0/3.0);
+	weight[3] = (1.0/3.0);
+	weight[4] = (1.0/3.0);
+	weight[5] = (1.0/12.0);
+	weight[6] = (1.0/12.0);
+	weight[7] = (1.0/12.0);
+	weight[8] = (1.0/12.0);
 
 	
     // Suma de todas las componentes
@@ -51,20 +54,24 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 
 	    	while( k < Q ) {
 
-				uint idx_nb = nb[idx * Q + k];	// index of neighbour to analize
+				int idx_nb = nb[idx * Q + k];	// index of neighbour to analize
 
-				
+				if ( idx_nb >= 0){
+					
+					cudaFuerzaPresionEOS( &p_EOS, rho[idx_nb] , T[idx_nb], a, b); 
 
-				cudaFuerzaPresionEOS( &p_EOS, rho[idx_nb] , T[idx_nb], a, b); 
+					cudaFuerzaPsi( &psi, p_EOS, rho[idx], c, cs_2, G);
+	
+					
+					lf[j] += (cuscalar)lvel[k*3+j] * weight[k] * psi ;
+				}
 
-				cudaFuerzaPsi( &psi, p_EOS, rho[idx], c, cs_2, G);
-
-				
-				lf[j] += (cuscalar)lvel[k*3+j] * weight[k] * psi ;
+				else {
+					lf[j] += 0.0;
+				}
 		
 				k++;
-    
-			}	
+    		}	
 			
 			cudaFuerzaPresionEOS( &p_EOS, rho[idx] , T[idx], a, b); 
 
@@ -90,5 +97,4 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 		}
 
     }
-
 }

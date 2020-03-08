@@ -8,7 +8,7 @@
 
 
 
-extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q, cuscalar delta_t ) {
+extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q, cuscalar delta_t_cu ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
     
@@ -16,67 +16,67 @@ extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, c
     if( idx < np ) {
 
 
-	// Velocidad local
-	
-	cuscalar lv[3] = {0,0,0};
+		// Velocidad local
+		
+		cuscalar lv[3] = {0,0,0};
 
-	cuscalar F[3] = {0,0,0}; // Fuerza de cada uno de los nodos (ahora de forma sencilla)
+		cuscalar F[3] = {0,0,0}; // Fuerza de cada uno de los nodos (ahora de forma sencilla)
 
-	// Indice sobre componentes de velocidad
-	
-	uint j = 0 ;
+		// Indice sobre componentes de velocidad
+		
+		uint j = 0 ;
 
-	while ( j < 3 ) {
+		while ( j < 3 ) {
 
-	    
-	    // Indice sobre componentes de la funcion de distribucion
-	    
-	    uint k = 0 ;
+			
+			// Indice sobre componentes de la funcion de distribucion
+			
+			uint k = 0 ;
 
-	    while ( k < Q ) {
+			while ( k < Q ) {
 
-		lv[j] += lvel[3*k + j] * field[idx*Q + k];
-		    
-		k++;
+				lv[j] += lvel[3*k + j] * field[idx*Q + k];
+					
+				k++;
 
-	    }
+			}
 
-	    lv[j] += 0.5 * delta_t * F[j];
+			lv[j] += 0.5 * delta_t_cu * F[j];
 
-	    j++;
+			j++;
 
-	    
-	}
-
-
-	// Divide por densidad
-	
-	j = 0;
-
-	while ( j < 3 ) {
-
-	    lv[j] = lv[j] / rho[idx];
-	
-	    j++;
-
-	}
+			
+		}
 
 
-	
-	// Copia al arreglo global
-	
-	j = 0;
+		// Divide por densidad
+		
+		j = 0;
 
-	while ( j < 3 ) {
-	
-	    U[idx*Q + j] = lv[j];
-	
-	    j++;
+		while ( j < 3 ) {
 
-	}
+			lv[j] = lv[j] / rho[idx];
+		
+			j++;
+
+		}
 
 
-	
+		
+		// Copia al arreglo global
+		
+		j = 0;
+
+		while ( j < 3 ) {
+		
+			U[idx*Q + j] = lv[j];
+		
+			j++;
+
+		}
+
+
+		
     }
 
 }

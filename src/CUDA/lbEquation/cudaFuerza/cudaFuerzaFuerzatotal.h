@@ -20,7 +20,7 @@
 
 #include <basicMesh.h>
 
-extern "C" __global__ void cudaFuerzaFuerzatotal(scalar* f, scalar* fint, scalar* rho, scalar* g, int np)   ;
+extern "C" __global__ void cudaFuerzaFuerzatotal(cuscalar* f, cuscalar* fint, cuscalar* rho, cuscalar* g, int np)   ;
 
 
 #endif // CUDAFUERZAFUERZATOTAL_H

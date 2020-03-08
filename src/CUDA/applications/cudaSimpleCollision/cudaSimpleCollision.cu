@@ -133,8 +133,6 @@ int main(int argc, char** argv) {
     uint fsize = mesh.nPoints * mesh.Q;
     
     cuscalar* field = (cuscalar*)malloc( fsize * sizeof(cuscalar) );
-
-
     
     // Alocacion de arreglo de salida
 
@@ -142,45 +140,41 @@ int main(int argc, char** argv) {
 
     cuscalar* U = (cuscalar*)malloc( 3 * mesh.nPoints * sizeof(cuscalar) ); // Velocity macroscopic    
 
-    // Alocacion de arreglo de otros parametros
-
-    cuscalar* T = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Temperature
-
-/*    cuscalar* p = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Presion
-
-    cuscalar* psi = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Arreglo con la funcion psi calculada	*/
+    cuscalar* Temp = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Temperature
 
     cuscalar* fint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Interaction force
 
     cuscalar* f = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Total force ( volumetric add interaction ) 
 
-    cuscalar* S = (cuscalar*)malloc( mesh.nPoints * mesh.Q * sizeof(cuscalar) ); // Source term
-
-    
+       
     // Inicializacion (puede ser otra)
 
     for( uint i = 0 ; i < fsize ; i++ )
-    	field[i] = 1;
-    
+        field[i] = 1.0;
+        
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	rho[i] = 1.0;
+        rho[i] = 1.0;
+    
+    
+    /*for( uint i = 0 ; i < (mesh.nPoints/2) ; i++ )
+        rho[i] = 1.0;
+        
+    for( uint i = (mesh.nPoints/2) ; i < mesh.nPoints ; i++ )
+    	rho[i] = 2.0;    */
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	U[i] = 1.0;
+    	U[i] = 2.0;
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	T[i] = 0.0;
+    	Temp[i] = 1e-2;
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	fint[i] = 0.0;
+    	fint[i] = 5.0;
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	f[i] = 0.0;
+    	f[i] = 8.0;
 
-    for( uint i = 0 ; i < (mesh.Q*mesh.nPoints) ; i++ )
-    	S[i] = 0.0;						
-
-    
+        
     // Alocacion de memoria en el device y copia
 
     cuscalar* deviceField;
@@ -208,7 +202,7 @@ int main(int argc, char** argv) {
 
     cudaMalloc( (void**)&deviceT, mesh.nPoints*sizeof(cuscalar) );
 
-    cudaMemcpy( deviceT, T, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+    cudaMemcpy( deviceT, Temp, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
     cuscalar* deviceFint;
@@ -225,14 +219,7 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceF, f, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
-    cuscalar* deviceS;
-
-    cudaMalloc( (void**)&deviceS, mesh.Q*mesh.nPoints*sizeof(cuscalar) );
-
-    cudaMemcpy( deviceS, S, mesh.Q*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );	
-
-
-
+    
     // Factores de relajacion para colision
 
 //    exampleModelCoeffs relax;
@@ -240,7 +227,7 @@ int main(int argc, char** argv) {
     momentoModelCoeffs relax;
 
     for( uint i = 0 ; i < 9 ; i++ )
-	relax.Tau[i] = 1;
+	    relax.Tau[i] = 1;
 
 
     
@@ -266,20 +253,20 @@ int main(int argc, char** argv) {
 	
 //    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
 
-	    cudaMomentoCollision<<<8,8>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma, deviceS );
+	    cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma);
 
         cudaDeviceSynchronize();
         
 
 
-        cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q,  cmesh.lattice.vel, cmesh.nb, G, c, cs_2, a, b)   ;
+//        cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q,  cmesh.lattice.vel, cmesh.nb, G, c, cs_2, a, b)   ;
 
-    	cudaDeviceSynchronize();
+    //    cudaDeviceSynchronize();
 
-   /*      cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, g, cmesh.nPoints);	
+    //     cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, g, cmesh.nPoints);	
 
-    	cudaDeviceSynchronize();
-
+    //	cudaDeviceSynchronize();
+/*
         cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceRho, deviceU, cmesh.lattice.vel, cmesh.nPoints, cmesh.Q, delta_t_cu );
 
     	cudaDeviceSynchronize();
@@ -288,9 +275,7 @@ int main(int argc, char** argv) {
 
     	cudaDeviceSynchronize();
 
-        cudaFuerzaS<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceS, deviceF, deviceFint, deviceU, devicePsi, sigma, deviceTau[1], deviceTau[2], delta_t_cu,cmesh.nPoints, cmesh.Q);
-
-    	cudaDeviceSynchronize();*/
+        */
 
 	
     }
@@ -327,7 +312,7 @@ int main(int argc, char** argv) {
     cudaMemcpy( dT, deviceT, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
 
 
- */   cuscalar* dFint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) );
+ */ cuscalar* dFint = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) );
 
     cudaMemcpy( dFint, deviceFint, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
 /*
@@ -336,10 +321,6 @@ int main(int argc, char** argv) {
 
     cudaMemcpy( dF, deviceF, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
 
-
-    cuscalar* dS = (cuscalar*)malloc( mesh.nPoints * mesh.Q * sizeof(cuscalar) ); 
-
-    cudaMemcpy( dS, deviceS, mesh.Q*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost ); 
 */
    
 /*-----------------------------------------------------------------------------------------*/
@@ -350,16 +331,15 @@ int main(int argc, char** argv) {
 
 //    exampleCollision( &mesh, &relax, field, rho, U );
 
-    momentoCollision( &mesh, &relax, field, rho, U, f, fint, T, delta_t, a, b, c, cs_2, G, sigma);
-//    momentoCollision( &mesh, &relax, field, rho, U, delta_t, S ); // Calculo de la funcion de distribucion con valores de los parametros seteados para inicializar
+    momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, cs_2, G, sigma);
 
 							      // A continuacion se calculan el resto de los parametroz para ir actualizandolos
     
 
     
-    fuerzaFuerzaint(fint, psi, &mesh, G);
+    //fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, cs_2, a, b);
 /*
-    fuerzaFuerzatotal(f, fint, rho, g, &mesh);
+    fuerzaFuerzatotal(f, fint, rho, g, &mesh); 
 
     momentoVelocity( rho,  U, field, &mesh, delta_t, f);
 
@@ -372,24 +352,37 @@ int main(int argc, char** argv) {
 	
     	uint eq = 0;
 
-    	for(uint i = 0 ; i < fsize ; i++) {
+        printf( "    CUDA \t \t     C \t \t \t    DIFIEREN \n\n");
 
-	    printf( "%f \t %f \n", dcol[i],fint[i]);
+    	for(uint i = 0 ; i < fsize ; i++) {
+        //for(uint i = 0 ; i <   mesh.nPoints*3 ; i++) {            
+            eq = 0;
+            cuscalar diferencia = fabs(dcol[i] - field[i]);
+          
+            if( diferencia > 0.000001 )
+                eq = 1;
+
+
+            //if(dcol[i] != field[i])
+              //  eq = 1;
+            printf( "%lf \t %lf \t \t \t %d \n", dcol[i],field[i],eq);
+    	    //printf( "%f \t  %f  \t \t \t %d \n\n", dFint[i],fint[i],eq);
 //	    printf( "%d \n", eq);	
 //	    printf( "%f \n", S[i]);	
-
-    	    if(dcol[i] != field[i])
-    		    eq = 1;
 
     	}
 
     	if(eq != 0)
-    	    printf( " Los resultados de host y device difieren!\n " );
+    	    printf( "\n Los resultados de host y device difieren!\n\n " );
     
     }
 
+    printf( "\n\n Comienza la limpieza de memoria!\n\n " );
+
     
-    // Limpieza de memoria
+    // Limpieza de memoria host
+
+    freeBasicMesh( &mesh );
 
     free( field );
 
@@ -397,23 +390,37 @@ int main(int argc, char** argv) {
 
     free( U ); 
 
-    free( T );
+    free( Temp );
 
     free( f );   
 
     free( fint );
 
-    free( S );
-
-    freeBasicMesh( &mesh );
+    // Limpieza de memoria device
 
     cudaFree( deviceField );
 
     cudaFree( deviceRho );
 
     cudaFree( deviceU );
+
+    cudaFree( deviceT );
+
+    cudaFree( deviceFint );
+
+    cudaFree( deviceF );
+
+    cudaFree( deviceTau);
+
+    // Limpieza de memoria host de comparacion
+
+    free( dcol );
+
+
     
-    
+printf( "\n\n Finaliza la limpieza de memoria!\n\n " );
+
+   
     return 0;
 
 }
