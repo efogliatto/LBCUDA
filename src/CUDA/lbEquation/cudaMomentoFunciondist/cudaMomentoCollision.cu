@@ -107,15 +107,6 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
 
 		cudaFuerzaS(s, auxF, auxFint, auxU, psi, sigma, Tau, delta_t_cu) ;
 
-
-
-		
-		/* cudaThreadedMatMult<<<1,9>>>(M, field, id, Q); */
-
-		/* __syncthreads(); */
-		
-
-		
 		// Collision in momentum space
 		
 		uint k = 0 ;	
@@ -127,6 +118,7 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
 			k++;	
 
 		}
+
 		
 		// Vuelta al espacio de fases. field = invM * m
 
@@ -140,16 +132,66 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
 
 			while ( j < Q ) {
 
-				field[id*Q + i] += invM[i*Q + j] * m[j];
+				cuscalar aux = invM[i*Q + j] * m[j];
+
+				field[id*Q + i] = field[id*Q + i] + aux;
 			
+				if ( id == 0){			
+					
+					printf("\t invM:%lf \t\t m:%lf \t\t field:%lf \n ",aux,m[j],field[id*Q + i]);
+
+				}		
 				j++;		
-
+				
 			}
-
+			printf("\n");
 			i++;
 
 		}
 	
+				/*// DEBUGER DE VARIABLES	
+
+			
+				if ( id == 5 ){			
+					printf("\n \t ESTOY EN CUDA \n\n ");
+		
+					printf("\n \t Calculo de S \n ");
+					
+					for( uint i = 0 ; i < Q ; i++ ) {
+						printf("\t %f \t ", s[i]);
+					}
+					
+					printf("\n ");
+				
+					printf("\n \t Calculo de m \n ");
+					
+					for( uint i = 0 ; i < Q ; i++ ) {
+							printf("\t %f \t ", m[i]);
+						}
+					
+					printf("\n ");
+		
+					printf("\n \t Calculo de field \n ");
+						
+					for( uint i = 0 ; i < Q ; i++ ) {
+							printf("\t %f \t ", field[id*Q + i]);
+						}
+					
+					printf("\n ");
+
+					printf("\n \t Inversa de M \n ");
+
+					for( uint i = 0 ; i < Q ; i++ ) {
+						for( uint j = 0 ; j < Q ; j++ ) {
+							printf("\t %f \t ", invM[i*Q + j]);
+						}
+						printf("\n ");	
+						}
+				
+					printf("\n ");
+				}
+		
+				// FIN DE DEBUGGER*/
 
 
     }

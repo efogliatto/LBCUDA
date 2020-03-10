@@ -163,16 +163,16 @@ int main(int argc, char** argv) {
     	rho[i] = 2.0;    */
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	U[i] = 2.0;
+    	U[i] = 89.90;
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
     	Temp[i] = 1e-2;
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	fint[i] = 5.0;
+    	fint[i] = 1856.650;
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	f[i] = 8.0;
+    	f[i] = 34565.740;
 
         
     // Alocacion de memoria en el device y copia
@@ -352,7 +352,7 @@ int main(int argc, char** argv) {
 	
     	uint eq = 0;
 
-        printf( "    CUDA \t \t     C \t \t \t    DIFIEREN \n\n");
+        printf( "\n\n    CUDA \t \t     C \t \t \t    DIFIEREN \n\n");
 
     	for(uint i = 0 ; i < fsize ; i++) {
         //for(uint i = 0 ; i <   mesh.nPoints*3 ; i++) {            
