@@ -27,9 +27,6 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
     
     for( uint id = 0 ; id < mesh->nPoints ; id++ ) {
 		
-		//if ( id == 0 ) 			
-		//	printf("\t i: %d\n",i);
-		
 		scalar S[9]={0,0,0,0,0,0,0,0,0};
 
 		scalar auxU[3] = {0,0,0};
@@ -44,19 +41,13 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
 
 		scalar umag = ux*ux + uy*uy + uz*uz;
 
-	//	printf( "\n ");	
-
 		for( uint k = 0 ; k < 3 ; k++ )	{
 						
 			auxU[k] = U[id*3 + k];
 			auxF[k] = f[id*3 + k];
 			auxFint[k] = fint[id*3 + k];
 	
-	//   	    printf( "%f \t", auxFint[k] );
-
 		}
-
-	//	printf( "\n ");
 
 		// Distribucion de equilibrio en espacio de momentos
 		
@@ -69,10 +60,6 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
 		m_eq[6] = rho[id] * (-uy);
 		m_eq[7] = rho[id] * (ux*ux - uy*uy);
 		m_eq[8] = rho[id] * ux * uy;
-
-
-
-
 		
 		// Distribucion en espacio de momentos. m = M*field[id]
 											
@@ -106,9 +93,6 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
 		
 			m[k] = ( m[k]  -  relax->Tau[k]*( m[k] - m_eq[k] ) ) + ( delta_t * ( 1 - 0.5 * relax->Tau[k] ) * S[k] );
 			
-			//if ( id == 0 ) 			
-			//	printf("\t k:%d \t m:%lf\n",k,m[k]);
-		
 		}
 		
 		
@@ -120,73 +104,14 @@ void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field
 
 			for( uint j = 0 ; j < mesh->Q ; j++ ) {
 
-				field[id*mesh->Q + i] = field[id*mesh->Q + i] + mesh->lattice.invM[i*mesh->Q + j] * m[j];
+				scalar aux = mesh->lattice.invM[i*mesh->Q + j] * m[j];
 
-				if ( id == 0 ){			
-					printf("\t invM:%lf \t\t m:%lf \t\t field:%lf \n ",mesh->lattice.invM[i*mesh->Q + j],m[j],field[id*mesh->Q + i]);
-				}
-
+				field[id*mesh->Q + i] = field[id*mesh->Q + i] + aux;
+				
 			}
-			printf("\n");
-
+			
 		}
-	
-		//if ( id == 0 ) 			
-		//		printf("\t field:%lf \n",m[k]);
-
-
-		/*// DEBUGER DE VARIABLES	
-			
-			if ( id == 5 ){			
-				printf("\n \t ESTOY EN C \n\n ");
-
-				printf("\n \t Calculo de S \n ");
-				
-				for( uint i = 0 ; i < mesh->Q ; i++ ) {
-					printf("\t %f \t ", S[i]);
-				}
-				
-				printf("\n ");
-			
-				printf("\n \t Calculo de m \n ");
-				
-				for( uint i = 0 ; i < mesh->Q ; i++ ) {
-						printf("\t %f \t ", m[i]);
-					}
-				
-				printf("\n ");
-
-				printf("\n \t Calculo de field \n ");
-				
-				for( uint i = 0 ; i < mesh->Q ; i++ ) {
-						printf("\t %f \t ", field[id*mesh->Q + i]);
-					}
-				
-				printf("\n ");
-
-				printf("\n \t Inversa de M \n ");
-
-					for( uint i = 0 ; i < mesh->Q ; i++ ) {
-						for( uint j = 0 ; j < mesh->Q ; j++ ) {
-							printf("\t %f \t ", mesh->lattice.invM[i*mesh->Q + j]);
-						}
-						printf("\n ");	
-						}
-				
-					printf("\n ");
-
-
-
-
-			}
-
-		// FIN DE DEBUGGER*/
-
-
-
-	
+		
     }
-
-
-
+	
 }
