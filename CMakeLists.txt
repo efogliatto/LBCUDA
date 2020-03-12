@@ -44,7 +44,9 @@ endif()
 # # Compiler options for CUDA
 
 # SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )
-SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30 -rdc=true fmad=false" )
+#SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30 -rdc=true" )
+SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30 -rdc=true -fmad=false" )
+
 #SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30" ) 
 #SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} --device-c|-rdc --compile" )
 

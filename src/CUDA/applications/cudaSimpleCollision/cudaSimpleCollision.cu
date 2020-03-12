@@ -163,16 +163,16 @@ int main(int argc, char** argv) {
     	rho[i] = 2.0;    */
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	U[i] = 89.90;
+    	U[i] = 899.0;
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
     	Temp[i] = 1e-2;
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	fint[i] = 1856.650;
+    	fint[i] = 5135.0;
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	f[i] = 34565.740;
+    	f[i] = 894.0;
 
         
     // Alocacion de memoria en el device y copia
@@ -249,21 +249,22 @@ int main(int argc, char** argv) {
 
     startTime(&Time);
 
+
+
+
     for( uint k = 0 ; k < nit ; k++ ) {
 	
 //    	cudaExampleCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q );
 
-        cudaDeviceSynchronize();
+        //cudaDeviceSynchronize();
 
 	    cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma);
 
         cudaDeviceSynchronize();
         
+   //     cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q,  cmesh.lattice.vel, cmesh.nb, G, c, cs_2, a, b)   ;
 
-
-//        cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q,  cmesh.lattice.vel, cmesh.nb, G, c, cs_2, a, b)   ;
-
-    //    cudaDeviceSynchronize();
+     //   cudaDeviceSynchronize();
 
     //     cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, g, cmesh.nPoints);	
 
@@ -292,7 +293,7 @@ int main(int argc, char** argv) {
 
     
     // Resultados vuelta al host
-    
+
     cuscalar* dcol = (cuscalar*)malloc( fsize * sizeof(cuscalar) );
 
     cudaMemcpy( dcol, deviceField, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
@@ -360,7 +361,7 @@ int main(int argc, char** argv) {
         //for(uint i = 0 ; i <   mesh.nPoints*3 ; i++) {            
             eq = 0;
             cuscalar diferencia = fabs(dcol[i] - field[i]);
-          
+            //cuscalar diferencia = fabs(dFint[i] - fint[i]);
             if( diferencia > 0.000001 )
                 eq = 1;
 
@@ -368,7 +369,7 @@ int main(int argc, char** argv) {
             //if(dcol[i] != field[i])
               //  eq = 1;
             printf( "%lf \t %lf \t \t \t %d \n", dcol[i],field[i],eq);
-    	    //printf( "%f \t  %f  \t \t \t %d \n\n", dFint[i],fint[i],eq);
+    	    //printf( "%f \t  %f  \t \t \t %d \n", dFint[i],fint[i],eq);
 //	    printf( "%d \n", eq);	
 //	    printf( "%f \n", S[i]);	
 

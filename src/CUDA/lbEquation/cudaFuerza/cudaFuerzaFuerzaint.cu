@@ -27,6 +27,17 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 	weight[7] = (1.0/12.0);
 	weight[8] = (1.0/12.0);
 
+	// Vemos si la matriz de vecinos esta bien
+
+	if (idx == 5){
+		printf("\n\nvecinos en CUDA\n\n");
+		for(uint r = 0 ; r < np ; r++) {
+			for(uint y = 0 ; y < Q ; y++) {
+				printf("\t %d",nb[r*Q+y]);
+			}
+			printf("\n");
+		}
+	}
 	
     // Suma de todas las componentes
     
@@ -75,7 +86,7 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 				else {
 					lf[j] += 0.0;
 				}
-				if ( idx == 0 ) 
+				if ( idx == 0 && j == 0 ) 
 					printf("\t\t K:%d \t idx_nb:%d \t rho:%f \t p_EOS:%f \t psi:%f \t lvel:%f \t weight:%f \t lf:%f   \n",k,idx_nb,rho[idx],p_EOS,psi,(cuscalar)lvel[k*3+j],weight[k],lf[j]);
 
 				k++;

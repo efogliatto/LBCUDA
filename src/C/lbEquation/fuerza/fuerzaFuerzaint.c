@@ -26,6 +26,22 @@ void fuerzaFuerzaint(scalar* fint, scalar* rho, scalar* T , basicMesh* mesh, sca
     // Suma de todas las componentes
     
     for( uint i = 0 ; i < mesh->nPoints ; i++ ) {
+
+			// Vemos si la matriz de vecinos esta bien
+
+		if (i == 5){
+			printf("\n\nvecinos en C\n\n");
+			for(uint r = 0 ; r < mesh->nPoints ; r++) {
+				for(uint y = 0 ; y < mesh->Q ; y++) {
+					printf("\t %d",mesh->nb[r][y]);
+				}
+				printf("\n");
+			}
+		}
+
+
+
+
 		if ( i == 0 ) 			
 			printf(" i: %d\n",i);
 
@@ -61,7 +77,7 @@ void fuerzaFuerzaint(scalar* fint, scalar* rho, scalar* T , basicMesh* mesh, sca
 				else {
 					lf[j] += 0.0;
 				}
-				if ( i == 0 ) 				
+				if ( i == 0 && j == 0 ) 				
 					printf("\t\t K:%d \t idx_nb:%d \t rho:%f \t p_EOS:%f \t psi:%f \t lvel:%f \t weight:%f \t lf:%f   \n",k,idx_nb,rho[i],p_EOS,psi,(scalar)mesh->lattice.vel[k*3+j],weight[k],lf[j]);
 
 				
