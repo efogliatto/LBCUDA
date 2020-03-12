@@ -118,6 +118,28 @@ int main(int argc, char** argv) {
 
     hostToDeviceMesh( &cmesh, &mesh );
 
+//Verificacion de copia de vecinos
+    
+printf("\n\nvecinos en CUDA\n\n");
+		for(uint r = 0 ; r < 16 ; r++) {
+			for(uint y = 0 ; y < 9 ; y++) {
+                int* aux =&cmesh.nb[r*9+y];
+				printf("\t %d",aux);
+			}
+			printf("\n");
+		}
+	
+printf("\n\nvecinos en C\n\n");
+		for(uint r = 0 ; r < 16 ; r++) {
+			for(uint y = 0 ; y < 9 ; y++) {
+                int* aux2=&mesh.nb[r][y];
+				printf("\t %d",aux2);
+			}
+			printf("\n");
+		}
+
+
+
 
 
 
@@ -258,13 +280,13 @@ int main(int argc, char** argv) {
 
         //cudaDeviceSynchronize();
 
-	    cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma);
+	    //cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT, deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, cmesh.Q, delta_t_cu, a, b, c, cs_2, G, sigma);
 
-        cudaDeviceSynchronize();
+        //cudaDeviceSynchronize();
         
-   //     cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q,  cmesh.lattice.vel, cmesh.nb, G, c, cs_2, a, b)   ;
+        cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q,  cmesh.lattice.vel, cmesh.nb, G, c, cs_2, a, b)   ;
 
-     //   cudaDeviceSynchronize();
+      cudaDeviceSynchronize();
 
     //     cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, g, cmesh.nPoints);	
 
@@ -334,13 +356,13 @@ int main(int argc, char** argv) {
 
 //    exampleCollision( &mesh, &relax, field, rho, U );
 
-    momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, cs_2, G, sigma);
+    //momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, cs_2, G, sigma);
 
 							      // A continuacion se calculan el resto de los parametroz para ir actualizandolos
     
 
     
-    //fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, cs_2, a, b);
+    fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, cs_2, a, b);
 /*
     fuerzaFuerzatotal(f, fint, rho, g, &mesh); 
 
@@ -357,19 +379,19 @@ int main(int argc, char** argv) {
 
         printf( "\n\n    CUDA \t \t     C \t \t \t    DIFIEREN \n\n");
 
-    	for(uint i = 0 ; i < fsize ; i++) {
-        //for(uint i = 0 ; i <   mesh.nPoints*3 ; i++) {            
+    	//for(uint i = 0 ; i < fsize ; i++) {
+        for(uint i = 0 ; i <   mesh.nPoints*3 ; i++) {            
             eq = 0;
-            cuscalar diferencia = fabs(dcol[i] - field[i]);
-            //cuscalar diferencia = fabs(dFint[i] - fint[i]);
+            //cuscalar diferencia = fabs(dcol[i] - field[i]);
+            cuscalar diferencia = fabs(dFint[i] - fint[i]);
             if( diferencia > 0.000001 )
                 eq = 1;
 
 
             //if(dcol[i] != field[i])
               //  eq = 1;
-            printf( "%lf \t %lf \t \t \t %d \n", dcol[i],field[i],eq);
-    	    //printf( "%f \t  %f  \t \t \t %d \n", dFint[i],fint[i],eq);
+            //printf( "%lf \t %lf \t \t \t %d \n", dcol[i],field[i],eq);
+    	    printf( "%f \t  %f  \t \t \t %d \n", dFint[i],fint[i],eq);
 //	    printf( "%d \n", eq);	
 //	    printf( "%f \n", S[i]);	
 
