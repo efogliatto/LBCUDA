@@ -50,7 +50,7 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
 
 	for( uint j = 0 ; j < hmesh->Q ; j++ ) {
 
-	    hostNb[ 3*i + j ] = hmesh->nb[i][j];
+	    hostNb[ hmesh->Q*i + j ] = hmesh->nb[i][j];
 
 	}
 

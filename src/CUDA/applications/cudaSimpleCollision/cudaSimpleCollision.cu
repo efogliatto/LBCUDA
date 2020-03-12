@@ -185,16 +185,16 @@ printf("\n\nvecinos en C\n\n");
     	rho[i] = 2.0;    */
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	U[i] = 899.0;
+    	U[i] = 8.0;
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
     	Temp[i] = 1e-2;
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	fint[i] = 5135.0;
+    	fint[i] = 5.0;
 
     for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
-    	f[i] = 894.0;
+    	f[i] = 2.569;
 
         
     // Alocacion de memoria en el device y copia
