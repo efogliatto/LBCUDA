@@ -3,7 +3,7 @@
 
 /**
  * @file cudaFuerzaFuerzatotal.h
- * @author Thomas Coronel
+ * @author Thomás Coronel
  * @date 27 Feb 2020
  * @brief Calculo de Fuerza de Interaccion
  */

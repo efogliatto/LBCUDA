@@ -1,19 +1,19 @@
-#ifndef MOMENTOCOLLISION_H
-#define MOMENTOCOLLISION_H
+#ifndef ENERGYCOLLISION_H
+#define ENERGYCOLLISION_H
 
 /**
- * @file momentoCollision.h
- * @author Thomas Coronel
- * @date 20 Feb 2020
- * @brief Ejemplo de colision MRT
+ * @file energyCollision.h
+ * @author Thomás Coronel
+ * @date 23 Mar 2020
+ * @brief Colisión de la ecuación de energía.
  */
 
 /**
- * Ejemplo de colision MRT
+ * Colision MRT
  *
- * Colisión en todos los nodos de la grilla, actualizando @p field por los valores de post-colisión
+ * Colisión en todos los nodos de la grilla, actualizando @p field por los valores de post-colisión de la ecuación de energía
  *
- * \f$ \mathbf{f^*}(\mathbf{x},t) = \mathbf{M}^{-1} \left[ \mathbf{m} - \mathbf{\Lambda}(\mathbf{m} - \mathbf{m}^{(eq)}) + \delta_{t} \left( I - 0,5 \Lambda \right) \bar{S}  \right]_{(\mathbf{x},t)} \f$
+ * \f $ \mathbf{g^*}(\mathbf{x},t) = \mathbf{M}^{-1} \left[ \mathbf{n} - \mathbf{Q}(\mathbf{n} - \mathbf{n}^{(eq)}) + \delta_{t} \left( I - 0,5 Q \right) \hat{\Gamma}  \right]_{(\mathbf{x},t)} \f$
  *
  * @param mesh Estructura basica de grilla
  * @param field Campo a colisionar
@@ -38,4 +38,4 @@
 
 void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar* f, scalar* fint, scalar* T, scalar delta_t, int a, int b, scalar c, scalar cs_2, scalar G, scalar sigma);
 
-#endif // MOMENTOCOLLISION_H
+#endif // ENERGYCOLLISION_H

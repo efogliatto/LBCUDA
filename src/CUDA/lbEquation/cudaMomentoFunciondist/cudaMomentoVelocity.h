@@ -3,7 +3,7 @@
 
 /**
  * @file cudaMomentoVelocity.h
- * @author Thomas Coronel
+ * @author Thomás Coronel
  * @date 20 Feb 2020
  * @brief C\'alculo de velocidad para arreglo unidimensional
  */

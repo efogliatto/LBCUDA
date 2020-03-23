@@ -3,7 +3,7 @@
 
 /**
  * @file energyCoeffs.h
- * @author Thomas Coronel
+ * @author Thomás Coronel
  * @date 12 Mar 2020
  * @brief Coeficientes de relajacion diagonal para la ecuacion de energia
  */

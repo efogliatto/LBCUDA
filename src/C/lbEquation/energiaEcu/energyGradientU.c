@@ -1,11 +1,11 @@
-#include <energyGradient.h>
+#include <energyGradientU.h>
 
 #include <stdlib.h>
 
 #include <stdio.h>
 
 
-void energyGradient( basicMesh* mesh, scalar* gradient, scalar* field, scalar* variable, int node_i, scalar cs_2, scalar delta_t) {
+void energyGradientU( basicMesh* mesh, scalar* gradient, scalar* field, scalar* velocity, int comp_vel, int node_i, scalar cs_2, scalar delta_t) {
 
 	for( uint j = 0 ; j < 3 ; j++ ) {
 
@@ -17,7 +17,7 @@ void energyGradient( basicMesh* mesh, scalar* gradient, scalar* field, scalar* v
 
 			if ( idx_nb >= 0){
 					
-				gradient[j] += ( field[k] * variable[idx_nb] * (scalar)mesh->lattice.vel[k*3+j] ) ;	
+				gradient[j] += ( field[k] * velocity[idx_nb*3+comp_vel] * (scalar)mesh->lattice.vel[k*3+j] ) ;	
 			}
 
 			else {

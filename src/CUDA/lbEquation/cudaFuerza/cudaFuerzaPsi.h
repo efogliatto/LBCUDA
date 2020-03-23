@@ -3,7 +3,7 @@
 
 /**
  * @file cudaFuerzaPsi.h
- * @author Thomas Coronel
+ * @author Thomás Coronel
  * @date 27 Feb 2020
  * @brief Calculo de la funcion Psi
  */

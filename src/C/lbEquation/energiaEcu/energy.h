@@ -5,4 +5,8 @@
 
 #include <energyCollision.h>
 
+#include <energyGradient.h>
+
+#include <energyGradientU.h>
+
 #endif // ENERGY_H

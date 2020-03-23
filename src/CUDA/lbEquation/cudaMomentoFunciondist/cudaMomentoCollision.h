@@ -3,7 +3,7 @@
 
 /**
  * @file cudaMomentoCollision.h
- * @author Thomas Coronel
+ * @author Thomás Coronel
  * @date 20 Feb 2020
  * @brief Operaci\'on de modelo de colisi\'on simplificado
  */
