@@ -9,4 +9,7 @@
 
 #include <energyGradientU.h>
 
+#include <energyTemp.h>
+
+
 #endif // ENERGY_H

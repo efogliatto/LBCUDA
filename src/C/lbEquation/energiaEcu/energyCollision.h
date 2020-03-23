@@ -17,18 +17,9 @@
  *
  * @param mesh Estructura basica de grilla
  * @param field Campo a colisionar
- * @param rho Densidad
- * @param U Velocidad
+ * @param gamma_0 Primer término de la fuente de espacios de momentos
+ * @param relax Coeficientes de relajación ertenecientes a la diagonal de la matriz Q
  * @param delta_t Paso de tiempo
- * @param f Fuerza total ( volumetrica + Interaccion)
- * @param fint Fuerza de interaccion
- * @param T Temperatura macroscópica
- * @param a Parametro del modelo DdQq
- * @param b Parametro del modelo DdQq
- * @param G Parametro del modelo de LB
- * @param c Parametro del modelo de LB
- * @param cs_2 Parametro del modelo de LB elevado al cuadrado
- * @param sigma Parametro libre para la inconsistencia termodinamica.
  */
 
 
@@ -36,6 +27,6 @@
 
 #include <momentoModelCoeffs.h>
 
-void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar* f, scalar* fint, scalar* T, scalar delta_t, int a, int b, scalar c, scalar cs_2, scalar G, scalar sigma);
+void energiaCollision( basicMesh* mesh, scalar* field, scalar* gamma_0,  energyCoeffs* relax, scalar delta_t);
 
 #endif // ENERGYCOLLISION_H
