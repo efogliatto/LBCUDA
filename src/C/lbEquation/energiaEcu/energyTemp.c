@@ -1,8 +1,8 @@
-#include <momentoDensity.h>
+#include <energyTemp.h>
 
 #include <stdio.h>
 
-void momentoDensity( basicMesh* mesh, scalar* T, scalar* field, scalar* gamma_0, scalar delta_t ) {
+void energyTemp( basicMesh* mesh, scalar* T, scalar* field, scalar* gamma_0, scalar delta_t ) {
 
 
     // Suma de todas las componentes
