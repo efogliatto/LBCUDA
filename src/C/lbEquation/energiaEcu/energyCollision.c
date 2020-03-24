@@ -1,18 +1,12 @@
 #include <energyCollision.h>
 
-#include <fuerzaS.h>
-
-#include <fuerzaPsi.h>
-
-#include <fuerzaPresionEOS.h>
-
 #include <stdlib.h>
 
 #include <stdio.h>
 
 
 
-void energiaCollision( basicMesh* mesh, scalar* field, scalar* gamma_0,  energyCoeffs* relax, scalar delta_t) {
+void energyCollision( basicMesh* mesh, scalar* field, scalar* gamma_0,  energyCoeffs* relax, scalar delta_t) {
     
     // Distribuciones parciales
     
