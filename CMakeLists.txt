@@ -2,8 +2,6 @@
 
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-project(LBCUDA_Test LANGUAGES CUDA C)
-
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 
 set(CMAKE_BUILD_TYPE Release)
@@ -22,12 +20,6 @@ include_directories(include)
 
 
 
-# Bibliotecas para compilar CUDA
-
-find_package( CUDA REQUIRED )
-
-
-
 # Compiler options for C
 
 SET( CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -lm -pedantic -funroll-loops" )
@@ -40,10 +32,6 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
   
 endif()
 
-
-# # Compiler options for CUDA
-
- SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )
 
 
 # Link libraries
@@ -67,6 +55,36 @@ set ( CUDATEST_LINK_LIBS
 
 link_directories( ${CMAKE_SOURCE_DIR}/lib )
 
+
+
+
+# Opcional: Desabilitar CUDA para poder compilar al menos una parte en dispositivos sin GPU
+
+option(DISABLE_CUDA "Deshabilitar manualmente la compilacion en CUDA" OFF)
+
+if(DISABLE_CUDA)
+
+  # Asignar solo C como lenguaje de compilacion
+  
+  project(LBCUDA_Test LANGUAGES C)
+  
+else()
+
+  # Asignar C y CUDA como lenguajes
+  
+  project(LBCUDA_Test LANGUAGES CUDA C)
+
+
+  # Bibliotecas para compilar CUDA
+
+  find_package( CUDA REQUIRED )
+  
+  
+  # Opciones de compilador
+
+  SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )    
+  
+endif()
 
 
 
