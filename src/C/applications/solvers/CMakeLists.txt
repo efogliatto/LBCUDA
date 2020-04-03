@@ -6,3 +6,6 @@ add_subdirectory (nbReduction)
 
 # Colision de modelo simplificado
 add_subdirectory (simpleCollision)
+
+# Prueba de escritura
+add_subdirectory (IOTest)
