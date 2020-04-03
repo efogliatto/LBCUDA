@@ -108,8 +108,6 @@ int main(int argc, char** argv) {
 
     // Escritura de campos (paso 2)
 
-    writeMeshToEnsight( &mesh );
-
     writeScalarToEnsight("rho", rho, &mesh, 1);
 
     writeScalarToEnsight("T", T, &mesh, 1);
