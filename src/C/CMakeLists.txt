@@ -10,6 +10,9 @@ add_subdirectory (lbEquation)
 # Some basic utilities
 add_subdirectory (basic)
 
+# Output functions
+add_subdirectory (IO)
+
 
 
 # Applications
