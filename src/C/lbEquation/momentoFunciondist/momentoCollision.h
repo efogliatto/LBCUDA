@@ -36,6 +36,6 @@
 
 #include <momentoModelCoeffs.h>
 
-void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar* f, scalar* fint, scalar* T, scalar delta_t, int a, int b, scalar c, scalar cs_2, scalar G, scalar sigma);
+void momentoCollision( basicMesh* mesh, momentoModelCoeffs* relax, scalar* field, scalar* rho, scalar* U, scalar* f, scalar* fint, scalar* T, scalar delta_t, scalar a, scalar b, scalar c, scalar cs_2, scalar G, scalar sigma);
 
 #endif // MOMENTOCOLLISION_H

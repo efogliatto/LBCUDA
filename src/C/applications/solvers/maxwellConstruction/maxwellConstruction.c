@@ -190,19 +190,19 @@ int main(int argc, char** argv) {
 
 
     
-    /* // Factores de relajacion para colision */
+    // Factores de relajacion para colision
 
-    /* momentoModelCoeffs relax; */
+    momentoModelCoeffs relax;
 
-    /* relax.Tau[0] = 1.0;  */
-    /* relax.Tau[1] = 0.8; */
-    /* relax.Tau[2] = 1.1; */
-    /* relax.Tau[3] = 1.0; */
-    /* relax.Tau[4] = 1.1; */
-    /* relax.Tau[5] = 1.0; */
-    /* relax.Tau[6] = 1.1; */
-    /* relax.Tau[7] = 0.8; */
-    /* relax.Tau[8] = 0.8; */
+    relax.Tau[0] = 1.0;
+    relax.Tau[1] = 0.8;
+    relax.Tau[2] = 1.1;
+    relax.Tau[3] = 1.0;
+    relax.Tau[4] = 1.1;
+    relax.Tau[5] = 1.0;
+    relax.Tau[6] = 1.1;
+    relax.Tau[7] = 0.8;
+    relax.Tau[8] = 0.8;
     
 
     
@@ -218,7 +218,7 @@ int main(int argc, char** argv) {
     
 
             
-    /* scalar delta_t = 1.0;	 */
+    scalar delta_t = 1.0;
 
 
     /* int comp = 0; */
@@ -249,7 +249,7 @@ int main(int argc, char** argv) {
     //for( uint k = 0 ; k < timeList[timeStep] ; k++ ) {  //Hará todos los pasos indicados : 500 *20 = 10000
     for( uint k = 0 ; k < 1 ; k++ ) { //Se hará en 1 paso para verificar que de igual que en phoenix
         
-        /* momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, cs_2, G, sigma);   //Collision */
+        momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma);   //Collision
 
         /* streamingNbReduction( streamingField, field, &mesh);    //Calculo del valor del streaming punto a punto */
 
@@ -264,6 +264,24 @@ int main(int argc, char** argv) {
 
         /* momentoDensity( rho, field, &mesh);   //Actualización de la densidad macroscópica */
 
+
+
+
+	/* for (uint i = 0; i < mesh.nPoints; i++){ */
+
+	/*     printf("%d: ", i); */
+
+	/*     for (uint j = 0; j < mesh.Q; j++){ */
+	    
+	/* 	printf("%f ",field[i*mesh.Q+j]); */
+	    
+	/*     } */
+		
+	/*     printf("\n"); */
+
+	/* } */
+
+	
 
         /* if (k == timeList[comp]){ */
             
