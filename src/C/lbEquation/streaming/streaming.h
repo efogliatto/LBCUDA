@@ -5,4 +5,6 @@
 
 #include <streamingUpdate.h>
 
+#include <lbstreaming.h>
+
 #endif // STREAMING_H

@@ -13,7 +13,7 @@ void fuerzaS(scalar* S, scalar* f, scalar* fint, scalar* U, scalar psi, scalar s
     S[4] = -f[0];
     S[5] = f[1];
     S[6] = -f[1];
-    S[7] = 2 * ( U[0] * f[0] + U[1] * f[1] );
+    S[7] = 2 * ( U[0] * f[0] - U[1] * f[1] );
     S[8] = ( U[0] * f[1] + U[1] * f[0] );
 
 }

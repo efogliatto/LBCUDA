@@ -19,6 +19,7 @@ add_library(lbequation SHARED
     
   streaming/streamingUpdate.c
   streaming/streamingNbReduction.c
+  streaming/lbstreaming.c
 
   energy/energyCollision.c
   energy/energyGradient.c
