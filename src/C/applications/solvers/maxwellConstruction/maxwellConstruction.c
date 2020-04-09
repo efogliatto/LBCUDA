@@ -19,8 +19,6 @@
 
 #include <fuerza.h>
 
-//#include <energy.h>
-
 #include <streaming.h>
 
 #include <IO.h>
@@ -51,33 +49,34 @@ int main(int argc, char** argv) {
     printf( "     o-----o-----o  \n\n" );
 
 
-    // Argumentos:
-    //
-    // - argv[1] = numero de iteraciones
+
+    // Inicializacion de tiempo
+
+    timeInfo Time;
+
+    startTime(&Time);
     
-
-    uint nit  = atoi( argv[1] );
-
     
-    
-
-
        
-    // Parametros del modelo D2Q9
+    // Parametros del modelo
 
-    int a = 0.5;
+    scalar G = -1.0;
 
-    int b = 4;
-
-    scalar G = -1.0; 
-
-    scalar c = 1.0; 
-
-    scalar cs_2 = ( 1.0/3.0 ); 
+    scalar c = 1.0;
 
     scalar sigma = 0.125;
+    
 
-    // Aceleracion del problema
+    
+    // Constantes de EOS
+
+    scalar a = 0.5;
+
+    scalar b = 4;
+
+    
+    
+    // Gravedad
 
     scalar g[3] = {0,0,0};
 
@@ -87,9 +86,6 @@ int main(int argc, char** argv) {
 
     basicMesh mesh = readBasicMesh();
 
-    // Inicialización de la información del tiempo
-    
-    //timeInfo* infoT;
 
     
     // Alocacion de funcion de distribucion como arreglo unidimensional
@@ -107,6 +103,7 @@ int main(int argc, char** argv) {
 
     scalar* streamingField = (scalar*)malloc( fsize * sizeof(scalar) );
 
+
     
     // Alocacion de arreglo de salida
 
@@ -120,160 +117,198 @@ int main(int argc, char** argv) {
 
     scalar* f = (scalar*)malloc( mesh.nPoints * 3 * sizeof(scalar) ); // Total force ( volumetric add interaction ) 
 
-       
-    // Inicializacion (puede ser otra)
 
-    for( uint i = 0 ; i < fsize ; i++ ){
+    
+    // Inicializacion de f
+
+    for( uint i = 0 ; i < fsize ; i++ )
         field[i] = 0.0;
+
+
+
+    // Inicializacion de densidad
+
+    for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
+
+	/* rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0; */
+
+	if( mesh.points[i][1] < 3 ) {
+
+	    rho[i] = 0.07;
+
+	}
+
+	else {
+
+	    rho[i] = 0.09;
+
+	}
+
+
     }
+   
 
-    /*for( uint i = 0 ; i < mesh.nPoints ; i++ ){
-        rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
 
-    }*/
 
-    rho[0] = 0.07;
-    rho[1] = 0.07;
-    for( uint i = 2 ; i < mesh.nPoints ; i++ ){
-        rho[i] = 0.09;
-    }
-
+    // Inicializacion de velocidad
     
-    for( uint i = 0 ; i < mesh.nPoints ; i++ ){
-	    for( uint j = 0 ; j < 3 ; j++ ){
-	        U[i*3+j] = 0;
-	    }
-    }
+    for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ )
+	U[i] = 0;
 
-    for( uint i = 0 ; i < mesh.nPoints ; i++ ){
+
+    // Inicializacion de Temperatura
+
+    for( uint i = 0 ; i < mesh.nPoints ; i++ )
     	Temp[i] = 0.9 / 27.0;
-    }
+ 
+    /* for( uint i = 0 ; i < mesh.nPoints ; i++ ) */
+    /* 	printf("%d: %f\n",i,Temp[i]);    */
 
-    for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ ){
-    	fint[i] = 0.0;
-    }
 
-    for( uint i = 0 ; i < (3*mesh.nPoints) ; i++ ){
-    	f[i] = 0.0 ;
-    }
+    // Inicializacion de fuerzas
+
+    fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
+
+    fuerzaFuerzatotal(f, fint, rho, g, &mesh);     
+
+    
+    /* for (uint i = 0; i < mesh.nPoints; i++){ */
+
+    /* 	printf("%d: ", i); */
+
+    /* 	for (uint j = 0; j < 3; j++){ */
+	    
+    /* 	    printf("%f ",fint[i*3+j]); */
+	    
+    /* 	} */
+		
+    /* 	printf("\n"); */
+
+    /* } */
+    
         
-         
-    // Factores de relajacion para colision
 
-    momentoModelCoeffs relax;
 
-    /*for( uint i = 0 ; i < 9 ; i++ ){
-        relax.Tau[i] = 1;
-    }*/
-    relax.Tau[0] = 1.0; //{1.0, 0.8, 1.1, 1.0, 1.1, 1.0, 1.1, 0.8, 0.8};
-    relax.Tau[1] = 0.8;
-    relax.Tau[2] = 1.1;
-    relax.Tau[3] = 1.0;
-    relax.Tau[4] = 1.1;
-    relax.Tau[5] = 1.0;
-    relax.Tau[6] = 1.1;
-    relax.Tau[7] = 0.8;
-    relax.Tau[8] = 0.8;
     
-    // Escritura de lbm.case
-    
-    int timeStep = 21;
+    /* // Factores de relajacion para colision */
 
-    uint timeList[timeStep];
+    /* momentoModelCoeffs relax; */
+
+    /* relax.Tau[0] = 1.0;  */
+    /* relax.Tau[1] = 0.8; */
+    /* relax.Tau[2] = 1.1; */
+    /* relax.Tau[3] = 1.0; */
+    /* relax.Tau[4] = 1.1; */
+    /* relax.Tau[5] = 1.0; */
+    /* relax.Tau[6] = 1.1; */
+    /* relax.Tau[7] = 0.8; */
+    /* relax.Tau[8] = 0.8; */
     
-    for (int i = 0; i < timeStep; i++){
-        timeList[i] = i*500;
-    }
+
+    
+    /* // Escritura de lbm.case */
+    
+    /* int timeStep = 21; */
+
+    /* uint timeList[timeStep]; */
+    
+    /* for (int i = 0; i < timeStep; i++){ */
+    /*     timeList[i] = i*500; */
+    /* } */
     
 
             
-    scalar delta_t = 1.0;	
+    /* scalar delta_t = 1.0;	 */
 
 
-    int comp = 0;
+    /* int comp = 0; */
 
     momentoFeq( &mesh, field, rho, U);   // Inicialización de field en el equilibrio        
 
-    	printf("FIELD_EQ\n\n");
+    printf(" FIELD_EQ\n\n");
 
-    for (uint i = 0; i < mesh.nPoints; i++){
+    /* for (uint i = 0; i < mesh.nPoints; i++){ */
 
-		for (uint j = 0; j < mesh.Q; j++){
-			printf("%f \t",field[i*mesh.Q+j]);
-		}
+    /* 	printf("%d: ", i); */
+
+    /* 	for (uint j = 0; j < mesh.Q; j++){ */
+	    
+    /* 	    printf("%f ",field[i*mesh.Q+j]); */
+	    
+    /* 	} */
 		
-		printf("\n");
+    /* 	printf("\n"); */
 
-	}
-    // Reduccion
+    /* } */
 
-    printf(" Colisión en %d iteraciones\n\n", nit);
 
-    timeInfo Time;
 
-    startTime(&Time);
+
 
        
     //for( uint k = 0 ; k < timeList[timeStep] ; k++ ) {  //Hará todos los pasos indicados : 500 *20 = 10000
     for( uint k = 0 ; k < 1 ; k++ ) { //Se hará en 1 paso para verificar que de igual que en phoenix
         
-        momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, cs_2, G, sigma);   //Collision
+        /* momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, cs_2, G, sigma);   //Collision */
 
-        streamingNbReduction( streamingField, field, &mesh);    //Calculo del valor del streaming punto a punto
+        /* streamingNbReduction( streamingField, field, &mesh);    //Calculo del valor del streaming punto a punto */
 
-        streamingUpdate( field, streamingField, &mesh);         //Realización del streaming
+        /* streamingUpdate( field, streamingField, &mesh);         //Realización del streaming */
         
 
-        fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, cs_2, a, b); //Calculo de la fuerza interna
+        /* fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, cs_2, a, b); //Calculo de la fuerza interna */
 
-        fuerzaFuerzatotal(f, fint, rho, g, &mesh);  //Calculo de la fuerza externa
+        /* fuerzaFuerzatotal(f, fint, rho, g, &mesh);  //Calculo de la fuerza externa */
 
-        momentoVelocity( rho,  U, field, &mesh, delta_t, f); //Actualización de la velocidad macroscópica
+        /* momentoVelocity( rho,  U, field, &mesh, delta_t, f); //Actualización de la velocidad macroscópica */
 
-        momentoDensity( rho, field, &mesh);   //Actualización de la densidad macroscópica
+        /* momentoDensity( rho, field, &mesh);   //Actualización de la densidad macroscópica */
 
 
-        if (k == timeList[comp]){
+        /* if (k == timeList[comp]){ */
             
-            writeMeshToEnsight( &mesh );
+        /*     writeMeshToEnsight( &mesh ); */
 
-            writeScalarToEnsight("rho", rho, &mesh, comp);
+        /*     writeScalarToEnsight("rho", rho, &mesh, comp); */
 
-            writeScalarToEnsight("T", Temp, &mesh, comp);
+        /*     writeScalarToEnsight("T", Temp, &mesh, comp); */
 
-            writeVectorToEnsight("U", U, &mesh, comp);
+        /*     writeVectorToEnsight("U", U, &mesh, comp); */
 
-            comp++;
-        }
+        /*     comp++; */
+        /* } */
 
     	
-        printf("FIELD_step_1\n\n");
+        /* printf("FIELD_step_1\n\n"); */
 
-        for (uint i = 0; i < mesh.nPoints; i++){
+        /* for (uint i = 0; i < mesh.nPoints; i++){ */
 
-		    for (uint j = 0; j < mesh.Q; j++){
-			    printf("%f \t",field[i*mesh.Q+j]);
-		    }
+	/*     for (uint j = 0; j < mesh.Q; j++){ */
+	/* 	printf("%f \t",field[i*mesh.Q+j]); */
+	/*     } */
 		
-		    printf("\n");
+	/*     printf("\n"); */
 
-	    }
+	/* } */
 
     }
 
-    //Actualización del caso Maestro
 
-    char scfields[2][100] = {"rho", "T"};
-
-    char vfields[1][100] = {"U"};
-
-    updateCaseFile(scfields, 2, vfields, 1, timeList, timeStep);
-
-
-    scalar elap = elapsedTime(&Time);
     
-    printf( "\n   Colisión finalizada en %f segundos\n", elap );
-    printf( "\n   Tiempo promedio de ejecución por iteración: %g segundos\n\n", elap/nit );
+
+    /* //Actualización del caso Maestro */
+
+    /* char scfields[2][100] = {"rho", "T"}; */
+
+    /* char vfields[1][100] = {"U"}; */
+
+    /* updateCaseFile(scfields, 2, vfields, 1, timeList, timeStep); */
+
+
+    /* scalar elap = elapsedTime(&Time); */
+    
+    /* printf( "\n   Colisión finalizada en %f segundos\n", elap ); */
+    /* printf( "\n   Tiempo promedio de ejecución por iteración: %g segundos\n\n", elap/nit ); */
 
     
    

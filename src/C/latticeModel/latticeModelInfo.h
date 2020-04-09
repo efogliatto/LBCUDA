@@ -32,6 +32,11 @@ typedef struct {
     /** Cantidad de vecinos */
 
     uint q;
+
+
+    /** Velocidad del sonido */
+
+    scalar cs2;
     
 
     /** Velocidades de grilla */

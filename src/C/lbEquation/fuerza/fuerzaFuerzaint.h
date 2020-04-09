@@ -24,7 +24,7 @@
 
 #include <basicMesh.h>
 
-void fuerzaFuerzaint(scalar* fint, scalar* rho, scalar* T , basicMesh* mesh, scalar G, scalar c, scalar cs_2, int a, int b)   ;
+void fuerzaFuerzaint(scalar* fint, scalar* rho, scalar* T , basicMesh* mesh, scalar G, scalar c, scalar cs_2, scalar a, scalar b)   ;
 
 
 #endif // FUERZAFUERZAINT_H

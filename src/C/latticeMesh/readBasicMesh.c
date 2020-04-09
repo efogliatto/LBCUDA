@@ -129,7 +129,9 @@ basicMesh readBasicMesh() {
 
     mesh.lattice.M       = MRT_Matrix( mesh.lattice.model );
 
-    mesh.lattice.invM    = MRT_invMatrix( mesh.lattice.model );        
+    mesh.lattice.invM    = MRT_invMatrix( mesh.lattice.model );
+
+    mesh.lattice.cs2     = latticeCS2( mesh.lattice.model );
 
 
     

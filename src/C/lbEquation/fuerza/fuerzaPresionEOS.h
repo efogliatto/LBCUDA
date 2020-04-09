@@ -20,7 +20,7 @@
 
 #include <basicMesh.h>
 
-void fuerzaPresionEOS(scalar* p_EOS, scalar rho, scalar T, int a, int b) ;
+void fuerzaPresionEOS(scalar* p_EOS, scalar rho, scalar T, scalar a, scalar b) ;
 
 
 #endif // FUERZAPRESIONEOS_H
