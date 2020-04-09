@@ -18,6 +18,8 @@
  * @param mesh Estructura basica de grilla
  * @param field Campo a colisionar
  * @param gamma_0 Primer término de la fuente de espacios de momentos
+ * @param T Temperatura macroscópica
+ * @param U Velocidad
  * @param relax Coeficientes de relajación ertenecientes a la diagonal de la matriz Q
  * @param delta_t Paso de tiempo
  */
@@ -27,6 +29,6 @@
 
 #include <energyCoeffs.h>
 
-void energyCollision( basicMesh* mesh, scalar* field, scalar* gamma_0,  energyCoeffs* relax, scalar delta_t);
+void energyCollision( basicMesh* mesh, scalar* field, scalar* gamma_0, scalar* T, scalar* U, energyCoeffs* relax, scalar delta_t);
 
 #endif // ENERGYCOLLISION_H

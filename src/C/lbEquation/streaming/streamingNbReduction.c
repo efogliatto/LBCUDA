@@ -11,8 +11,6 @@ void streamingNbReduction(scalar* sum, scalar* field, basicMesh* mesh) {
 
         for( uint j = 0 ; j < mesh->Q ; j++ ) {
 
-            scalar nbsum = 0;
-
             int nbid = mesh->nb[id][j];
             
             // caso de vecinos interiores

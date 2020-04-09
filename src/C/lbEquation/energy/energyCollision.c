@@ -5,12 +5,11 @@
 #include <stdio.h>
 
 
-
-void energyCollision( basicMesh* mesh, scalar* field, scalar* gamma_0,  energyCoeffs* relax, scalar delta_t) {
+void energyCollision( basicMesh* mesh, scalar* field, scalar* gamma_0, scalar* T, scalar* U, energyCoeffs* relax, scalar delta_t) {
     
     // Distribuciones parciales
     
-    scalar n[9];   // n:  Distribucion en espacio de momentos
+    scalar n[9];   // cd ..; rm -rf bin/* build/* lib/* ; cd build/ ; cmake .. ; maken:  Distribucion en espacio de momentos
     
     scalar n_eq[9];   // neq: Distribucion de equilibrio en espacio de momentos
 
@@ -21,9 +20,11 @@ void energyCollision( basicMesh* mesh, scalar* field, scalar* gamma_0,  energyCo
     // Colision sobre todos los nodos
     
     for( uint id = 0 ; id < mesh->nPoints ; id++ ) {
+
+		scalar ux = U[id*3], uy = U[id*3 + 1];		
 		
 		// Distribucion de equilibrio en espacio de momentos
-		
+
 		n_eq[0] = T[id];
 		n_eq[1] = T[id] * field[id*mesh->Q];
 		n_eq[2] = T[id] * field[id*mesh->Q+1];
@@ -79,7 +80,7 @@ void energyCollision( basicMesh* mesh, scalar* field, scalar* gamma_0,  energyCo
 
 			for( uint j = 0 ; j < mesh->Q ; j++ ) {
 
-				scalar aux = mesh->lattice.invM[i*mesh->Q + j] * m[j];
+				scalar aux = mesh->lattice.invM[i*mesh->Q + j] * n[j];
 
 				field[id*mesh->Q + i] = field[id*mesh->Q + i] + aux;
 				

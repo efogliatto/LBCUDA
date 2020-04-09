@@ -9,4 +9,6 @@
 
 #include <momentoVelocity.h>
 
+#include <momentoFeq.h>
+
 #endif // MOMENTOFUNCIONDIST_H

@@ -9,11 +9,21 @@ add_library(lbequation SHARED
   momentoFunciondist/momentoCollision.c
   momentoFunciondist/momentoDensity.c
   momentoFunciondist/momentoVelocity.c
+  momentoFunciondist/momentoFeq.c 
 
   fuerza/fuerzaPresionEOS.c
   fuerza/fuerzaPsi.c
   fuerza/fuerzaFuerzaint.c
   fuerza/fuerzaFuerzatotal.c
   fuerza/fuerzaS.c
+    
+  streaming/streamingUpdate.c
+  streaming/streamingNbReduction.c
+
+  energy/energyCollision.c
+  energy/energyGradient.c
+  energy/energyGradientU.c
+  energy/energyS.c
+  energy/energyTemp.c
 
   )
