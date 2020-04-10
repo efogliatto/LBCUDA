@@ -6,6 +6,10 @@ add_subdirectory (C)
 
 if(DISABLE_CUDA EQUAL OFF)
 
+  message("-- Compiling with CUDASS")
+  message("-- Compiling with CUDASS")
+  message("-- Compiling with CUDASS")
+
   add_subdirectory (CUDA)
   
 endif()
