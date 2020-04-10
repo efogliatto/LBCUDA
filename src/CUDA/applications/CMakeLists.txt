@@ -6,3 +6,6 @@ add_subdirectory (cudaNbReduction)
 
 # Colision simple
 add_subdirectory (cudaSimpleCollision)
+
+# Construccion de Maxwell
+add_subdirectory (cudaMaxwellConstruction)
