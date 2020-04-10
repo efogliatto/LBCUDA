@@ -195,19 +195,19 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-    	/* rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0; */
+    	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
 
-    	if( mesh.points[i][1] < 3 ) {
+    	/* if( mesh.points[i][1] < 3 ) { */
 
-    	    rho[i] = 0.07;
+    	/*     rho[i] = 0.07; */
 
-    	}
+    	/* } */
 
-    	else {
+    	/* else { */
 
-    	    rho[i] = 0.09;
+    	/*     rho[i] = 0.09; */
 
-    	}
+    	/* } */
 
 
     }
@@ -381,14 +381,15 @@ int main(int argc, char** argv) {
     	cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel,
 								   cmesh.lattice.reverse, cmesh.nb, G, c, mesh.lattice.cs2, a, b);  cudaDeviceSynchronize();
 
-    	cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, g, cmesh.nPoints);  cudaDeviceSynchronize();
+    	cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, deviceGravity, cmesh.nPoints);  cudaDeviceSynchronize();
 
 
 
     	// Actualizacion de velocidad macroscopica
 
-    	cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceRho, deviceU, cmesh.lattice.vel,
-    								  cmesh.nPoints, cmesh.Q, delta_t );  cudaDeviceSynchronize();
+    	cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceRho, deviceU, deviceF,
+								  cmesh.lattice.vel, mesh.nPoints, mesh.Q);  cudaDeviceSynchronize();
+
 	
 	
 
@@ -414,9 +415,9 @@ int main(int argc, char** argv) {
 		
     	    	scalar elap = elapsedTime(&Time);
 
-    	    	printf( " Time = %d\n", ts );
+    	    	printf( " Tiempo = %d\n", ts );
 		
-    	    	printf( " Elapsed time = %.4f segundos\n\n", elap );
+    	    	printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
 		
 
     	    	writeScalarToEnsight("rho", rho, &mesh, wt);
@@ -427,31 +428,57 @@ int main(int argc, char** argv) {
 
 
 
-		// Escritura auxiliar de f
-		{
+		/* // Escritura auxiliar de f */
+		/* { */
 
-		    FILE* outfile;
+		/*     FILE* outfile; */
 
-		    outfile = fopen("faux","w");
+		/*     outfile = fopen("faux","w"); */
 	    
-		    for (uint i = 0; i < mesh.nPoints; i++){
+		/*     for (uint i = 0; i < mesh.nPoints; i++){ */
 
 
-			for (uint j = 0; j < mesh.Q; j++)
-			    fprintf(outfile,"%.6f\n",field[i*mesh.Q+j]);
+		/* 	for (uint j = 0; j < mesh.Q; j++) */
+		/* 	    fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); */
+	    	
+		/* 	fprintf(outfile,"\n"); */
+
+		/*     } */
+
+		/*     fclose(outfile); */
+		/* } */
+
+		/* // Escritura auxiliar de rho */
+		/* { */
+
+		/*     FILE* outfile; */
+
+		/*     outfile = fopen("rhoaux","w"); */
 	    
-			/* fprintf(outfile,"%.6f ",rho[i]); */
+		/*     for (uint i = 0; i < mesh.nPoints; i++) */
+		/* 	fprintf(outfile,"%.6f\n",rho[i]); */
 
-			/* for (uint j = 0; j < 3; j++) */
-			/*     fprintf(outfile,"%.6f\n",U[i*3+j]); */
+		/*     fclose(outfile); */
+		/* } */
+
+		/* // Escritura auxiliar de U */
+		/* { */
+
+		/*     FILE* outfile; */
+
+		/*     outfile = fopen("Uaux","w"); */
+	    
+		/*     for (uint i = 0; i < mesh.nPoints; i++){ */
+
+		/* 	for (uint j = 0; j < 3; j++) */
+		/* 	    fprintf(outfile,"%.6f ",U[i*3+j]); */
 		
-			/* fprintf(outfile,"\n"); */
+		/* 	fprintf(outfile,"\n"); */
 
-		    }
- 
-		    fclose(outfile);
-		}
+		/*     } */
 
+		/*     fclose(outfile); */
+		/* } */
 		
 
     	    }
@@ -501,8 +528,12 @@ int main(int argc, char** argv) {
 
     cudaFree( deviceGravity);
 
-    
 
+    
+    scalar elap = elapsedTime(&Time);
+	
+    printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
+    
    
     return 0;
 

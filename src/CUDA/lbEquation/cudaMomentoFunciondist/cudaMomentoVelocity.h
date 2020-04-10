@@ -25,7 +25,7 @@
 #include <cudaBasicMesh.h>
 
 
-extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q, cuscalar delta_t );
+extern "C" __global__ void cudaMomentoVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* Ft, int* lvel, int np, int Q );
 
 
 #endif // CUDAMOMENTOVELOCITY_H

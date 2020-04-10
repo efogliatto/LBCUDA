@@ -8,10 +8,10 @@
 
 
 
-extern "C" __global__ void cudaExampleVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* lvel, int np, int Q ) {
+extern "C" __global__ void cudaExampleVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q ) {
 
     int idx = threadIdx.x + blockIdx.x*blockDim.x;
-    
+    printf("%d\n",idx);    
    
     if( idx < np ) {
 

@@ -296,9 +296,9 @@ int main(int argc, char** argv) {
 
 		scalar elap = elapsedTime(&Time);
 
-		printf( " Time = %d\n", k );
+		printf( " Tiempo = %d\n", k );
 		
-		printf( " Elapsed time = %.4f segundos\n\n", elap );
+		printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
 		
 
 		writeScalarToEnsight("rho", rho, &mesh, wt);
@@ -324,14 +324,41 @@ int main(int argc, char** argv) {
 
 
 	/* 	for (uint j = 0; j < mesh.Q; j++) */
-	/* 	    fprintf(outfile,"%.6f\n",field[i*mesh.Q+j]); */
-	    
-	/* 	/\* fprintf(outfile,"%.6f ",rho[i]); *\/ */
+	/* 	    fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); */
+	    	
+	/* 	fprintf(outfile,"\n"); */
 
-	/* 	/\* for (uint j = 0; j < 3; j++) *\/ */
-	/* 	/\*     fprintf(outfile,"%.6f\n",U[i*3+j]); *\/ */
+	/*     } */
+
+	/*     fclose(outfile); */
+	/* } */
+
+	/* // Escritura auxiliar de rho */
+	/* { */
+
+	/*     FILE* outfile; */
+
+	/*     outfile = fopen("rhoaux","w"); */
+	    
+	/*     for (uint i = 0; i < mesh.nPoints; i++) */
+	/* 	fprintf(outfile,"%.6f\n",rho[i]); */
+
+	/*     fclose(outfile); */
+	/* } */
+
+	/* // Escritura auxiliar de U */
+	/* { */
+
+	/*     FILE* outfile; */
+
+	/*     outfile = fopen("Uaux","w"); */
+	    
+	/*     for (uint i = 0; i < mesh.nPoints; i++){ */
+
+	/* 	for (uint j = 0; j < 3; j++) */
+	/* 	    fprintf(outfile,"%.6f ",U[i*3+j]); */
 		
-	/* 	/\* fprintf(outfile,"\n"); *\/ */
+	/* 	fprintf(outfile,"\n"); */
 
 	/*     } */
 
@@ -372,7 +399,7 @@ int main(int argc, char** argv) {
 
     scalar elap = elapsedTime(&Time);
 	
-    printf( "\n\n Finished\n Total time = %.4f segundos\n\n", elap );
+    printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
 
     
     return 0;

@@ -8,7 +8,6 @@
 
 #include <cudaFuerza.h>
 
-#include <cudaMomentoFunciondist.h>
 
 extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* f,
 						 cuscalar* fint, cuscalar* T, cuscalar* Tau, cuscalar* M,

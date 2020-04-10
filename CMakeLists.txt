@@ -83,7 +83,9 @@ else()
   
   # Opciones de compilador
 
-  SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )    
+  # SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )
+  SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30 -rdc=true" )
+  
   
 endif()
 
