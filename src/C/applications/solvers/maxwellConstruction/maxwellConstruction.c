@@ -50,6 +50,13 @@ int main(int argc, char** argv) {
 
 
 
+    // Argumentos:
+    //
+    // - argv[1] = Pasos de tiempo
+    // - argv[2] = Intervalo de escritura
+
+    
+
     // Inicializacion de tiempo
 
     timeInfo Time;
@@ -204,9 +211,9 @@ int main(int argc, char** argv) {
     
     // Pasos de tiempo
     
-    uint timeSteps = 20000;
+    uint timeSteps = atoi( argv[1] );
 
-    uint wrtInterval = 500;
+    uint wrtInterval = atoi( argv[2] );
 
     uint nwrite = (uint)(timeSteps/wrtInterval + 1);
 
