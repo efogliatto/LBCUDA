@@ -10,6 +10,7 @@ add_library(cudalbequation STATIC
   cudaMomentoFunciondist/cudaMomentoCollision.cu
   cudaMomentoFunciondist/cudaMomentoDensity.cu
   cudaMomentoFunciondist/cudaMomentoVelocity.cu
+  cudaMomentoFunciondist/cudaStreaming.cu
 
   cudaFuerza/cudaFuerzaPresionEOS.cu
   cudaFuerza/cudaFuerzaPsi.cu
@@ -35,6 +36,7 @@ add_library(cudalbequationPTX OBJECT
   cudaMomentoFunciondist/cudaMomentoCollision.cu
   cudaMomentoFunciondist/cudaMomentoDensity.cu
   cudaMomentoFunciondist/cudaMomentoVelocity.cu
+  cudaMomentoFunciondist/cudaStreaming.cu  
 
   cudaFuerza/cudaFuerzaPresionEOS.cu
   cudaFuerza/cudaFuerzaPsi.cu

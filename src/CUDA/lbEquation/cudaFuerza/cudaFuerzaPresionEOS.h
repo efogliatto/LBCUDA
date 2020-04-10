@@ -20,7 +20,7 @@
 
 #include <basicMesh.h>
 
-extern "C" __device__ void cudaFuerzaPresionEOS(scalar* p_EOS, scalar rho, scalar T, int a, int b) ;
+extern "C" __device__ void cudaFuerzaPresionEOS(cuscalar* p_EOS, cuscalar rho, cuscalar T, cuscalar a, cuscalar b) ;
 
 
 #endif // CUDAFUERZAPRESIONEOS_H

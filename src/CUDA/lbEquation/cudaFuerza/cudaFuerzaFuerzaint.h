@@ -27,7 +27,8 @@
 
 #include <basicMesh.h>
 
-extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cuscalar* T, int np, int Q,  int* lvel,int* nb, cuscalar G, cuscalar c, cuscalar cs_2, int a, int b)   ;
+extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cuscalar* T, int np, int Q,
+					       int* lvel, int* reverse, int* nb, cuscalar G, cuscalar c, cuscalar cs_2, cuscalar a, cuscalar b)   ;
 
 
 #endif // CUDAFUERZAFUERZAINT_H

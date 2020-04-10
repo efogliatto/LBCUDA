@@ -24,7 +24,11 @@
 #include <cudaLatticeMesh.h>
 
 
-extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* f, cuscalar* fint, cuscalar* T, cuscalar* Tau, cuscalar* M, cuscalar* invM, uint np, uint Q, cuscalar delta_t, int a, int b, cuscalar c, cuscalar cs_2, cuscalar G, cuscalar sigma) ;
+extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho, cuscalar* U,
+						 cuscalar* f, cuscalar* fint, cuscalar* T,
+						 cuscalar* Tau, cuscalar* M, cuscalar* invM,
+						 uint np, uint Q, cuscalar delta_t, cuscalar a, cuscalar b,
+						 cuscalar c, cuscalar cs_2, cuscalar G, cuscalar sigma) ;
 
 
 #endif // CUDAMOMENTOCOLLISION_H
