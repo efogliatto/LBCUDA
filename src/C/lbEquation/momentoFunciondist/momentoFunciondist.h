@@ -11,4 +11,6 @@
 
 #include <momentoFeq.h>
 
+#include <NEBB.h>
+
 #endif // MOMENTOFUNCIONDIST_H

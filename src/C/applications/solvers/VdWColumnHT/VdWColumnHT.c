@@ -314,6 +314,10 @@ int main(int argc, char** argv) {
 
 	lbstreaming(field_f, streamingField, &mesh);
 
+	NEBB( &mesh, field_f, f, "Y0", 2 );
+
+	NEBB( &mesh, field_f, f, "Y1", 3 );
+
         momentoDensity( rho, field_f, &mesh);
 
 	fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
