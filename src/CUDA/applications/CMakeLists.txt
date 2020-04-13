@@ -9,3 +9,6 @@ add_subdirectory (cudaSimpleCollision)
 
 # Construccion de Maxwell
 add_subdirectory (cudaMaxwellConstruction)
+
+# Construccion de Maxwell
+add_subdirectory (cudaVdWColumnHT)
