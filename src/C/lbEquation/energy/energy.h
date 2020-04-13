@@ -11,5 +11,11 @@
 
 #include <energyTemp.h>
 
+#include <energyS.h>
+
+#include <energyEqDistMomento.h>
+
+#include <fixedTBoundary.h>
+
 
 #endif // ENERGY_H

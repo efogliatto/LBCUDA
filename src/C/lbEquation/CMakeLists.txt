@@ -26,5 +26,7 @@ add_library(lbequation SHARED
   energy/energyGradientU.c
   energy/energyS.c
   energy/energyTemp.c
-
+  energy/energyEqDistMomento.c
+  energy/fixedTBoundary.c
+  
   )

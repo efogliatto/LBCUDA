@@ -14,7 +14,19 @@ typedef struct {
 
     /** Coeficientes de relajacion */
 
-    scalar Tau[9];    
+    scalar Tau[9];
+
+
+    /** Constantes libres para la distribucion en espacio de momento */
+
+    scalar alpha_1;
+
+    scalar alpha_2;
+
+
+    /** Calor especifico */
+
+    scalar Cv;
     
 
 } energyCoeffs;

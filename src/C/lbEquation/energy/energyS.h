@@ -35,6 +35,6 @@
 
 #include <energyCoeffs.h>
 
-void energyS( basicMesh* mesh, scalar* s, scalar* rho, scalar* T, scalar* U, energyCoeffs* relax, scalar* field, scalar alpha_1, scalar alpha_2,  scalar cs_2, scalar delta_t, scalar c_v, scalar b) ;
+void energyS( basicMesh* mesh, scalar* s, scalar* rho, scalar* T, scalar* U, energyCoeffs* relax, scalar cs_2, scalar delta_t, scalar b) ;
 
 #endif // ENERGYS_H

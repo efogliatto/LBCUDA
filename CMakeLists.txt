@@ -43,6 +43,7 @@ set ( PROJECT_LINK_LIBS
   libd2q9.so
   liblbequation.so
   libio.so
+  libfdoperations.so
   m
   )
 
