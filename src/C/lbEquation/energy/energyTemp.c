@@ -17,7 +17,7 @@ void energyTemp( basicMesh* mesh, scalar* T, scalar* field, scalar* gamma_0, sca
 
 	}
 
-	T[i]+= delta_t * gamma_0[i];
+	T[i] += 0.5*gamma_0[i];
 
     }
     

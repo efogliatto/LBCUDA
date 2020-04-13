@@ -202,7 +202,7 @@ int main(int argc, char** argv) {
     // Inicializacion de Temperatura
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	Temp[i] = 0.99 / 27.0;
+    	Temp[i] = 0.036667;
  
 
         
@@ -298,13 +298,13 @@ int main(int argc, char** argv) {
 
 	lbstreaming(field_g, streamingField, &mesh);
 
-	fixedTBoundary( &mesh, field_g, Temp, U, "Y0", 0.0366667);
+	fixedTBoundary( &mesh, field_g, Temp, U, "Y1", 0.0366667, energyRelax.alpha_1, energyRelax.alpha_2);
 
-	fixedTBoundary( &mesh, field_g, Temp, U, "Y1", 0.033333);	
+	fixedTBoundary( &mesh, field_g, Temp, U, "Y0", 0.033333, energyRelax.alpha_1, energyRelax.alpha_2);	
 
-	/* energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b); */
+	energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b);
 
-	/* energyTemp( &mesh, Temp, field_g, heat, delta_t ); */
+	energyTemp( &mesh, Temp, field_g, heat, delta_t );
 	
 	
 
@@ -346,7 +346,7 @@ int main(int argc, char** argv) {
 		writeVectorToEnsight("U", U, &mesh, wt);
 
 
-		writeDebug(field_f, field_g, rho, Temp, U, mesh.nPoints, mesh.Q);
+		writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q);
 
 	    }
 

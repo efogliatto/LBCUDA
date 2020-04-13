@@ -15,6 +15,8 @@
 
 #include <energyEqDistMomento.h>
 
+#include <energyEqDistNode.h>
+
 #include <fixedTBoundary.h>
 
 
