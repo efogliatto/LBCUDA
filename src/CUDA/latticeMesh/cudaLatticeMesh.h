@@ -7,4 +7,6 @@
 
 #include <hostToDeviceMesh.h>
 
+#include <boundaryIndex.h>
+
 #endif // CUDALATTICEMESH_H

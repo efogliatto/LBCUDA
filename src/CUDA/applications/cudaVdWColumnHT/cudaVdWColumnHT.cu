@@ -13,15 +13,17 @@ extern "C" {
 
 #include <basic.h>
 
-#include <exampleModel.h>   
-
 #include <momentoFunciondist.h>   
 
 #include <momentoVelocity.h>
 
 #include <fuerza.h>
 
+#include <energy.h>
+
 #include <IO.h>
+
+#include "writeDebug.h"
 
 }
 
@@ -36,6 +38,8 @@ extern "C" {
 #include <cudaExampleModel.h>
 
 #include <cudaMomentoFunciondist.h>
+
+#include <cudaEnergy.h>
 
 #include <cudaFuerza.h>
 
@@ -139,7 +143,7 @@ int main(int argc, char** argv) {
     
     // Gravedad
 
-    scalar g[3] = {0,0,0};
+    scalar g[3] = {0,-1.234567e-07,0};
 
     
 
@@ -168,8 +172,11 @@ int main(int argc, char** argv) {
 
     uint fsize = mesh.nPoints * mesh.Q;
     
-    cuscalar* field = (cuscalar*)malloc( fsize * sizeof(cuscalar) );
+    cuscalar* field_f = (cuscalar*)malloc( fsize * sizeof(cuscalar) );
+
+    cuscalar* field_g = (cuscalar*)malloc( fsize * sizeof(cuscalar) );    
     
+
     
     // Alocacion de arreglo de salida
 
@@ -183,31 +190,28 @@ int main(int argc, char** argv) {
 
     cuscalar* f = (cuscalar*)malloc( mesh.nPoints * 3 * sizeof(cuscalar) ); // Total force ( volumetric add interaction )
 
+    cuscalar* heat = (cuscalar*)malloc( mesh.nPoints * sizeof(cuscalar) ); // Heat source
+    
+
        
-    // Inicializacion de f
-
-    for( uint i = 0 ; i < fsize ; i++ )
-        field[i] = 0.0;
-
-
 
     // Inicializacion de densidad
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-    	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
+    	/* rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0; */
 
-    	/* if( mesh.points[i][1] < 3 ) { */
+    	if( mesh.points[i][1] < 3 ) {
 
-    	/*     rho[i] = 0.07; */
+    	    rho[i] = 0.09;
 
-    	/* } */
+    	}
 
-    	/* else { */
+    	else {
 
-    	/*     rho[i] = 0.09; */
+    	    rho[i] = 0.07;
 
-    	/* } */
+    	}
 
 
     }
@@ -231,80 +235,8 @@ int main(int argc, char** argv) {
     // Inicializacion de Temperatura
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	Temp[i] = 0.9 / 27.0;
+    	Temp[i] = 0.036667;
  
-
-
-
-    // Inicializacion de fuerzas
-
-    fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
-
-    fuerzaFuerzatotal(f, fint, rho, g, &mesh);
-
-
-    // Asignacion de distribucion de equilibrio
-    
-    momentoFeq( &mesh, field, rho, U);
-
-
-    
-    
-    // Alocacion de memoria en el device y copia
-
-    cuscalar* deviceField;
-
-    cudaMalloc( (void**)&deviceField, fsize*sizeof(cuscalar) );
-
-    cudaMemcpy( deviceField, field, fsize*sizeof(cuscalar), cudaMemcpyHostToDevice );
-
-
-    cuscalar* deviceSwap;
-
-    cudaMalloc( (void**)&deviceSwap, fsize*sizeof(cuscalar) );    
-
-
-    cuscalar* deviceRho;
-
-    cudaMalloc( (void**)&deviceRho, mesh.nPoints*sizeof(cuscalar) );
-
-    cudaMemcpy( deviceRho, rho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
-
-
-    cuscalar* deviceU;
-
-    cudaMalloc( (void**)&deviceU, 3*mesh.nPoints*sizeof(cuscalar) );
-
-    cudaMemcpy( deviceU, U, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
-
-
-    cuscalar* deviceT;
-
-    cudaMalloc( (void**)&deviceT, mesh.nPoints*sizeof(cuscalar) );
-
-    cudaMemcpy( deviceT, Temp, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
-
-
-    cuscalar* deviceFint;
-
-    cudaMalloc( (void**)&deviceFint, 3*mesh.nPoints*sizeof(cuscalar) );
-
-    cudaMemcpy( deviceFint, fint, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
-
-
-    cuscalar* deviceF;
-
-    cudaMalloc( (void**)&deviceF, 3*mesh.nPoints*sizeof(cuscalar) );
-
-    cudaMemcpy( deviceF, f, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
-
-
-    cuscalar* deviceGravity;
-
-    cudaMalloc( (void**)&deviceGravity, 3*sizeof(cuscalar) );
-
-    cudaMemcpy( deviceGravity, g, 3*sizeof(cuscalar), cudaMemcpyHostToDevice );    
-
 
 
 
@@ -322,7 +254,119 @@ int main(int argc, char** argv) {
     relax.Tau[7] = 0.8;
     relax.Tau[8] = 0.8;
 
-        
+
+    // Factores de relajacion para energia
+
+    energyCoeffs energyRelax;
+    
+    energyRelax.Tau[0] = 1.0;
+    energyRelax.Tau[1] = 1.0;
+    energyRelax.Tau[2] = 1.0;
+    energyRelax.Tau[3] = 0.8;
+    energyRelax.Tau[4] = 1.0;
+    energyRelax.Tau[5] = 0.8;
+    energyRelax.Tau[6] = 1.0;
+    energyRelax.Tau[7] = 1.0;
+    energyRelax.Tau[8] = 1.0;
+
+    energyRelax.alpha_1 = 1;
+    energyRelax.alpha_2 = 1;
+    energyRelax.Cv = 1;    
+
+
+
+
+    // Inicializacion de campos en el host
+
+    fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
+
+    fuerzaFuerzatotal(f, fint, rho, g, &mesh);
+
+    energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b);
+    
+    momentoFeq( &mesh, field_f, rho, U);
+
+    energyEqDistMomento( &mesh, field_g, Temp, U, &energyRelax );
+    
+    
+
+
+
+
+    
+    
+    // Alocacion de memoria en el device y copia
+
+    cuscalar* deviceField_f;
+
+    cudaMalloc( (void**)&deviceField_f, fsize*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceField_f, field_f, fsize*sizeof(cuscalar), cudaMemcpyHostToDevice );    
+
+
+
+    cuscalar* deviceField_g;
+
+    cudaMalloc( (void**)&deviceField_g, fsize*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceField_g, field_g, fsize*sizeof(cuscalar), cudaMemcpyHostToDevice );    
+
+
+
+    cuscalar* deviceSwap;
+
+    cudaMalloc( (void**)&deviceSwap, fsize*sizeof(cuscalar) );    
+
+    
+
+    cuscalar* deviceRho;
+
+    cudaMalloc( (void**)&deviceRho, mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceRho, rho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    
+    cuscalar* deviceU;
+
+    cudaMalloc( (void**)&deviceU, 3*mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceU, U, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    
+    cuscalar* deviceT;
+
+    cudaMalloc( (void**)&deviceT, mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceT, Temp, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    
+    cuscalar* deviceFint;
+
+    cudaMalloc( (void**)&deviceFint, 3*mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceFint, fint, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+
+    cuscalar* deviceF;
+
+    cudaMalloc( (void**)&deviceF, 3*mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceF, f, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+    
+
+    cuscalar* deviceGravity;
+
+    cudaMalloc( (void**)&deviceGravity, 3*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceGravity, g, 3*sizeof(cuscalar), cudaMemcpyHostToDevice );    
+
+
+    
     cuscalar* deviceTau;
 
     cudaMalloc( (void**)&deviceTau, 9*sizeof(cuscalar) );
@@ -330,7 +374,28 @@ int main(int argc, char** argv) {
     cudaMemcpy( deviceTau, relax.Tau, 9*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
+    
+    cuscalar* deviceEnergyTau;
 
+    cudaMalloc( (void**)&deviceEnergyTau, 9*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceEnergyTau, energyRelax.Tau, 9*sizeof(cuscalar), cudaMemcpyHostToDevice );
+
+
+    cuscalar* deviceHeat;
+
+    cudaMalloc( (void**)&deviceHeat, mesh.nPoints*sizeof(cuscalar) );
+
+    cudaMemcpy( deviceHeat, heat, mesh.nPoints*sizeof(cuscalar), cudaMemcpyHostToDevice );    
+
+
+
+
+
+
+
+    
+    
 
     // Antes de comenzar la simulacion, escritura de los campos iniciales
 
@@ -343,11 +408,11 @@ int main(int argc, char** argv) {
 
     writeMeshToEnsight( &mesh );
 
-    writeScalarToEnsight("rho", rho, &mesh, 0);
+    writeScalarToEnsight(scfields[0], rho, &mesh, 0);
 
-    writeScalarToEnsight("T", Temp, &mesh, 0);
+    writeScalarToEnsight(scfields[1], Temp, &mesh, 0);
 
-    writeVectorToEnsight("U", U, &mesh, 0);
+    writeVectorToEnsight(vfields[0], U, &mesh, 0);
 
     
     
@@ -357,38 +422,56 @@ int main(int argc, char** argv) {
     for( uint ts = 1 ; ts < (timeSteps+1) ; ts++ ) {
 
 
-    	// Colision
+	// Ecuacion de energia
 
-    	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT,
-    								    deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints,
-    								    cmesh.Q, delta_t, a, b, c, mesh.lattice.cs2, G, sigma); cudaDeviceSynchronize();
+    	cudaEnergyCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceU, deviceT, deviceHeat, deviceEnergyTau, energyRelax.alpha_1, energyRelax.alpha_2,
+								   cmesh.Q, cmesh.nPoints, cmesh.lattice.M, cmesh.lattice.invM ); cudaDeviceSynchronize();
 
 
-    	// Streaming
-
-	cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+	cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
 	
+	uint bd;
+
+
+	boundaryIndex(&mesh, "Y1", &bd);
+
+	cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
+								  energyRelax.alpha_1, energyRelax.alpha_2, 0.0366667, bd, cmesh.bd.nbd,
+								  cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
 	
-    	// Actualizacion de densidad macroscopica
+	boundaryIndex(&mesh, "Y0", &bd);
+
+	cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
+								  energyRelax.alpha_1, energyRelax.alpha_2, 0.033333, bd, cmesh.bd.nbd,
+								  cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
+
 	
-    	cudaMomentoDensity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, cmesh.nPoints, cmesh.Q);  cudaDeviceSynchronize();
+
+	
+
+	
+	/* // Ecuaciones hidrodinamicas */
+
+    	/* cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, deviceU, deviceF, deviceFint, deviceT, */
+    	/* 							    deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, */
+    	/* 							    cmesh.Q, delta_t, a, b, c, mesh.lattice.cs2, G, sigma); cudaDeviceSynchronize(); */
 
 
+	/* cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize(); */
 
-    	// Actualizacion de fuerzas
-
-    	cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel,
-								   cmesh.lattice.reverse, cmesh.nb, G, c, mesh.lattice.cs2, a, b);  cudaDeviceSynchronize();
-
-    	cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, deviceGravity, cmesh.nPoints);  cudaDeviceSynchronize();
+	
+    	/* cudaMomentoDensity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, cmesh.nPoints, cmesh.Q);  cudaDeviceSynchronize(); */
 
 
+    	/* cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, */
+	/* 							   cmesh.lattice.reverse, cmesh.nb, G, c, mesh.lattice.cs2, a, b);  cudaDeviceSynchronize(); */
 
-    	// Actualizacion de velocidad macroscopica
+    	/* cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, deviceGravity, cmesh.nPoints);  cudaDeviceSynchronize(); */
 
-    	cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField, deviceRho, deviceU, deviceF,
-								  cmesh.lattice.vel, mesh.nPoints, mesh.Q);  cudaDeviceSynchronize();
+
+    	/* cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField_f, deviceRho, deviceU, deviceF, */
+	/* 							  cmesh.lattice.vel, mesh.nPoints, mesh.Q);  cudaDeviceSynchronize(); */
 
 	
 	
@@ -403,7 +486,9 @@ int main(int argc, char** argv) {
 
     		// Copia de vuelta al host
 
-    		cudaMemcpy( field, deviceField, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+    		cudaMemcpy( field_f, deviceField_f, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+
+    		cudaMemcpy( field_g, deviceField_g, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );		
 		
     		cudaMemcpy( rho, deviceRho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
 
@@ -420,65 +505,16 @@ int main(int argc, char** argv) {
     	    	printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
 		
 
-    	    	writeScalarToEnsight("rho", rho, &mesh, wt);
+    	    	writeScalarToEnsight(scfields[0], rho, &mesh, wt);
 
-    	    	writeScalarToEnsight("T", Temp, &mesh, wt);
+    	    	writeScalarToEnsight(scfields[1], Temp, &mesh, wt);
 
-    	    	writeVectorToEnsight("U", U, &mesh, wt);
-
-
-
-		/* // Escritura auxiliar de f */
-		/* { */
-
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("faux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++){ */
+    	    	writeVectorToEnsight(vfields[0], U, &mesh, wt);
 
 
-		/* 	for (uint j = 0; j < mesh.Q; j++) */
-		/* 	    fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); */
-	    	
-		/* 	fprintf(outfile,"\n"); */
-
-		/*     } */
-
-		/*     fclose(outfile); */
-		/* } */
-
-		/* // Escritura auxiliar de rho */
-		/* { */
-
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("rhoaux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++) */
-		/* 	fprintf(outfile,"%.6f\n",rho[i]); */
-
-		/*     fclose(outfile); */
-		/* } */
-
-		/* // Escritura auxiliar de U */
-		/* { */
-
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("Uaux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++){ */
-
-		/* 	for (uint j = 0; j < 3; j++) */
-		/* 	    fprintf(outfile,"%.6f ",U[i*3+j]); */
 		
-		/* 	fprintf(outfile,"\n"); */
+		writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q);
 
-		/*     } */
-
-		/*     fclose(outfile); */
-		/* } */
 		
 
     	    }
@@ -497,7 +533,9 @@ int main(int argc, char** argv) {
 
     freeBasicMesh( &mesh );
 
-    free( field );
+    free( field_f );
+
+    free( field_g );    
 
     free( rho );
 
@@ -512,7 +550,9 @@ int main(int argc, char** argv) {
     
     // Limpieza de memoria device
 
-    cudaFree( deviceField );
+    cudaFree( deviceField_f );
+
+    cudaFree( deviceField_g );    
 
     cudaFree( deviceRho );
 
@@ -525,6 +565,8 @@ int main(int argc, char** argv) {
     cudaFree( deviceF );
 
     cudaFree( deviceTau);
+
+    cudaFree( deviceEnergyTau);
 
     cudaFree( deviceGravity);
 

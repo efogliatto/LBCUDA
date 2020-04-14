@@ -26,8 +26,22 @@
  * @param Tau Factores de relajación (diagonal de la matriz Q)
  */
 
-#include <cudaEnergyCoeffs.h>
 
-extern "C" __global__ void cudaEnergyCollision( cuscalar* field, cuscalar* gamma_0,  cudaEnergyCoeffs* relax, cuscalar delta_t, unit np, int Q, int* lvel,int* nb, cuscalar* Tau, cuscalar* M, cuscalar* invM) ;
+#include <dataTypes.h>
+
+#include <cudaLatticeMesh.h>
+
+
+extern "C" __global__ void cudaEnergyCollision( cuscalar* field,
+						cuscalar* U,
+						cuscalar* T,
+						cuscalar* gamma_0,
+                                                cuscalar* Tau,
+						cuscalar  alpha_1,
+						cuscalar  alpha_2,
+						uint Q,
+						uint np,
+						cuscalar* M,
+						cuscalar* invM ) ;
 
 #endif // CUDAENERGYCOLLISION_H

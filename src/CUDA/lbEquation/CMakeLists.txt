@@ -18,6 +18,9 @@ add_library(cudalbequation STATIC
   cudaFuerza/cudaFuerzaFuerzatotal.cu
   cudaFuerza/cudaFuerzaS.cu
 
+  cudaEnergiaEcu/cudaEnergyCollision.cu
+  cudaEnergiaEcu/cudaFixedTBoundary.cu
+  cudaEnergiaEcu/cudaEnergyEqDistNode.cu
   )
 
 set_target_properties( cudatest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
@@ -44,6 +47,9 @@ add_library(cudalbequationPTX OBJECT
   cudaFuerza/cudaFuerzaFuerzatotal.cu
   cudaFuerza/cudaFuerzaS.cu
 
+  cudaEnergiaEcu/cudaEnergyCollision.cu
+  cudaEnergiaEcu/cudaFixedTBoundary.cu
+  cudaEnergiaEcu/cudaEnergyEqDistNode.cu  
   )
 
 set_property(TARGET cudalbequationPTX PROPERTY CUDA_PTX_COMPILATION ON)

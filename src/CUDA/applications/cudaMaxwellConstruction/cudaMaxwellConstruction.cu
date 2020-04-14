@@ -343,11 +343,11 @@ int main(int argc, char** argv) {
 
     writeMeshToEnsight( &mesh );
 
-    writeScalarToEnsight("rho", rho, &mesh, 0);
+    writeScalarToEnsight(scfields[0], rho, &mesh, 0);
 
-    writeScalarToEnsight("T", Temp, &mesh, 0);
+    writeScalarToEnsight(scfields[1], Temp, &mesh, 0);
 
-    writeVectorToEnsight("U", U, &mesh, 0);
+    writeVectorToEnsight(vfields[0], U, &mesh, 0);
 
     
     
@@ -420,11 +420,11 @@ int main(int argc, char** argv) {
     	    	printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
 		
 
-    	    	writeScalarToEnsight("rho", rho, &mesh, wt);
+    	    	writeScalarToEnsight(scfields[0], rho, &mesh, wt);
 
-    	    	writeScalarToEnsight("T", Temp, &mesh, wt);
+    	    	writeScalarToEnsight(scfields[1], Temp, &mesh, wt);
 
-    	    	writeVectorToEnsight("U", U, &mesh, wt);
+    	    	writeVectorToEnsight(vfields[0], U, &mesh, wt);
 
 
 
