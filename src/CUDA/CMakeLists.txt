@@ -7,5 +7,8 @@ add_subdirectory (cudaTest)
 # Bibliotecas de modelos LB
 add_subdirectory (lbEquation)
 
+# Operadores diferenciales con diferencias finitas
+add_subdirectory (FDOperations)
+
 # Aplicaciones
 add_subdirectory (applications)

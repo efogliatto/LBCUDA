@@ -37,8 +37,19 @@
 
 #include <basicMesh.h>
 
-#include <cudaEnergyCoeffs.h>
-
-extern "C" __global__ void cudaEnergyS( cuscalar* s, cuscalar* rho, cuscalar* T, cuscalar* U, cudaEnergyCoeffs* relax, cuscalar* field, cuscalar alpha_1, cuscalar alpha_2,  cuscalar cs_2, cuscalar delta_t, cuscalar c_v, cuscalar b, unit np, int Q, int* lvel,int* nb, cuscalar* Tau) ;
+extern "C" __global__ void cudaEnergySource( cuscalar* s,
+					     cuscalar* rho,
+					     cuscalar* T,
+					     cuscalar* U,
+					     cuscalar* Tau,
+					     cuscalar alpha_1,
+					     cuscalar alpha_2,
+					     cuscalar cs_2,
+					     cuscalar Cv,
+					     cuscalar b,
+					     uint np,
+					     uint Q,
+					     int* lvel,
+					     int* nb );
 
 #endif // CUDAENERGYS_H

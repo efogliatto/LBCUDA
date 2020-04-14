@@ -24,7 +24,7 @@
 
 #include <basicMesh.h>
 
-extern "C" __global__ void cudaEnergyTemp( cuscalar* T, cuscalar* field, cuscalar* gamma_0, cuscalar delta_t, unit np, int Q) ;
+extern "C" __global__ void cudaEnergyTemp( cuscalar* T, cuscalar* field, cuscalar* gamma_0, uint np, uint Q) ;
 
 
 #endif // CUDAENERGYTEMP_H

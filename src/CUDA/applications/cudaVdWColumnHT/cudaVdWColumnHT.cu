@@ -436,7 +436,7 @@ int main(int argc, char** argv) {
 	boundaryIndex(&mesh, "Y1", &bd);
 
 	cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
-								  energyRelax.alpha_1, energyRelax.alpha_2, 0.0366667, bd, cmesh.bd.nbd,
+								  energyRelax.alpha_1, energyRelax.alpha_2, 0.036667, bd, cmesh.bd.nbd,
 								  cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
 	
 	boundaryIndex(&mesh, "Y0", &bd);
@@ -445,32 +445,39 @@ int main(int argc, char** argv) {
 								  energyRelax.alpha_1, energyRelax.alpha_2, 0.033333, bd, cmesh.bd.nbd,
 								  cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
 
+
+	cudaEnergySource<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceHeat, deviceRho, deviceT, deviceU, deviceEnergyTau, energyRelax.alpha_1, energyRelax.alpha_2,
+								mesh.lattice.cs2, energyRelax.Cv, b, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, cmesh.nb );
+	cudaDeviceSynchronize();
+
+
+	cudaEnergyTemp<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceT, deviceField_g, deviceHeat, cmesh.nPoints, cmesh.Q);  cudaDeviceSynchronize();
 	
 
 	
 
 	
-	/* // Ecuaciones hidrodinamicas */
+	// Ecuaciones hidrodinamicas
 
-    	/* cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, deviceU, deviceF, deviceFint, deviceT, */
-    	/* 							    deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints, */
-    	/* 							    cmesh.Q, delta_t, a, b, c, mesh.lattice.cs2, G, sigma); cudaDeviceSynchronize(); */
+    	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, deviceU, deviceF, deviceFint, deviceT,
+    								    deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints,
+    								    cmesh.Q, delta_t, a, b, c, mesh.lattice.cs2, G, sigma); cudaDeviceSynchronize();
 
 
-	/* cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize(); */
+	cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
 	
-    	/* cudaMomentoDensity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, cmesh.nPoints, cmesh.Q);  cudaDeviceSynchronize(); */
+    	cudaMomentoDensity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, cmesh.nPoints, cmesh.Q);  cudaDeviceSynchronize();
 
 
-    	/* cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, */
-	/* 							   cmesh.lattice.reverse, cmesh.nb, G, c, mesh.lattice.cs2, a, b);  cudaDeviceSynchronize(); */
+    	cudaFuerzaFuerzaint<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceFint, deviceRho, deviceT, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel,
+								   cmesh.lattice.reverse, cmesh.nb, G, c, mesh.lattice.cs2, a, b);  cudaDeviceSynchronize();
 
-    	/* cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, deviceGravity, cmesh.nPoints);  cudaDeviceSynchronize(); */
+    	cudaFuerzaFuerzatotal<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceF, deviceFint, deviceRho, deviceGravity, cmesh.nPoints);  cudaDeviceSynchronize();
 
 
-    	/* cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField_f, deviceRho, deviceU, deviceF, */
-	/* 							  cmesh.lattice.vel, mesh.nPoints, mesh.Q);  cudaDeviceSynchronize(); */
+    	cudaMomentoVelocity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>(deviceField_f, deviceRho, deviceU, deviceF,
+								  cmesh.lattice.vel, mesh.nPoints, mesh.Q);  cudaDeviceSynchronize();
 
 	
 	

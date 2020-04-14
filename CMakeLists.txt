@@ -52,6 +52,7 @@ set ( CUDATEST_LINK_LIBS
   cudatest.a
   cudalatticemesh.a
   cudalbequation.a
+  cudafdoperations.a
   )
 
 

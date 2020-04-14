@@ -5,6 +5,8 @@
 
 #include <cudaFixedTBoundary.h>
 
-/* #include <cudaEnergyTemp.h> */
+#include <cudaEnergySource.h>
+
+#include <cudaEnergyTemp.h>
 
 #endif // CUDAENERGY_H

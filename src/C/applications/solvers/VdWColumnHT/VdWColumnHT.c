@@ -298,33 +298,33 @@ int main(int argc, char** argv) {
 
 	lbstreaming(field_g, streamingField, &mesh);
 
-	fixedTBoundary( &mesh, field_g, Temp, U, "Y1", 0.0366667, energyRelax.alpha_1, energyRelax.alpha_2);
+	fixedTBoundary( &mesh, field_g, Temp, U, "Y1", 0.036667, energyRelax.alpha_1, energyRelax.alpha_2);
 
 	fixedTBoundary( &mesh, field_g, Temp, U, "Y0", 0.033333, energyRelax.alpha_1, energyRelax.alpha_2);
 
-	/* energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b); */
+	energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b);
 
-	/* energyTemp( &mesh, Temp, field_g, heat, delta_t ); */
+	energyTemp( &mesh, Temp, field_g, heat, delta_t );
 	
 	
 
-	/* // Ecuaciones hidrodinamicas */
+	// Ecuaciones hidrodinamicas
 
-        /* momentoCollision( &mesh, &relax, field_f, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma); */
+        momentoCollision( &mesh, &relax, field_f, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma);
 
-	/* lbstreaming(field_f, streamingField, &mesh); */
+	lbstreaming(field_f, streamingField, &mesh);
 
-	/* NEBB( &mesh, field_f, f, "Y0", 2 ); */
+	NEBB( &mesh, field_f, f, "Y0", 2 );
 
-	/* NEBB( &mesh, field_f, f, "Y1", 3 ); */
+	NEBB( &mesh, field_f, f, "Y1", 3 );
 
-        /* momentoDensity( rho, field_f, &mesh); */
+        momentoDensity( rho, field_f, &mesh);
 
-	/* fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b); */
+	fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
 
-	/* fuerzaFuerzatotal(f, fint, rho, g, &mesh); */
+	fuerzaFuerzatotal(f, fint, rho, g, &mesh);
 			
-        /* momentoVelocity( rho,  U, field_f, &mesh, delta_t, f); */
+        momentoVelocity( rho,  U, field_f, &mesh, delta_t, f);
 
 
 
