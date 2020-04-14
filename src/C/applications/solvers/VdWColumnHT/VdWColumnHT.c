@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
     printf( "     | -   |   - |  \n" );
     printf( "     |   - | -   |                            VdWColumnHT\n" );
     printf( "     o<----o---->o  \n" );
-    printf( "     |   - | -   |  Estratificación de fluido Van der Waals con ecuación de energía en CPU \n" );
+    printf( "     |   - | -   |  Estratificación de fluido Van der Waals con ecuación de enrgía en CPU \n" );
     printf( "     | -   |   - |  \n" );
     printf( "     o-----o-----o  \n\n" );
 
@@ -300,7 +300,7 @@ int main(int argc, char** argv) {
 
 	fixedTBoundary( &mesh, field_g, Temp, U, "Y1", 0.036667, energyRelax.alpha_1, energyRelax.alpha_2);
 
-	fixedTBoundary( &mesh, field_g, Temp, U, "Y0", 0.033333, energyRelax.alpha_1, energyRelax.alpha_2);
+	fixedTBoundary( &mesh, field_g, Temp, U, "Y0", 0.033333, energyRelax.alpha_1, energyRelax.alpha_2);	
 
 	energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b);
 
