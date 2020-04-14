@@ -433,7 +433,6 @@ int main(int argc, char** argv) {
 	
 	uint bd;
 
-
 	boundaryIndex(&mesh, "Y1", &bd);
 
 	cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,

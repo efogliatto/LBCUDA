@@ -163,6 +163,8 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
 
 	cmesh->bd.maxCount = count;
 
+	hmesh->bd.maxCount = count;
+
 
 	// Primero arreglo unidimensional
 

@@ -2,6 +2,8 @@
 
 #include <cudaEnergyEqDistNode.h>
 
+#include <stdio.h>
+
 extern "C" __global__ void cudaFixedTBoundary( cuscalar* field,
 					       cuscalar* T,
 					       cuscalar* U,
@@ -25,7 +27,7 @@ extern "C" __global__ void cudaFixedTBoundary( cuscalar* field,
     // Calcular solo si el nodo pertenece a esta frontera
     
     if( ( idx >= (bid * maxNbd) )  &&  ( idx < (bid * maxNbd  + maxNbd) )  ) {
-    
+
 
 
 	// Lattice constants
@@ -39,6 +41,7 @@ extern "C" __global__ void cudaFixedTBoundary( cuscalar* field,
 	int id = bdPoints[idx];
 
 	if( id != -1 ) {
+
 
 
 	    // Distribucion de equilibrio sobre la frontera
