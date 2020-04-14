@@ -30,6 +30,8 @@ typedef struct {
     
     uint* nbdelem;
 
+    uint maxCount;
+
 
     /** Nombre de fronteras */
     

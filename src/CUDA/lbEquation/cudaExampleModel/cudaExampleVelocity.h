@@ -24,7 +24,7 @@
 #include <cudaBasicMesh.h>
 
 
-extern "C" __global__ void cudaExampleVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, cuscalar* lvel, int np, int Q );
+extern "C" __global__ void cudaExampleVelocity(cuscalar* field, cuscalar* rho, cuscalar* U, int* lvel, int np, int Q );
 
 
 #endif // CUDAEXAMPLEVELOCITY_H

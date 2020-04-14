@@ -9,3 +9,9 @@ add_subdirectory (simpleCollision)
 
 # Prueba de escritura
 add_subdirectory (IOTest)
+
+# Prueba de Construcción de Maxwell
+add_subdirectory (maxwellConstruction)
+
+# Columna de fluido VdW estratificado con temperatura 
+add_subdirectory (VdWColumnHT)

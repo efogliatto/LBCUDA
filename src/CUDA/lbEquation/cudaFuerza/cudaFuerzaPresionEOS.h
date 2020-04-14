@@ -3,7 +3,7 @@
 
 /**
  * @file cudaFuerzaPresionEOS.h
- * @author Thomas Coronel
+ * @author Thomás Coronel
  * @date 27 Feb 2020
  * @brief Calculo de presion
  */
@@ -20,7 +20,7 @@
 
 #include <basicMesh.h>
 
-__device__ void cudaFuerzaPresionEOS( cuscalar* p_EOS, cuscalar rho, cuscalar T, int a, int b) ;
+extern "C" __device__ void cudaFuerzaPresionEOS(cuscalar* p_EOS, cuscalar rho, cuscalar T, cuscalar a, cuscalar b) ;
 
 
 #endif // CUDAFUERZAPRESIONEOS_H

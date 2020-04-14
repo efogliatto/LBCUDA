@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void fuerzaPresionEOS(scalar* p_EOS, scalar rho, scalar T, int a, int b) {
+void fuerzaPresionEOS(scalar* p_EOS, scalar rho, scalar T, scalar a, scalar b) {
 
     // Constante universal de los gases (preguntar en que unidades se debe colocar ya que este modelo es adimensional)
 

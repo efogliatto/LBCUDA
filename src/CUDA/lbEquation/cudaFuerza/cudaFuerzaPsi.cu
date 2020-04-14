@@ -7,11 +7,10 @@
 #include <math.h>
 
 
-__device__ void cudaFuerzaPsi( cuscalar* psi, cuscalar p_EOS, cuscalar rho, cuscalar c, cuscalar cs_2, cuscalar G) {
+extern "C" __device__ void cudaFuerzaPsi(cuscalar* psi, cuscalar p_EOS, cuscalar rho, cuscalar c, cuscalar cs_2, cuscalar G) {
 
     // Suma de todas las componentes
     
-	*psi = pow ( fabs (( 2 * ( p_EOS - rho * cs_2 ) / ( G * c * c ) ) ), 0.5 );
-
+   *psi = pow ( ( 2 * ( p_EOS - rho * cs_2 ) / ( G * c * c ) ), 0.5 );
 
 }

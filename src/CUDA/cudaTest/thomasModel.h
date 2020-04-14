@@ -3,7 +3,7 @@
 
 /**
  * @file thomasModel.h
- * @author Thomas Coronel	
+ * @author Thomás Coronel	
  * @date 4 Feb 2020
  * @brief C\'alculo de momento de orden cero para arreglo unidimensional
  */

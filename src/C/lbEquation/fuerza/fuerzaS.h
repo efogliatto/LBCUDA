@@ -3,7 +3,7 @@
 
 /**
  * @file fuerzaS.h
- * @author Thomas Coronel
+ * @author Thomás Coronel
  * @date 26 Feb 2020
  * @brief Calculo de la fuente
  */

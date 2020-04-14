@@ -50,7 +50,7 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
 
 	for( uint j = 0 ; j < hmesh->Q ; j++ ) {
 
-	    hostNb[ 3*i + j ] = hmesh->nb[i][j];
+	    hostNb[ hmesh->Q*i + j ] = hmesh->nb[i][j];
 
 	}
 
@@ -124,5 +124,81 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
     cmesh->Q = hmesh->Q;
 
     cmesh->D = hmesh->D;
+
+
+
+
+    /**************************************/
+    /*              Fronteras             */
+    /**************************************/
+
+
+    // Cantidad de fronteras
+    
+    cmesh->bd.nbd = hmesh->bd.nbd;
+
+
+    // Numero de elementos por frontera
+
+    cudaMalloc( (void**)&cmesh->bd.nbdelem, hmesh->bd.nbd*sizeof(uint) );
+
+    cudaMemcpy( cmesh->bd.nbdelem, hmesh->bd.nbdelem, hmesh->bd.nbd*sizeof(uint), cudaMemcpyHostToDevice );
+
+
+    
+    // Indice de nodos para cada frontera
+
+    {
+
+	// Cantidad maxima de elementos por frontera
+	
+	uint count = 0;
+
+	for(uint i = 0 ; i < hmesh->bd.nbd ; i++) {
+
+	    if( hmesh->bd.nbdelem[i] > count )	    
+		count = hmesh->bd.nbdelem[i];
+
+	}
+
+	cmesh->bd.maxCount = count;
+
+	hmesh->bd.maxCount = count;
+
+
+	// Primero arreglo unidimensional
+
+	int* hostBdPoints = (int*)malloc( count * hmesh->bd.nbd * sizeof(int) );
+
+	for( uint i = 0 ; i < hmesh->bd.nbd ; i++ ) {
+
+	    for( uint j = 0 ; j < count ; j++ ) {
+
+		if( j < hmesh->bd.nbdelem[i] ) {
+
+		    hostBdPoints[i*count + j] = hmesh->bd.bdPoints[i][j];
+
+		}
+
+		else {
+
+		    hostBdPoints[i*count + j] = -1;
+
+		}
+				
+
+	    }
+
+	}
+	
+
+	cudaMalloc( (void**)&cmesh->bd.bdPoints, count * hmesh->bd.nbd * sizeof(int) );
+
+	cudaMemcpy( cmesh->bd.bdPoints, hostBdPoints, count * hmesh->bd.nbd * sizeof(int), cudaMemcpyHostToDevice );
+	
+    }
+    
+    
+
     
 }

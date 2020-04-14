@@ -19,6 +19,41 @@
 
 #include <cudaLatticeModelInfo.h>
 
+
+
+/**
+ * @brief Boundary information
+ *
+ * Information about boundary elements
+ */
+
+typedef struct {
+
+    /** Numero total de fronteras */
+    
+    uint nbd;
+    
+
+    /** Numero de elementos por frontera */
+    
+    uint* nbdelem;
+
+    uint maxCount;
+
+
+    /** Nombre de fronteras */
+    
+    char bdNames[100][100];
+
+
+    /** Indice de nodos para cada frontera */
+    
+    int* bdPoints;
+
+} cudaBasicBoundary;
+
+
+
 typedef struct {
 
     
@@ -55,6 +90,11 @@ typedef struct {
     /** Constantes del modelo de grilla */
 
     cudaLatticeModelInfo lattice;
+
+
+    /** Condiciones de contorno */
+
+    cudaBasicBoundary bd;
     
 
 

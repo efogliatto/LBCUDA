@@ -43,6 +43,7 @@ set ( PROJECT_LINK_LIBS
   libd2q9.so
   liblbequation.so
   libio.so
+  libfdoperations.so
   m
   )
 
@@ -51,6 +52,7 @@ set ( CUDATEST_LINK_LIBS
   cudatest.a
   cudalatticemesh.a
   cudalbequation.a
+  cudafdoperations.a
   )
 
 
@@ -83,7 +85,8 @@ else()
   
   # Opciones de compilador
 
-  SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )    
+  # SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )
+  SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30 -rdc=true" )
   
 endif()
 

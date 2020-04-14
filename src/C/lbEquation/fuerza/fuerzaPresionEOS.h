@@ -3,7 +3,7 @@
 
 /**
  * @file fuerzaPresionEOS.h
- * @author Thomas Coronel
+ * @author Thomás Coronel
  * @date 26 Feb 2020
  * @brief Calculo de presion
  */
@@ -20,7 +20,7 @@
 
 #include <basicMesh.h>
 
-void fuerzaPresionEOS(scalar* p_EOS, scalar rho, scalar T, int a, int b) ;
+void fuerzaPresionEOS(scalar* p_EOS, scalar rho, scalar T, scalar a, scalar b) ;
 
 
 #endif // FUERZAPRESIONEOS_H

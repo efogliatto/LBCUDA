@@ -10,6 +10,9 @@ add_subdirectory (lbEquation)
 # Some basic utilities
 add_subdirectory (basic)
 
+# Operadores diferenciales con diferencias finitas
+add_subdirectory (FDOperations)
+
 # Output functions
 add_subdirectory (IO)
 

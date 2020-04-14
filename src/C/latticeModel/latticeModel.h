@@ -7,6 +7,8 @@
 
 #include <latticeVel.h>
 
+#include <latticeCS2.h>
+
 #include <latticeReverseDir.h>
 
 #include <MRT_Matrix.h>

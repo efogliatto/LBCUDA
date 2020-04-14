@@ -10,6 +10,7 @@ add_library(cudalbequation STATIC
   cudaMomentoFunciondist/cudaMomentoCollision.cu
   cudaMomentoFunciondist/cudaMomentoDensity.cu
   cudaMomentoFunciondist/cudaMomentoVelocity.cu
+  cudaMomentoFunciondist/cudaStreaming.cu
 
   cudaFuerza/cudaFuerzaPresionEOS.cu
   cudaFuerza/cudaFuerzaPsi.cu
@@ -17,9 +18,14 @@ add_library(cudalbequation STATIC
   cudaFuerza/cudaFuerzaFuerzatotal.cu
   cudaFuerza/cudaFuerzaS.cu
 
+  cudaEnergiaEcu/cudaEnergyCollision.cu
+  cudaEnergiaEcu/cudaFixedTBoundary.cu
+  cudaEnergiaEcu/cudaEnergyEqDistNode.cu
+  cudaEnergiaEcu/cudaEnergySource.cu
+  cudaEnergiaEcu/cudaEnergyTemp.cu
   )
 
-set_target_properties( cudatest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+set_target_properties( cudalbequation PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
 
 
@@ -35,6 +41,7 @@ add_library(cudalbequationPTX OBJECT
   cudaMomentoFunciondist/cudaMomentoCollision.cu
   cudaMomentoFunciondist/cudaMomentoDensity.cu
   cudaMomentoFunciondist/cudaMomentoVelocity.cu
+  cudaMomentoFunciondist/cudaStreaming.cu  
 
   cudaFuerza/cudaFuerzaPresionEOS.cu
   cudaFuerza/cudaFuerzaPsi.cu
@@ -42,6 +49,11 @@ add_library(cudalbequationPTX OBJECT
   cudaFuerza/cudaFuerzaFuerzatotal.cu
   cudaFuerza/cudaFuerzaS.cu
 
+  cudaEnergiaEcu/cudaEnergyCollision.cu
+  cudaEnergiaEcu/cudaFixedTBoundary.cu
+  cudaEnergiaEcu/cudaEnergyEqDistNode.cu
+  cudaEnergiaEcu/cudaEnergySource.cu
+  cudaEnergiaEcu/cudaEnergyTemp.cu  
   )
 
 set_property(TARGET cudalbequationPTX PROPERTY CUDA_PTX_COMPILATION ON)

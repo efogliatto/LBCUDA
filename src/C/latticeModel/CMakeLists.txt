@@ -4,6 +4,7 @@
 add_library(latticemodel SHARED 
   latticeVelocities.c
   latticeVel.c
+  latticeCS2.c
   latticeReverseDir.c
   MRT_Matrix.c
   MRT_invMatrix.c
