@@ -7,6 +7,8 @@
 
 #include <cudaMomentoCollision.h>
 
+#include <cudaNEBB.h>
+
 #include <cudaStreaming.h>
 
 #endif // CUDAMOMENTOFUNCIONDIST_H

@@ -466,6 +466,18 @@ int main(int argc, char** argv) {
 
 	cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
+
+
+	boundaryIndex(&mesh, "Y0", &bd);
+	
+	cudaNEBB<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceF, cmesh.bd.bdPoints, bd, 2, cmesh.bd.maxCount, cmesh.Q );	cudaDeviceSynchronize();
+
+
+	boundaryIndex(&mesh, "Y1", &bd);
+	
+	cudaNEBB<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceF, cmesh.bd.bdPoints, bd, 3, cmesh.bd.maxCount, cmesh.Q );	cudaDeviceSynchronize();	
+
+	
 	
     	cudaMomentoDensity<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, cmesh.nPoints, cmesh.Q);  cudaDeviceSynchronize();
 
