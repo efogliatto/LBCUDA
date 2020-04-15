@@ -15,7 +15,7 @@ void energyCollision( basicMesh* mesh, scalar* field, scalar* gamma_0, scalar* T
     
     scalar n_eq[9];   // neq: Distribucion de equilibrio en espacio de momentos
 
-    scalar aux[9];
+    scalar aux[9] = {0,0,0,0,0,0,0,0,0};
 
     scalar Q_34 = relax->Tau[4] *(relax->Tau[3]*0.5 -1);
 

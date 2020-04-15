@@ -65,6 +65,9 @@ link_directories( ${CMAKE_SOURCE_DIR}/lib )
 
 option(DISABLE_CUDA "Deshabilitar manualmente la compilacion en CUDA" OFF)
 
+set(CUDAARCH "30" CACHE STRING "Arquitectura de GPU")
+
+
 if(DISABLE_CUDA)
 
   # Asignar solo C como lenguaje de compilacion
@@ -85,8 +88,32 @@ else()
   
   # Opciones de compilador
 
-  # SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )
-  SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30 -rdc=true" )
+  if(CUDAARCH STREQUAL "30")
+
+    message("-- CUDA: Arquitectura 30")
+    
+    SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30 -rdc=true" )
+    
+  else()
+    
+    if(CUDAARCH STREQUAL "50")
+
+      message("-- CUDA: Arquitectura 50")      
+      
+      SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50 -rdc=true" )
+      
+    else()
+
+      message("-- CUDA: Arquitectura no reconocida. Uso de 30")
+
+      SET( CMAKE_CUDA_FLAGS  "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30 -rdc=true" )      
+
+    endif()
+      
+  endif()
+
+
+
   
 endif()
 
