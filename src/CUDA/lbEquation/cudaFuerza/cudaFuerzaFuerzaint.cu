@@ -110,7 +110,16 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 	    
 
 	}
+
 	
+	// Sin fuerza sobre nodo de frontera
+	
+	else {
+
+	    for( uint j = 0 ; j < 3 ; j++)	
+		fint[id*3+j] =  0;
+
+	}	
 
 
     }

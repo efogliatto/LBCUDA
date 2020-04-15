@@ -199,19 +199,19 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-    	/* rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0; */
+    	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
 
-    	if( mesh.points[i][1] < 3 ) {
+    	/* if( mesh.points[i][1] < 3 ) { */
 
-    	    rho[i] = 0.09;
+    	/*     rho[i] = 0.09; */
 
-    	}
+    	/* } */
 
-    	else {
+    	/* else { */
 
-    	    rho[i] = 0.07;
+    	/*     rho[i] = 0.07; */
 
-    	}
+    	/* } */
 
 
     }
@@ -519,7 +519,7 @@ int main(int argc, char** argv) {
 
 
 		
-		writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q);
+		/* writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); */
 
 		
 

@@ -109,6 +109,17 @@ void fuerzaFuerzaint(scalar* fint, scalar* rho, scalar* T , basicMesh* mesh, sca
 
 	}
 
+
+
+	// Sin fuerza sobre nodo de frontera
+	
+	else {
+
+	    for( uint j = 0 ; j < 3 ; j++)	
+		fint[i*3+j] =  0;
+
+	}
+
 	
 
     }
