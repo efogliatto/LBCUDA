@@ -2,8 +2,6 @@
 
 # Compute without heat transfer
 
-rm -rf l*
-
 latticeBox2D 100 100 periodicXY
 
 maxwellConstruction 10000 1000

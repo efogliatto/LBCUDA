@@ -4,7 +4,7 @@
 
   Estratificacion de fluido VdW con temperatura no uniforme
 
- */
+*/
 
 
 
@@ -57,15 +57,54 @@ int main(int argc, char** argv) {
     // - argv[1] = Pasos de tiempo
     // - argv[2] = Intervalo de escritura
 
+    // Parámetros a Inicializar
+    
+        // Parametros del modelo
+
+        scalar G ;
+
+        scalar c ;
+
+        scalar sigma ;
+                       
+        // Constantes de EOS
+
+        scalar a ;
+
+        scalar b ;
+        
+        // Gravedad
+
+        scalar g[3] ;
+
+        // Temperatura de referencia
+
+        scalar Tr;
+
+        // Temperatura critica
+
+        scalar Tc ;
+
+        // Densidad critica
+
+        scalar Rhoc ;
+       
+
+    readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
+
+    /*        
+    printf("\t G = %f\n",G);
+    printf("\t c = %f\n",c);
+    printf("\t sigma = %f\n",sigma);
+    printf("\t a = %f\n",a);
+    printf("\t b = %f\n",b);
+    printf("\t g = (%f\t, %f\t, %f)\n",g[0],g[1],g[2]);    
+    printf("\t Tr = %f\n",Tr);
+    printf("\t Tc = %f\n",Tc);
+    printf("\t Rhoc = %f\n\n",Rhoc);
     
 
-    // Inicializacion de tiempo
-
-    timeInfo Time;
-
-    startTime(&Time);
-
-
+   */
 
     // Pasos de tiempo
     
@@ -83,32 +122,7 @@ int main(int argc, char** argv) {
     scalar delta_t = 1.0;
 
       
-    
-       
-    // Parametros del modelo
-
-    scalar G = -1.0;
-
-    scalar c = 1.0;
-
-    scalar sigma = 0.125;
-    
-
-    
-    // Constantes de EOS
-
-    scalar a = 0.5;
-
-    scalar b = 4;
-
-    
-    
-    // Gravedad
-
-    scalar g[3] = {0,-1.234567e-07,0};
-
-    
-
+   
     // Lectura de malla
 
     basicMesh mesh = readBasicMesh();
@@ -168,19 +182,20 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
+	    rho[i] = Rhoc + (rand() % (3)-1)*0.01* Rhoc;
 
-	/* if( mesh.points[i][1] < 3 ) { */
+        /*
+	    if( mesh.points[i][1] < 3 ) { 
 
-	/*     rho[i] = 0.09; */
+	        rho[i] = 0.09; 
 
-	/* } */
+	    } 
 
-	/* else { */
+	    else { 
 
-	/*     rho[i] = 0.07; */
+	         rho[i] = 0.07; 
 
-	/* } */
+	    } */
 
     }
    
@@ -190,11 +205,11 @@ int main(int argc, char** argv) {
     
     for( uint i = 0 ; i < mesh.nPoints ; i++ ){
 	
-	for( uint j = 0 ; j < 3 ; j++ ) {
-	    
-	    U[i*3+j] = 0;
+        for( uint j = 0 ; j < 3 ; j++ ) {
+            
+            U[i*3+j] = 0;
 
-	}
+        }
 
     }
 
@@ -202,7 +217,8 @@ int main(int argc, char** argv) {
     // Inicializacion de Temperatura
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	Temp[i] = 0.036667;
+    	Temp[i] = Tr * Tc;
+
  
 
         
@@ -283,47 +299,49 @@ int main(int argc, char** argv) {
     writeVectorToEnsight("U", U, &mesh, 0);
    
 	
+    // Inicializacion de tiempo
+
+    timeInfo Time;
+
+    startTime(&Time);
 
 
-
-
-      
     for( uint k = 1 ; k < (timeSteps+1) ; k++ ) {
 
 
 
-	// Ecuacion de energia
+        // Ecuacion de energia
 
-	energyCollision( &mesh, field_g, heat, Temp, U, &energyRelax, delta_t);
+        energyCollision( &mesh, field_g, heat, Temp, U, &energyRelax, delta_t);
 
-	lbstreaming(field_g, streamingField, &mesh);
+        lbstreaming(field_g, streamingField, &mesh);
 
-	fixedTBoundary( &mesh, field_g, Temp, U, "Y1", 0.036667, energyRelax.alpha_1, energyRelax.alpha_2);
+        fixedTBoundary( &mesh, field_g, Temp, U, "Y1", 0.036667, energyRelax.alpha_1, energyRelax.alpha_2);
 
-	fixedTBoundary( &mesh, field_g, Temp, U, "Y0", 0.033333, energyRelax.alpha_1, energyRelax.alpha_2);	
+        fixedTBoundary( &mesh, field_g, Temp, U, "Y0", 0.033333, energyRelax.alpha_1, energyRelax.alpha_2);	
 
-	energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b);
+        energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b);
 
-	energyTemp( &mesh, Temp, field_g, heat, delta_t );
+        energyTemp( &mesh, Temp, field_g, heat, delta_t );
 	
 	
 
-	// Ecuaciones hidrodinamicas
+	    // Ecuaciones hidrodinamicas
 
         momentoCollision( &mesh, &relax, field_f, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma);
 
-	lbstreaming(field_f, streamingField, &mesh);
+	    lbstreaming(field_f, streamingField, &mesh);
 
-	NEBB( &mesh, field_f, f, "Y0", 2 );
+	    NEBB( &mesh, field_f, f, "Y0", 2 );
 
-	NEBB( &mesh, field_f, f, "Y1", 3 );
+	    NEBB( &mesh, field_f, f, "Y1", 3 );
 
         momentoDensity( rho, field_f, &mesh);
 
-	fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
+	    fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
 
-	fuerzaFuerzatotal(f, fint, rho, g, &mesh);
-			
+	    fuerzaFuerzatotal(f, fint, rho, g, &mesh);
+    
         momentoVelocity( rho,  U, field_f, &mesh, delta_t, f);
 
 
@@ -331,30 +349,30 @@ int main(int argc, char** argv) {
 
 	// Escritura de campos
 	
-	for( uint wt = 0 ; wt < nwrite ; wt++ ) {
+        for( uint wt = 0 ; wt < nwrite ; wt++ ) {
 
-	    if( timeList[wt] == k ) {
-
-
-		scalar elap = elapsedTime(&Time);
-
-		printf( " Tiempo = %d\n", k );
-		
-		printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
-		
-
-		writeScalarToEnsight("rho", rho, &mesh, wt);
-
-		writeScalarToEnsight("T", Temp, &mesh, wt);
-
-		writeVectorToEnsight("U", U, &mesh, wt);
+            if( timeList[wt] == k ) {
 
 
-		/* writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); */
+                scalar elap = elapsedTime(&Time);
 
-	    }
+                printf( " Tiempo = %d\n", k );
+                
+                printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
+                
 
-	}
+                writeScalarToEnsight("rho", rho, &mesh, wt);
+
+                writeScalarToEnsight("T", Temp, &mesh, wt);
+
+                writeVectorToEnsight("U", U, &mesh, wt);
+
+
+                /* writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); */
+
+            }
+
+        }
 
 	
 
@@ -363,7 +381,9 @@ int main(int argc, char** argv) {
     }
 
 
+    // Finalizacion de tiempo
 
+    scalar elap = elapsedTime(&Time);
     
    
     // Limpieza de memoria 
@@ -389,9 +409,6 @@ int main(int argc, char** argv) {
     free( heat );
     
 
-
-
-    scalar elap = elapsedTime(&Time);
 	
     printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
 
