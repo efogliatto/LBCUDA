@@ -56,38 +56,53 @@ int main(int argc, char** argv) {
     // - argv[2] = Intervalo de escritura
 
     
-
-    // Inicializacion de tiempo
-
-    timeInfo Time;
-
-    startTime(&Time);
+  
+    // Parámetros a Inicializar
     
-    
+        // Parametros del modelo
+
+        scalar G ;
+
+        scalar c ;
+
+        scalar sigma ;
+                       
+        // Constantes de EOS
+
+        scalar a ;
+
+        scalar b ;
+        
+        // Gravedad
+
+        scalar g[3] ;
+
+        // Temperatura de referencia
+
+        scalar Tr;
+
+        // Temperatura critica
+
+        scalar Tc ;
+
+        // Densidad critica
+
+        scalar Rhoc ;
        
-    // Parametros del modelo
 
-    scalar G = -1.0;
+    readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
 
-    scalar c = 1.0;
-
-    scalar sigma = 0.125;
-    
-
-    
-    // Constantes de EOS
-
-    scalar a = 0.5;
-
-    scalar b = 4;
-
-    
-    
-    // Gravedad
-
-    scalar g[3] = {0,0,0};
-
-    
+    /*        
+    printf("\t G = %f\n",G);
+    printf("\t c = %f\n",c);
+    printf("\t sigma = %f\n",sigma);
+    printf("\t a = %f\n",a);
+    printf("\t b = %f\n",b);
+    printf("\t g = (%f\t, %f\t, %f)\n",g[0],g[1],g[2]);    
+    printf("\t Tr = %f\n",Tr);
+    printf("\t Tc = %f\n",Tc);
+    printf("\t Rhoc = %f\n\n",Rhoc);
+    */
 
     // Lectura de malla
 
@@ -137,17 +152,17 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
+	rho[i] = Rhoc + (rand() % (3)-1)* 0.01 * Rhoc;
 
 	/* if( mesh.points[i][1] < 3 ) { */
 
-	/*     rho[i] = 0.07; */
+	    /* rho[i] = 0.07; */
 
 	/* } */
 
 	/* else { */
 
-	/*     rho[i] = 0.09; */
+	    /* rho[i] = 0.09; */
 
 	/* } */
 
@@ -173,7 +188,7 @@ int main(int argc, char** argv) {
     // Inicializacion de Temperatura
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	Temp[i] = 0.9 / 27.0;
+    	Temp[i] = Tr * Tc;
  
 
 
@@ -244,12 +259,14 @@ int main(int argc, char** argv) {
     writeScalarToEnsight("T", Temp, &mesh, 0);
 
     writeVectorToEnsight("U", U, &mesh, 0);
+
+
+    // Inicializacion toma de tiempo
+
+    timeInfo Time;
+
+    startTime(&Time);
    
-	
-
-
-
-
       
     for( uint k = 1 ; k < (timeSteps+1) ; k++ ) { 
 
@@ -313,7 +330,7 @@ int main(int argc, char** argv) {
 
 	
 
-	/* // Escritura auxiliar de f */
+    /* // Escritura auxiliar de f */
 	/* { */
 
 	/*     FILE* outfile; */
@@ -372,7 +389,9 @@ int main(int argc, char** argv) {
 
     }
 
+    // Finalizacion toma de tiempo
 
+    scalar elap = elapsedTime(&Time);
 
     
    
@@ -397,8 +416,6 @@ int main(int argc, char** argv) {
 
 
 
-    scalar elap = elapsedTime(&Time);
-	
     printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
 
     

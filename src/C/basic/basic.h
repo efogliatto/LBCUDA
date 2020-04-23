@@ -13,4 +13,6 @@
 
 #include <nbReductionCPU.h>
 
+#include <readInitialParameters.h>
+
 #endif // BASIC_H
