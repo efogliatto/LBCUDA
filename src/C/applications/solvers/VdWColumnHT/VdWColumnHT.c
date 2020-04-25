@@ -347,7 +347,7 @@ int main(int argc, char** argv) {
 
 
 
-    	// Escritura de campos
+	// Escritura de campos
 	
         for( uint wt = 0 ; wt < nwrite ; wt++ ) {
 
@@ -368,17 +368,17 @@ int main(int argc, char** argv) {
                 writeVectorToEnsight("U", U, &mesh, wt);
 
 
-                
+                /* writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); */
 
             }
 
         }
 
-    
+	
+
+	
 
     }
-
-    /* writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); */
 
 
     // Finalizacion de tiempo

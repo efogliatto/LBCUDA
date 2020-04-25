@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Compute with heat transfer
-
-latticeBox2D 3 300 periodicX
-
-cudaVdWColumnHT 10000 1000 1024
-
-# cudaVdWColumnHT 10000 1000 1024 > & datos &

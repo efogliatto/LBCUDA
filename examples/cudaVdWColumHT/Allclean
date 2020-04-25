@@ -1,6 +1,0 @@
-#!/bin/bash
-
-echo Cleaning case
-
-rm -rf lattice/ lattice.* *.case
-rm -rf datos
