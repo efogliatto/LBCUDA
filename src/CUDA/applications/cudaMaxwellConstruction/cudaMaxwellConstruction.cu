@@ -110,38 +110,52 @@ int main(int argc, char** argv) {
 
 
 
-    // Inicializacion de tiempo
-
-    timeInfo Time;
-
-    startTime(&Time);
-
-
+    // Parámetros a Inicializar
     
-
     // Parametros del modelo
 
-    cuscalar G = -1.0;
+    scalar G ;
 
-    cuscalar c = 1.0;
+    scalar c ;
 
-    cuscalar sigma = 0.125;
-    
-
-    
+    scalar sigma ;
+                    
     // Constantes de EOS
 
-    cuscalar a = 0.5;
+    scalar a ;
 
-    cuscalar b = 4;
-
-    
+    scalar b ;
     
     // Gravedad
 
-    scalar g[3] = {0,0,0};
+    scalar g[3] ;
 
-    
+    // Temperatura de referencia
+
+    scalar Tr;
+
+    // Temperatura critica
+
+    scalar Tc ;
+
+    // Densidad critica
+
+    scalar Rhoc ;
+       
+
+    readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
+
+    /*        
+    printf("\t G = %f\n",G);
+    printf("\t c = %f\n",c);
+    printf("\t sigma = %f\n",sigma);
+    printf("\t a = %f\n",a);
+    printf("\t b = %f\n",b);
+    printf("\t g = (%f\t, %f\t, %f)\n",g[0],g[1],g[2]);    
+    printf("\t Tr = %f\n",Tr);
+    printf("\t Tc = %f\n",Tc);
+    printf("\t Rhoc = %f\n\n",Rhoc);
+    */
 
     // Lectura de malla
 
@@ -195,19 +209,19 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-    	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
+        rho[i] = Rhoc + (rand() % (3)-1)* 0.01 * Rhoc;
 
-    	/* if( mesh.points[i][1] < 3 ) { */
+        /* if( mesh.points[i][1] < 3 ) { 
 
-    	/*     rho[i] = 0.07; */
+            rho[i] = 0.07; 
 
-    	/* } */
+        } 
 
-    	/* else { */
+        else { 
 
-    	/*     rho[i] = 0.09; */
+            rho[i] = 0.09; 
 
-    	/* } */
+        } */
 
 
     }
@@ -231,7 +245,7 @@ int main(int argc, char** argv) {
     // Inicializacion de Temperatura
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	Temp[i] = 0.9 / 27.0;
+      Temp[i] = Tr * Tc;
  
 
 
@@ -366,7 +380,7 @@ int main(int argc, char** argv) {
 
     	// Streaming
 
-	cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+	    cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
 	
 	
@@ -401,16 +415,16 @@ int main(int argc, char** argv) {
     	    if( timeList[wt] == ts ) {
 
 
-    		// Copia de vuelta al host
+                // Copia de vuelta al host
 
-    		cudaMemcpy( field, deviceField, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
-		
-    		cudaMemcpy( rho, deviceRho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+                cudaMemcpy( field, deviceField, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+            
+                cudaMemcpy( rho, deviceRho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
 
-    		cudaMemcpy( Temp, deviceT, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+                cudaMemcpy( Temp, deviceT, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
 
-    		cudaMemcpy( U, deviceU, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
-		
+                cudaMemcpy( U, deviceU, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+            
 
 		
     	    	scalar elap = elapsedTime(&Time);
@@ -427,67 +441,70 @@ int main(int argc, char** argv) {
     	    	writeVectorToEnsight(vfields[0], U, &mesh, wt);
 
 
+            }
 
-		/* // Escritura auxiliar de f */
-		/* { */
+        }
 
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("faux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++){ */
-
-
-		/* 	for (uint j = 0; j < mesh.Q; j++) */
-		/* 	    fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); */
-	    	
-		/* 	fprintf(outfile,"\n"); */
-
-		/*     } */
-
-		/*     fclose(outfile); */
-		/* } */
-
-		/* // Escritura auxiliar de rho */
-		/* { */
-
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("rhoaux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++) */
-		/* 	fprintf(outfile,"%.6f\n",rho[i]); */
-
-		/*     fclose(outfile); */
-		/* } */
-
-		/* // Escritura auxiliar de U */
-		/* { */
-
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("Uaux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++){ */
-
-		/* 	for (uint j = 0; j < 3; j++) */
-		/* 	    fprintf(outfile,"%.6f ",U[i*3+j]); */
-		
-		/* 	fprintf(outfile,"\n"); */
-
-		/*     } */
-
-		/*     fclose(outfile); */
-		/* } */
-		
-
-    	    }
-
-    	}
-
-	
-	
     }
+
+
+    // Escritura auxiliar de f 
+    /*{ 
+
+        FILE* outfile; 
+
+        outfile = fopen("faux","w"); 
+    
+        for (uint i = 0; i < mesh.nPoints; i++){ 
+
+
+    for (uint j = 0; j < mesh.Q; j++) 
+        fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); 
+        
+    fprintf(outfile,"\n"); 
+
+        } 
+
+        fclose(outfile); 
+        } */
+
+    // Escritura auxiliar de rho 
+    /* { 
+
+        FILE* outfile; 
+
+        outfile = fopen("rhoaux","w"); 
+        
+        for (uint i = 0; i < mesh.nPoints; i++) 
+            fprintf(outfile,"%.6f\n",rho[i]); 
+
+        fclose(outfile); 
+    } */
+
+    // Escritura auxiliar de U 
+    /* { 
+
+        FILE* outfile; 
+
+        outfile = fopen("Uaux","w"); 
+        
+        for (uint i = 0; i < mesh.nPoints; i++){ 
+
+        for (uint j = 0; j < 3; j++) 
+            fprintf(outfile,"%.6f ",U[i*3+j]); 
+        
+        fprintf(outfile,"\n"); 
+
+        } 
+
+        fclose(outfile); 
+    } */
+        
+    
+    // Finalizacion toma de tiempo
+
+    scalar elap = elapsedTime(&Time);
+	  
     
 
    
@@ -530,8 +547,7 @@ int main(int argc, char** argv) {
 
 
     
-    scalar elap = elapsedTime(&Time);
-	
+
     printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
     
    

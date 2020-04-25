@@ -152,19 +152,19 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-	rho[i] = Rhoc + (rand() % (3)-1)* 0.01 * Rhoc;
+        rho[i] = Rhoc + (rand() % (3)-1)* 0.01 * Rhoc;
 
-	/* if( mesh.points[i][1] < 3 ) { */
+        /* if( mesh.points[i][1] < 3 ) { 
 
-	    /* rho[i] = 0.07; */
+            rho[i] = 0.07; 
 
-	/* } */
+        } 
 
-	/* else { */
+        else { 
 
-	    /* rho[i] = 0.09; */
+            rho[i] = 0.09; 
 
-	/* } */
+        } */
 
 
     }
@@ -271,123 +271,124 @@ int main(int argc, char** argv) {
     for( uint k = 1 ; k < (timeSteps+1) ; k++ ) { 
 
 
-	// Colision
-	
-        momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma);
+        // Colision
+        
+            momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma);
 
 
-	
-	// Streaming
+        
+        // Streaming
 
-	lbstreaming(field, streamingField, &mesh);
-
-
-	
-	// Actualizacion de densidad macroscopica
-
-        momentoDensity( rho, field, &mesh);
+        lbstreaming(field, streamingField, &mesh);
 
 
+        
+        // Actualizacion de densidad macroscopica
 
-	// Actualizacion de fuerzas
-
-	fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
-
-	fuerzaFuerzatotal(f, fint, rho, g, &mesh);
-	
-	
-
-	// Actualizacion de velocidad macroscopica
-	
-        momentoVelocity( rho,  U, field, &mesh, delta_t, f);
+            momentoDensity( rho, field, &mesh);
 
 
 
+        // Actualizacion de fuerzas
 
-	// Escritura de campos
-	
-	for( uint wt = 0 ; wt < nwrite ; wt++ ) {
+        fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
 
-	    if( timeList[wt] == k ) {
+        fuerzaFuerzatotal(f, fint, rho, g, &mesh);
+        
+        
 
-
-		scalar elap = elapsedTime(&Time);
-
-		printf( " Tiempo = %d\n", k );
-		
-		printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
-		
-
-		writeScalarToEnsight("rho", rho, &mesh, wt);
-
-		writeScalarToEnsight("T", Temp, &mesh, wt);
-
-		writeVectorToEnsight("U", U, &mesh, wt);		
-
-	    }
-
-	}
-
-	
-
-    /* // Escritura auxiliar de f */
-	/* { */
-
-	/*     FILE* outfile; */
-
-	/*     outfile = fopen("faux","w"); */
-	    
-	/*     for (uint i = 0; i < mesh.nPoints; i++){ */
+        // Actualizacion de velocidad macroscopica
+        
+            momentoVelocity( rho,  U, field, &mesh, delta_t, f);
 
 
-	/* 	for (uint j = 0; j < mesh.Q; j++) */
-	/* 	    fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); */
-	    	
-	/* 	fprintf(outfile,"\n"); */
 
-	/*     } */
 
-	/*     fclose(outfile); */
-	/* } */
+        // Escritura de campos
+        
+        for( uint wt = 0 ; wt < nwrite ; wt++ ) {
 
-	/* // Escritura auxiliar de rho */
-	/* { */
+            if( timeList[wt] == k ) {
 
-	/*     FILE* outfile; */
 
-	/*     outfile = fopen("rhoaux","w"); */
-	    
-	/*     for (uint i = 0; i < mesh.nPoints; i++) */
-	/* 	fprintf(outfile,"%.6f\n",rho[i]); */
+                scalar elap = elapsedTime(&Time);
 
-	/*     fclose(outfile); */
-	/* } */
+                printf( " Tiempo = %d\n", k );
+                
+                printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
+                
 
-	/* // Escritura auxiliar de U */
-	/* { */
+                writeScalarToEnsight("rho", rho, &mesh, wt);
 
-	/*     FILE* outfile; */
+                writeScalarToEnsight("T", Temp, &mesh, wt);
 
-	/*     outfile = fopen("Uaux","w"); */
-	    
-	/*     for (uint i = 0; i < mesh.nPoints; i++){ */
+                writeVectorToEnsight("U", U, &mesh, wt);		
 
-	/* 	for (uint j = 0; j < 3; j++) */
-	/* 	    fprintf(outfile,"%.6f ",U[i*3+j]); */
-		
-	/* 	fprintf(outfile,"\n"); */
+            }
 
-	/*     } */
-
-	/*     fclose(outfile); */
-	/* } */
+        }
 
 	
-
-	
-	
-
     }
+
+    // Escritura auxiliar de f 
+    /*{ 
+
+        FILE* outfile; 
+
+        outfile = fopen("faux","w"); 
+        
+        for (uint i = 0; i < mesh.nPoints; i++){ 
+
+
+        for (uint j = 0; j < mesh.Q; j++) 
+            fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); 
+            
+        fprintf(outfile,"\n"); 
+
+        } 
+
+        fclose(outfile); 
+    } */
+
+    // Escritura auxiliar de rho 
+    /* { 
+
+        FILE* outfile; 
+
+        outfile = fopen("rhoaux","w"); 
+        
+        for (uint i = 0; i < mesh.nPoints; i++) 
+            fprintf(outfile,"%.6f\n",rho[i]); 
+
+        fclose(outfile); 
+    } */
+
+    // Escritura auxiliar de U 
+    /* { 
+
+        FILE* outfile; 
+
+        outfile = fopen("Uaux","w"); 
+        
+        for (uint i = 0; i < mesh.nPoints; i++){ 
+
+        for (uint j = 0; j < 3; j++) 
+            fprintf(outfile,"%.6f ",U[i*3+j]); 
+        
+        fprintf(outfile,"\n"); 
+
+        } 
+
+        fclose(outfile); 
+    } */
+
+
+
+	
+	
+
+    
 
     // Finalizacion toma de tiempo
 
