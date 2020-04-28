@@ -363,7 +363,11 @@ int main(int argc, char** argv) {
 
     writeVectorToEnsight(vfields[0], U, &mesh, 0);
 
-    
+        // Inicializacion toma de tiempo
+
+        timeInfo Time;
+
+        startTime(&Time);
     
 
     // Ejecucion LB
