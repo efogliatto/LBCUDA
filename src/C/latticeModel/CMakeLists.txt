@@ -8,6 +8,12 @@ add_library(latticemodel SHARED
   latticeReverseDir.c
   MRT_Matrix.c
   MRT_invMatrix.c
+  D2Q9/D2Q9_MRT_Matrix.c
+  D2Q9/D2Q9_MRT_invMatrix.c
+  D2Q9/D2Q9_VelArray.c
+  D2Q9/D2Q9_Vel.c
+  D2Q9/D2Q9_Reverse.c
+
   )
 
 

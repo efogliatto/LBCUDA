@@ -30,5 +30,8 @@ add_library(lbequation SHARED
   energy/energyEqDistMomento.c
   energy/energyEqDistNode.c
   energy/fixedTBoundary.c
+
+  ../FDOperations/scalarGradient.c
+  ../FDOperations/vectorDivergence.c
   
   )
