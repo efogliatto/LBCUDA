@@ -368,7 +368,6 @@ int main(int argc, char** argv) {
                 writeVectorToEnsight("U", U, &mesh, wt);
 
 
-                /* writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); */
 
             }
 
@@ -379,6 +378,9 @@ int main(int argc, char** argv) {
 	
 
     }
+           
+    
+    writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); 
 
 
     // Finalizacion de tiempo
