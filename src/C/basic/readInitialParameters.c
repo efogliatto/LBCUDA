@@ -16,7 +16,7 @@ void readInitialParameters( scalar *G, scalar *c,scalar *sigma, scalar *a, scala
         return ; // or exit(1);
     }
     
-    while ( ( fscanf(handle, "%f", &parameter) ) == 1){
+    while ( ( fscanf(handle, "%lf", &parameter) ) == 1){
         par[n] = parameter;
         n++;
     }
