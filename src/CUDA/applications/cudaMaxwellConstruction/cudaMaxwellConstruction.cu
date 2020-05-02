@@ -23,6 +23,9 @@ extern "C" {
 
 #include <IO.h>
 
+#include "writeDebugMC.h"
+
+
 }
 
 #include <stdio.h>
@@ -145,7 +148,7 @@ int main(int argc, char** argv) {
 
     readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
 
-    /*        
+    /*      
     printf("\t G = %f\n",G);
     printf("\t c = %f\n",c);
     printf("\t sigma = %f\n",sigma);
@@ -374,7 +377,6 @@ int main(int argc, char** argv) {
 
     for( uint ts = 1 ; ts < (timeSteps+1) ; ts++ ) {
 
-
     	// Colision
 
     	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceRho, deviceU, deviceF, deviceFint, deviceT,
@@ -450,6 +452,8 @@ int main(int argc, char** argv) {
         }
 
     }
+    
+    writeDebugMC( field, rho, fint, f, U, mesh.nPoints, mesh.Q );
 
 
     // Escritura auxiliar de f 

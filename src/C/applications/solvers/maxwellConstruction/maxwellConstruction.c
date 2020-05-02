@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
 
     readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
 
-    /*        
+            
     printf("\t G = %f\n",G);
     printf("\t c = %f\n",c);
     printf("\t sigma = %f\n",sigma);
@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
     printf("\t Tr = %f\n",Tr);
     printf("\t Tc = %f\n",Tc);
     printf("\t Rhoc = %f\n\n",Rhoc);
-    */
+    
 
     // Lectura de malla
 
