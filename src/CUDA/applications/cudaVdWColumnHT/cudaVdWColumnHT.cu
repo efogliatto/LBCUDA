@@ -145,6 +145,18 @@ int main(int argc, char** argv) {
 
     scalar g[3] = {0,-1.234567e-07,0};
 
+    // Temperatura de referencia
+
+    scalar Tr = 0.9;
+
+    // Temperatura critica
+    
+    scalar Tc =(1.0/27.0) ;
+    
+    // Densidad critica
+    
+    scalar Rhoc = (1.0/12.0) ;
+
     
 
     // Lectura de malla
@@ -199,7 +211,7 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-    	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
+    	rho[i] = Rhoc + (rand() % (3)-1)* 0.01 * Rhoc;
 
     	/* if( mesh.points[i][1] < 3 ) { */
 
