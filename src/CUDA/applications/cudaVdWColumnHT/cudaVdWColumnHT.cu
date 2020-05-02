@@ -436,13 +436,13 @@ int main(int argc, char** argv) {
 	boundaryIndex(&mesh, "Y1", &bd);
 
 	cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
-								  energyRelax.alpha_1, energyRelax.alpha_2, 0.036667, bd, cmesh.bd.nbd,
+								  energyRelax.alpha_1, energyRelax.alpha_2, Tc*0.99, bd, cmesh.bd.nbd,
 								  cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
 	
 	boundaryIndex(&mesh, "Y0", &bd);
 
 	cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
-								  energyRelax.alpha_1, energyRelax.alpha_2, 0.033333, bd, cmesh.bd.nbd,
+								  energyRelax.alpha_1, energyRelax.alpha_2, Tr*Tc, bd, cmesh.bd.nbd,
 								  cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
 
 
