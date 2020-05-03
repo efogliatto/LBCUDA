@@ -30,6 +30,8 @@
 
 #include <math.h>
 
+#include "writeDebugMC.h"
+
 
 
 
@@ -273,7 +275,7 @@ int main(int argc, char** argv) {
 
         // Colision
         
-            momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma);
+        momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma);
 
 
         
@@ -285,7 +287,7 @@ int main(int argc, char** argv) {
         
         // Actualizacion de densidad macroscopica
 
-            momentoDensity( rho, field, &mesh);
+        momentoDensity( rho, field, &mesh);
 
 
 
@@ -299,7 +301,7 @@ int main(int argc, char** argv) {
 
         // Actualizacion de velocidad macroscopica
         
-            momentoVelocity( rho,  U, field, &mesh, delta_t, f);
+        momentoVelocity( rho,  U, field, &mesh, delta_t, f);
 
 
 
@@ -330,6 +332,9 @@ int main(int argc, char** argv) {
 
 	
     }
+
+    writeDebugMC( field, rho, fint, f, U, mesh.nPoints, mesh.Q);
+
 
     // Escritura auxiliar de f 
     /*{ 
