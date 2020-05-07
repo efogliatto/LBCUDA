@@ -24,6 +24,10 @@ add_library(cudalbequation STATIC
   cudaEnergiaEcu/cudaEnergyEqDistNode.cu
   cudaEnergiaEcu/cudaEnergySource.cu
   cudaEnergiaEcu/cudaEnergyTemp.cu
+
+  cudaStreaming/cudaStream.cu
+  cudaStreaming/cudaSwap.cu
+  
   )
 
 set_target_properties( cudalbequation PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
@@ -55,7 +59,11 @@ add_library(cudalbequationPTX OBJECT
   cudaEnergiaEcu/cudaFixedTBoundary.cu
   cudaEnergiaEcu/cudaEnergyEqDistNode.cu
   cudaEnergiaEcu/cudaEnergySource.cu
-  cudaEnergiaEcu/cudaEnergyTemp.cu  
+  cudaEnergiaEcu/cudaEnergyTemp.cu
+
+  cudaStreaming/cudaStream.cu
+  cudaStreaming/cudaSwap.cu
+  
   )
 
 set_property(TARGET cudalbequationPTX PROPERTY CUDA_PTX_COMPILATION ON)

@@ -30,7 +30,7 @@
 
 #include <math.h>
 
-
+#include "writeDebug.h"
 
 
 
@@ -305,69 +305,15 @@ int main(int argc, char** argv) {
 
 		writeScalarToEnsight("T", Temp, &mesh, wt);
 
-		writeVectorToEnsight("U", U, &mesh, wt);		
+		writeVectorToEnsight("U", U, &mesh, wt);
+
+		
+		/* writeDebug(field, rho, Temp, U, mesh.nPoints, mesh.Q);		 */
 
 	    }
 
 	}
 
-	
-
-	/* // Escritura auxiliar de f */
-	/* { */
-
-	/*     FILE* outfile; */
-
-	/*     outfile = fopen("faux","w"); */
-	    
-	/*     for (uint i = 0; i < mesh.nPoints; i++){ */
-
-
-	/* 	for (uint j = 0; j < mesh.Q; j++) */
-	/* 	    fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); */
-	    	
-	/* 	fprintf(outfile,"\n"); */
-
-	/*     } */
-
-	/*     fclose(outfile); */
-	/* } */
-
-	/* // Escritura auxiliar de rho */
-	/* { */
-
-	/*     FILE* outfile; */
-
-	/*     outfile = fopen("rhoaux","w"); */
-	    
-	/*     for (uint i = 0; i < mesh.nPoints; i++) */
-	/* 	fprintf(outfile,"%.6f\n",rho[i]); */
-
-	/*     fclose(outfile); */
-	/* } */
-
-	/* // Escritura auxiliar de U */
-	/* { */
-
-	/*     FILE* outfile; */
-
-	/*     outfile = fopen("Uaux","w"); */
-	    
-	/*     for (uint i = 0; i < mesh.nPoints; i++){ */
-
-	/* 	for (uint j = 0; j < 3; j++) */
-	/* 	    fprintf(outfile,"%.6f ",U[i*3+j]); */
-		
-	/* 	fprintf(outfile,"\n"); */
-
-	/*     } */
-
-	/*     fclose(outfile); */
-	/* } */
-
-	
-
-	
 	
 
     }

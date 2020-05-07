@@ -23,6 +23,8 @@ extern "C" {
 
 #include <IO.h>
 
+#include "writeDebug.h"
+
 }
 
 #include <stdio.h>
@@ -37,10 +39,11 @@ extern "C" {
 
 #include <cudaMomentoFunciondist.h>
 
+#include <cudaLbEquation.h>
+
 #include <cudaFuerza.h>
 
 #include <math.h>
-
 
 
 
@@ -366,7 +369,9 @@ int main(int argc, char** argv) {
 
     	// Streaming
 
-	cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+	cudaStream<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+
+	cudaSwap<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
 	
 	
@@ -427,58 +432,9 @@ int main(int argc, char** argv) {
     	    	writeVectorToEnsight(vfields[0], U, &mesh, wt);
 
 
-
-		/* // Escritura auxiliar de f */
-		/* { */
-
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("faux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++){ */
-
-
-		/* 	for (uint j = 0; j < mesh.Q; j++) */
-		/* 	    fprintf(outfile,"%.6f ",field[i*mesh.Q+j]); */
-	    	
-		/* 	fprintf(outfile,"\n"); */
-
-		/*     } */
-
-		/*     fclose(outfile); */
-		/* } */
-
-		/* // Escritura auxiliar de rho */
-		/* { */
-
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("rhoaux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++) */
-		/* 	fprintf(outfile,"%.6f\n",rho[i]); */
-
-		/*     fclose(outfile); */
-		/* } */
-
-		/* // Escritura auxiliar de U */
-		/* { */
-
-		/*     FILE* outfile; */
-
-		/*     outfile = fopen("Uaux","w"); */
-	    
-		/*     for (uint i = 0; i < mesh.nPoints; i++){ */
-
-		/* 	for (uint j = 0; j < 3; j++) */
-		/* 	    fprintf(outfile,"%.6f ",U[i*3+j]); */
 		
-		/* 	fprintf(outfile,"\n"); */
+		/* writeDebug(field, rho, Temp, U, mesh.nPoints, mesh.Q);		 */
 
-		/*     } */
-
-		/*     fclose(outfile); */
-		/* } */
 		
 
     	    }

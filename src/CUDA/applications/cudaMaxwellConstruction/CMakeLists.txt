@@ -2,7 +2,7 @@
 
 # cudaMaxwellConstruction
 
-add_executable(cudaMaxwellConstruction "cudaMaxwellConstruction.cu")
+add_executable(cudaMaxwellConstruction "cudaMaxwellConstruction.cu" "writeDebug.c" )
 
 target_link_libraries(cudaMaxwellConstruction ${PROJECT_LINK_LIBS} ${CUDATEST_LINK_LIBS})
 

@@ -37,6 +37,8 @@ extern "C" {
 
 #include <cudaExampleModel.h>
 
+#include <cudaLbEquation.h>
+
 #include <cudaMomentoFunciondist.h>
 
 #include <cudaEnergy.h>
@@ -428,7 +430,10 @@ int main(int argc, char** argv) {
 								   cmesh.Q, cmesh.nPoints, cmesh.lattice.M, cmesh.lattice.invM ); cudaDeviceSynchronize();
 
 
-	cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+	cudaStream<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+
+	cudaSwap<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+	
 
 	
 	uint bd;
@@ -464,8 +469,9 @@ int main(int argc, char** argv) {
     								    cmesh.Q, delta_t, a, b, c, mesh.lattice.cs2, G, sigma); cudaDeviceSynchronize();
 
 
-	cudaStreaming<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+	cudaStream<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
+	cudaSwap<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
 
 	boundaryIndex(&mesh, "Y0", &bd);
