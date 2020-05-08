@@ -116,37 +116,52 @@ int main(int argc, char** argv) {
 
 
 
-    // Inicializacion de tiempo
-
-    timeInfo Time;
-
-    startTime(&Time);
-
-
+    // Parámetros a Inicializar
     
+        // Parametros del modelo
 
-    // Parametros del modelo
+        cuscalar G ;
 
-    cuscalar G = -1.0;
+        cuscalar c ;
 
-    cuscalar c = 1.0;
+        cuscalar sigma ;
+                       
+        // Constantes de EOS
 
-    cuscalar sigma = 0.125;
-    
+        cuscalar a ;
 
-    
-    // Constantes de EOS
+        cuscalar b ;
+        
+        // Gravedad
 
-    cuscalar a = 0.5;
+        cuscalar g[3] ;
 
-    cuscalar b = 4;
+        // Temperatura de referencia
 
-    
-    
-    // Gravedad
+        cuscalar Tr;
 
-    scalar g[3] = {0,-1.234567e-07,0};
+        // Temperatura critica
 
+        cuscalar Tc ;
+
+        // Densidad critica
+
+        cuscalar Rhoc ;
+       
+
+    readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
+
+    /*        
+    printf("\t G = %f\n",G);
+    printf("\t c = %f\n",c);
+    printf("\t sigma = %f\n",sigma);
+    printf("\t a = %f\n",a);
+    printf("\t b = %f\n",b);
+    printf("\t g = (%f\t, %f\t, %f)\n",g[0],g[1],g[2]);    
+    printf("\t Tr = %f\n",Tr);
+    printf("\t Tc = %f\n",Tc);
+    printf("\t Rhoc = %f\n\n",Rhoc);
+    */
     
 
     // Lectura de malla
@@ -157,7 +172,6 @@ int main(int argc, char** argv) {
 
     hostToDeviceMesh( &cmesh, &mesh );
     
-
 
 
 
@@ -201,35 +215,34 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-    	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
+        rho[i] = Rhoc + (rand() % (3)-1)*0.01* Rhoc;
 
-    	/* if( mesh.points[i][1] < 3 ) { */
+        /*
+        if( mesh.points[i][1] < 3 ) { 
 
-    	/*     rho[i] = 0.09; */
+            rho[i] = 0.09; 
 
-    	/* } */
+        } 
 
-    	/* else { */
+        else { 
 
-    	/*     rho[i] = 0.07; */
+            rho[i] = 0.07; 
 
-    	/* } */
-
+        } */
 
     }
-   
 
 
 
     // Inicializacion de velocidad
-    
-    for( uint i = 0 ; i < mesh.nPoints ; i++ ){
-	
-    	for( uint j = 0 ; j < 3 ; j++ ) {
-	    
-    	    U[i*3+j] = 0;
 
-    	}
+    for( uint i = 0 ; i < mesh.nPoints ; i++ ){
+
+        for( uint j = 0 ; j < 3 ; j++ ) {
+            
+            U[i*3+j] = 0;
+
+        }
 
     }
 
@@ -237,7 +250,7 @@ int main(int argc, char** argv) {
     // Inicializacion de Temperatura
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	Temp[i] = 0.036667;
+        Temp[i] = Tr * Tc;
  
 
 
@@ -417,6 +430,12 @@ int main(int argc, char** argv) {
     writeVectorToEnsight(vfields[0], U, &mesh, 0);
 
     
+    // Inicializacion toma de tiempo
+
+    timeInfo Time;
+
+    startTime(&Time);
+    
     
 
     // Ejecucion LB
@@ -424,64 +443,64 @@ int main(int argc, char** argv) {
     for( uint ts = 1 ; ts < (timeSteps+1) ; ts++ ) {
 
 
-	// Ecuacion de energia
+	    // Ecuacion de energia
 
     	cudaEnergyCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceU, deviceT, deviceHeat, deviceEnergyTau, energyRelax.alpha_1, energyRelax.alpha_2,
 								   cmesh.Q, cmesh.nPoints, cmesh.lattice.M, cmesh.lattice.invM ); cudaDeviceSynchronize();
 
 
-	cudaStream<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+	    cudaStream<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
-	cudaSwap<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+	    cudaSwap<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 	
 
 	
-	uint bd;
+        uint bd;
 
-	boundaryIndex(&mesh, "Y1", &bd);
+        boundaryIndex(&mesh, "Y1", &bd);
 
-	cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
-								  energyRelax.alpha_1, energyRelax.alpha_2, 0.036667, bd, cmesh.bd.nbd,
-								  cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
-	
-	boundaryIndex(&mesh, "Y0", &bd);
+        cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
+                                    energyRelax.alpha_1, energyRelax.alpha_2, Tc * 0.99, bd, cmesh.bd.nbd,
+                                    cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
+        
+        boundaryIndex(&mesh, "Y0", &bd);
 
-	cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
-								  energyRelax.alpha_1, energyRelax.alpha_2, 0.033333, bd, cmesh.bd.nbd,
-								  cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
-
-
-	cudaEnergySource<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceHeat, deviceRho, deviceT, deviceU, deviceEnergyTau, energyRelax.alpha_1, energyRelax.alpha_2,
-								mesh.lattice.cs2, energyRelax.Cv, b, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, cmesh.nb );
-	cudaDeviceSynchronize();
+        cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
+                                    energyRelax.alpha_1, energyRelax.alpha_2, Tc * Tr, bd, cmesh.bd.nbd,
+                                    cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
 
 
-	cudaEnergyTemp<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceT, deviceField_g, deviceHeat, cmesh.nPoints, cmesh.Q);  cudaDeviceSynchronize();
-	
-
-	
-
-	
-	// Ecuaciones hidrodinamicas
-
-    	cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, deviceU, deviceF, deviceFint, deviceT,
-    								    deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints,
-    								    cmesh.Q, delta_t, a, b, c, mesh.lattice.cs2, G, sigma); cudaDeviceSynchronize();
+        cudaEnergySource<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceHeat, deviceRho, deviceT, deviceU, deviceEnergyTau, energyRelax.alpha_1, energyRelax.alpha_2,
+                                    mesh.lattice.cs2, energyRelax.Cv, b, cmesh.nPoints, cmesh.Q, cmesh.lattice.vel, cmesh.nb );
+        cudaDeviceSynchronize();
 
 
-	cudaStream<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+        cudaEnergyTemp<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceT, deviceField_g, deviceHeat, cmesh.nPoints, cmesh.Q);  cudaDeviceSynchronize();
+        
 
-	cudaSwap<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+        
+
+        
+        // Ecuaciones hidrodinamicas
+
+        cudaMomentoCollision<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceRho, deviceU, deviceF, deviceFint, deviceT,
+                                        deviceTau, cmesh.lattice.M, cmesh.lattice.invM, cmesh.nPoints,
+                                        cmesh.Q, delta_t, a, b, c, mesh.lattice.cs2, G, sigma); cudaDeviceSynchronize();
 
 
-	boundaryIndex(&mesh, "Y0", &bd);
-	
-	cudaNEBB<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceF, cmesh.bd.bdPoints, bd, 2, cmesh.bd.maxCount, cmesh.Q );	cudaDeviceSynchronize();
+        cudaStream<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
+
+        cudaSwap<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceSwap, cmesh.nb, cmesh.nPoints, cmesh.Q ); cudaDeviceSynchronize();
 
 
-	boundaryIndex(&mesh, "Y1", &bd);
-	
-	cudaNEBB<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceF, cmesh.bd.bdPoints, bd, 3, cmesh.bd.maxCount, cmesh.Q );	cudaDeviceSynchronize();	
+        boundaryIndex(&mesh, "Y0", &bd);
+        
+        cudaNEBB<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceF, cmesh.bd.bdPoints, bd, 2, cmesh.bd.maxCount, cmesh.Q );	cudaDeviceSynchronize();
+
+
+        boundaryIndex(&mesh, "Y1", &bd);
+        
+        cudaNEBB<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_f, deviceF, cmesh.bd.bdPoints, bd, 3, cmesh.bd.maxCount, cmesh.Q );	cudaDeviceSynchronize();	
 
 	
 	
@@ -508,18 +527,18 @@ int main(int argc, char** argv) {
     	    if( timeList[wt] == ts ) {
 
 
-    		// Copia de vuelta al host
+                // Copia de vuelta al host
 
-    		cudaMemcpy( field_f, deviceField_f, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+                cudaMemcpy( field_f, deviceField_f, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );
 
-    		cudaMemcpy( field_g, deviceField_g, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );		
-		
-    		cudaMemcpy( rho, deviceRho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+                cudaMemcpy( field_g, deviceField_g, fsize*sizeof(cuscalar), cudaMemcpyDeviceToHost );		
+            
+                cudaMemcpy( rho, deviceRho, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
 
-    		cudaMemcpy( Temp, deviceT, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+                cudaMemcpy( Temp, deviceT, mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
 
-    		cudaMemcpy( U, deviceU, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
-		
+                cudaMemcpy( U, deviceU, 3*mesh.nPoints*sizeof(cuscalar), cudaMemcpyDeviceToHost );
+            
 
 		
     	    	scalar elap = elapsedTime(&Time);
@@ -537,18 +556,21 @@ int main(int argc, char** argv) {
 
 
 		
-		/* writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); */
 
 		
 
     	    }
 
     	}
-
-	
 	
     }
     
+    // Finalizacion de tiempo
+
+    scalar elap = elapsedTime(&Time);
+
+
+    //writeDebug(field_f, field_g, rho, Temp, U, heat, mesh.nPoints, mesh.Q); 
 
    
 
@@ -595,9 +617,7 @@ int main(int argc, char** argv) {
     cudaFree( deviceGravity);
 
 
-    
-    scalar elap = elapsedTime(&Time);
-	
+
     printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
     
    

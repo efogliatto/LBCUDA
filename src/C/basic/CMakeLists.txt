@@ -7,4 +7,5 @@ add_library(basic SHARED
   timeOptions.c
   zerothMomentCPU.c
   nbReductionCPU.c
+  readInitialParameters.c
   )

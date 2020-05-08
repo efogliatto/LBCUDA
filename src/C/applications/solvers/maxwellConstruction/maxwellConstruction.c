@@ -56,38 +56,53 @@ int main(int argc, char** argv) {
     // - argv[2] = Intervalo de escritura
 
     
-
-    // Inicializacion de tiempo
-
-    timeInfo Time;
-
-    startTime(&Time);
+  
+    // Parámetros a Inicializar
     
-    
+        // Parametros del modelo
+
+        scalar G ;
+
+        scalar c ;
+
+        scalar sigma ;
+                       
+        // Constantes de EOS
+
+        scalar a ;
+
+        scalar b ;
+        
+        // Gravedad
+
+        scalar g[3] ;
+
+        // Temperatura de referencia
+
+        scalar Tr;
+
+        // Temperatura critica
+
+        scalar Tc ;
+
+        // Densidad critica
+
+        scalar Rhoc ;
        
-    // Parametros del modelo
 
-    scalar G = -1.0;
+    readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
 
-    scalar c = 1.0;
-
-    scalar sigma = 0.125;
-    
-
-    
-    // Constantes de EOS
-
-    scalar a = 0.5;
-
-    scalar b = 4;
-
-    
-    
-    // Gravedad
-
-    scalar g[3] = {0,0,0};
-
-    
+    /*        
+    printf("\t G = %f\n",G);
+    printf("\t c = %f\n",c);
+    printf("\t sigma = %f\n",sigma);
+    printf("\t a = %f\n",a);
+    printf("\t b = %f\n",b);
+    printf("\t g = (%f\t, %f\t, %f)\n",g[0],g[1],g[2]);    
+    printf("\t Tr = %f\n",Tr);
+    printf("\t Tc = %f\n",Tc);
+    printf("\t Rhoc = %f\n\n",Rhoc);
+    */
 
     // Lectura de malla
 
@@ -137,19 +152,19 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-	rho[i] = (1.0 / 12.0) + (rand() % (3)-1)*0.01*1.0/12.0;
+        rho[i] = Rhoc + (rand() % (3)-1)* 0.01 * Rhoc;
 
-	/* if( mesh.points[i][1] < 3 ) { */
+        /* if( mesh.points[i][1] < 3 ) { 
 
-	/*     rho[i] = 0.07; */
+            rho[i] = 0.07; 
 
-	/* } */
+        } 
 
-	/* else { */
+        else { 
 
-	/*     rho[i] = 0.09; */
+            rho[i] = 0.09; 
 
-	/* } */
+        } */
 
 
     }
@@ -161,11 +176,11 @@ int main(int argc, char** argv) {
     
     for( uint i = 0 ; i < mesh.nPoints ; i++ ){
 	
-	for( uint j = 0 ; j < 3 ; j++ ) {
+	    for( uint j = 0 ; j < 3 ; j++ ) {
 	    
-	    U[i*3+j] = 0;
+	        U[i*3+j] = 0;
 
-	}
+	    }
 
     }
 
@@ -173,7 +188,7 @@ int main(int argc, char** argv) {
     // Inicializacion de Temperatura
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ )
-    	Temp[i] = 0.9 / 27.0;
+    	Temp[i] = Tr * Tc;
  
 
 
@@ -247,79 +262,83 @@ int main(int argc, char** argv) {
    
 	
 
+    // Inicializacion toma de tiempo
 
+    timeInfo Time;
+
+    startTime(&Time);
 
 
       
     for( uint k = 1 ; k < (timeSteps+1) ; k++ ) { 
 
 
-	// Colision
+	    // Colision
 	
         momentoCollision( &mesh, &relax, field, rho, U, f, fint, Temp, delta_t, a, b, c, mesh.lattice.cs2, G, sigma);
 
 
 	
-	// Streaming
+        // Streaming
 
-	lbstreaming(field, streamingField, &mesh);
+        lbstreaming(field, streamingField, &mesh);
 
 
 	
-	// Actualizacion de densidad macroscopica
+	    // Actualizacion de densidad macroscopica
 
         momentoDensity( rho, field, &mesh);
 
 
 
-	// Actualizacion de fuerzas
+    	// Actualizacion de fuerzas
 
-	fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
+	    fuerzaFuerzaint(fint, rho, Temp , &mesh, G, c, mesh.lattice.cs2, a, b);
 
-	fuerzaFuerzatotal(f, fint, rho, g, &mesh);
+	    fuerzaFuerzatotal(f, fint, rho, g, &mesh);
 	
 	
 
-	// Actualizacion de velocidad macroscopica
+	    // Actualizacion de velocidad macroscopica
 	
         momentoVelocity( rho,  U, field, &mesh, delta_t, f);
 
 
 
 
-	// Escritura de campos
-	
-	for( uint wt = 0 ; wt < nwrite ; wt++ ) {
+        // Escritura de campos
+        
+        for( uint wt = 0 ; wt < nwrite ; wt++ ) {
 
-	    if( timeList[wt] == k ) {
+            if( timeList[wt] == k ) {
 
 
-		scalar elap = elapsedTime(&Time);
+                scalar elap = elapsedTime(&Time);
 
-		printf( " Tiempo = %d\n", k );
-		
-		printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
-		
+                printf( " Tiempo = %d\n", k );
+                
+                printf( " Tiempo de ejecución = %.4f segundos\n\n", elap );
+                
 
-		writeScalarToEnsight("rho", rho, &mesh, wt);
+                writeScalarToEnsight("rho", rho, &mesh, wt);
 
-		writeScalarToEnsight("T", Temp, &mesh, wt);
+                writeScalarToEnsight("T", Temp, &mesh, wt);
 
-		writeVectorToEnsight("U", U, &mesh, wt);
+                writeVectorToEnsight("U", U, &mesh, wt);
 
-		
-		/* writeDebug(field, rho, Temp, U, mesh.nPoints, mesh.Q);		 */
+                
+            }
 
 	    }
 
-	}
-
-	
-
     }
 
+    // Finalizacion toma de tiempo
+
+    scalar elap = elapsedTime(&Time);
 
 
+    // writeDebug(field, rho, Temp, U, mesh.nPoints, mesh.Q);
     
    
     // Limpieza de memoria 
@@ -343,8 +362,6 @@ int main(int argc, char** argv) {
 
 
 
-    scalar elap = elapsedTime(&Time);
-	
     printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
 
     
