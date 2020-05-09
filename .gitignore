@@ -5,3 +5,6 @@
 *.cubin
 *.fatbin
 *.vscode
+lattice*
+*.case
+datos

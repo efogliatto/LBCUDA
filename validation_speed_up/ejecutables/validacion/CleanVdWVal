@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Limpieza de datos de validarlos en C de VdWcolumnHT
+
+cd ../../valVdW
+
+rm -rf lattice
+
+cd c
+
+# Limpieza de datos
+
+cd 6
+rm -rf l* d* r* U*
+
+cd ../625
+rm -rf l* d* r* U*
+
+cd ../65
+rm -rf l* d* r* U*
+
+cd ../675
+rm -rf l* d* r* U*
+
+cd ../7
+rm -rf l* d* r* U*
+
+cd ../725
+rm -rf l* d* r* U*
+
+cd ../75
+rm -rf l* d* r* U*
+
+cd ../775
+rm -rf l* d* r* U*
+
+cd ../8
+rm -rf l* d* r* U*
+
+cd ../825
+rm -rf l* d* r* U*
+
+cd ../85
+rm -rf l* d* r* U*
+
+cd ../875
+rm -rf l* d* r* U*
+
+cd ../9
+rm -rf l* d* r* U*
+
+cd ../925
+rm -rf l* d* r* U*
+
+cd ../95
+rm -rf l* d* r* U*
+
+cd ../975
+rm -rf l* d* r* U*
+
