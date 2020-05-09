@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Limpieza de datos de validarlos en C de la Construccion de Maxwell
+# Limpieza de datos de validarlos en C de VdWcolumnHT
 
-cd ../../valMxC
+cd ../../valVdW
 
 rm -rf lattice
 
-cd c
+cd cuda
 
 # Limpieza de datos
 

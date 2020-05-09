@@ -6,7 +6,7 @@ cd ../../valMxC
 
 rm -rf lattice
 
-cd c
+cd cuda
 
 # Limpieza de datos
 
