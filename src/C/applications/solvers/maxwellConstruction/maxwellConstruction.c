@@ -338,7 +338,7 @@ int main(int argc, char** argv) {
     scalar elap = elapsedTime(&Time);
 
 
-    // writeDebug(field, rho, Temp, U, mesh.nPoints, mesh.Q);
+    writeDebug(field, rho, Temp, U, mesh.nPoints, mesh.Q);
     
    
     // Limpieza de memoria 
@@ -360,6 +360,7 @@ int main(int argc, char** argv) {
     free( fint );
     
 
+    writeTime(elap);
 
 
     printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
