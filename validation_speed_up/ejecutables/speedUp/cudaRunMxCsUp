@@ -22,61 +22,63 @@ cd 1B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 1 >&datos
+    cudaMaxwellConstruction 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 2B
 
@@ -89,61 +91,63 @@ cd 2B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 2 >&datos
+    cudaMaxwellConstruction 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 4B
 
@@ -156,61 +160,63 @@ cd 4B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 4 >&datos
+    cudaMaxwellConstruction 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 8B
 
@@ -223,61 +229,63 @@ cd 8B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 8 >&datos
+    cudaMaxwellConstruction 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 16B
 
@@ -290,61 +298,63 @@ cd 16B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 16 >&datos
+    cudaMaxwellConstruction 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 32B
 
@@ -357,61 +367,63 @@ cd 32B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 32 >&datos
+    cudaMaxwellConstruction 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 64B
 
@@ -424,61 +436,63 @@ cd 64B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 64 >&datos
+    cudaMaxwellConstruction 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 128B
 
@@ -491,61 +505,63 @@ cd 128B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 128 >&datos
+    cudaMaxwellConstruction 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 256B
 
@@ -558,61 +574,63 @@ cd 256B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 256 >&datos
+    cudaMaxwellConstruction 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 512B
 
@@ -625,61 +643,63 @@ cd 512B
     cd 16
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 16 16 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 32 32 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 64 64 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 128 128 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 256 256 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 512 512 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 1024 1024 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 2048 2048 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
     latticeBox2D 4096 4096 periodicXY
-    cudaMaxwellConstruction 100000 100100 512 >&datos
+    cudaMaxwellConstruction 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 # Posicionamiento en sUpMxC
 cd ../
 

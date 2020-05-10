@@ -21,62 +21,64 @@ cd 1B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 1 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 1 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 2B
 
@@ -88,62 +90,64 @@ cd 2B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 2 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 2 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 4B
 
@@ -155,62 +159,64 @@ cd 4B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 4 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 4 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 8B
 
@@ -222,62 +228,64 @@ cd 8B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 8 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 8 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 16B
 
@@ -289,62 +297,64 @@ cd 16B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 16 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 16 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 32B
 
@@ -356,62 +366,64 @@ cd 32B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 32 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 32 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 64B
 
@@ -423,62 +435,64 @@ cd 64B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 64 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 64 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 128B
 
@@ -490,62 +504,64 @@ cd 128B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 128 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 128 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 256B
 
@@ -557,62 +573,64 @@ cd 256B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 256 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 256 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 
 cd 512B
 
@@ -624,62 +642,64 @@ cd 512B
 
     cd 16
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 16 16 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 16 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../32
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 32 32 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 32 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../64
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 64 64 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 64 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../128
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 128 128 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 128 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../256
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 256 256 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 256 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../512
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 512 512 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 512 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../1024
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 1024 1024 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 1024 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../2048
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 2048 2048 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 2048 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     cd ../4096
     ln -s ../../../InitialParameters.txt .
-    latticeBox2D 4096 4096 periodicXY
-    cudaVdWColumnHT 100000 100100 512 >&datos
+    latticeBox2D 3 4096 periodicX
+    cudaVdWColumnHT 50000 50100 512 >&datos
     rm -rf lattice* f* g* h* T* U*  rho* *.case
 
     # Posicionamiento en cuda
     cd ../../
 
 }
+
+echo Done Block
 # Posicionamiento en sUpMxC
 cd ../
 
