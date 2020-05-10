@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Limpieza de datos de validarlos en C de VdWcolumnHT
+
+cd ../../valVdW
+
+rm -rf lattice
+
+cd c
+
+# Limpieza de datos
+
+cd 6
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../625
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../65
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../675
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../7
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../725
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../75
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../775
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../8
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../825
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../85
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../875
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../9
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../925
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../95
+rm -rf l* d* r* U* time_e*  f* g* T*
+
+cd ../975
+rm -rf l* d* r* U* time_e*  f* g* T*
+

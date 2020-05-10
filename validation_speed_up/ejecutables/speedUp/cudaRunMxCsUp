@@ -1,0 +1,689 @@
+#!/bin/bash
+
+# generacion de datos para validarlos en C de la Construccion de Maxwell
+
+cd ../../sUpMxC
+
+# Ingresando en cuda
+cd cuda
+
+#Creacion de carpetas para datos de los bloque
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+cd 1B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 1 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 2B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 2 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 4B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 4 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 8B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 8 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 16B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 16 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 32B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 32 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 64B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 64 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 128B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 128 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 256B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 256 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+
+cd 512B
+
+{
+    # Creacion de carpetas para el tamaño de bloque
+    # Sólo quedará el archivo con el tiempo
+
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    cudaMaxwellConstruction 100000 100100 512 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    # Posicionamiento en cuda
+    cd ../../
+
+}
+# Posicionamiento en sUpMxC
+cd ../
+
+# Copia de datos a una carpeta externa de LBCUDA_Test
+
+cp -r cuda ../../../speedUp_cudaMxC
+
