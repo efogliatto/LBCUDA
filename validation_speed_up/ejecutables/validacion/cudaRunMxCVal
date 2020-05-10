@@ -81,5 +81,5 @@ cd ../../
 
 # Copia de datos a una carpeta externa de LBCUDA_Test
 
-cp -r c ../../../validacion_cudaMxC
+cp -r cuda ../../../validacion_cudaMxC
 
