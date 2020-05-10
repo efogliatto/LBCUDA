@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# generacion de datos para validarlos en C de la Construccion de Maxwell
+
+cd ../../sUpVdW
+
+# ingresando a la construcción en c
+cd c
+
+# inicio de generacion de datos
+{
+    mkdir 16 32 64 128 256 512 1024 2048 4096
+
+    cd 16
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 16 16 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../32
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 32 32 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../64
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 64 64 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../128
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 128 128 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../256
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 256 256 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../512
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 512 512 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../1024
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 1024 1024 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../2048
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 2048 2048 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    cd ../4096
+    ln -s ../../InitialParameters.txt .
+    latticeBox2D 4096 4096 periodicXY
+    VdWColumnHT 100000 100100 >&datos
+    rm -rf lattice* f* g* h* T* U*  rho* *.case
+
+    
+}
+
+# Posicionamiento en valMxC
+cd ../../
+
+# Copia de datos a una carpeta externa de LBCUDA_Test
+
+cp -r c ../../../speedUp_VdW
+
