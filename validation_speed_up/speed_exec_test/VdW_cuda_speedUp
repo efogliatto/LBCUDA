@@ -1,0 +1,843 @@
+#!/bin/bash
+
+#Tamaño de la grilla
+
+mkdir cuda
+
+cd cuda
+
+mkdir 16 32 64 128 256 512 1024 2048 4096
+
+# -------------------------------------------------------------------
+cd 16
+
+latticeBox2D 3 16 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 32
+
+latticeBox2D 3 32 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+
+#--------------------------------------------------------------------
+cd 64
+
+latticeBox2D 3 64 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 128
+
+latticeBox2D 3 128 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 256
+
+latticeBox2D 3 256 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 512
+
+latticeBox2D 3 512 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 1024
+
+latticeBox2D 3 1024 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 2048
+
+latticeBox2D 3 2048 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 4096
+
+latticeBox2D 3 4096 periodicX
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../../InitialParameters.txt .
+cudaVdWColumnHT 100 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+cd ../
+#---##
+
+
+#----------------------------------------------- Final para copiar
+cd ../
+cp -r cuda ../ttt_ejec_VdW

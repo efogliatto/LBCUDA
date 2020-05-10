@@ -11,50 +11,50 @@ cd c
 # Limpieza de datos
 
 cd 6
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../625
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../65
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../675
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../7
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../725
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../75
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../775
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../8
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../825
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../85
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../875
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../9
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../925
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../95
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
 cd ../975
-rm -rf l* d* r* U* time_e*  f* g* T*
+rm -rf l* d* r* U* time_e*  f* g* T* F*
 
