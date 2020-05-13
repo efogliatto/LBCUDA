@@ -19,5 +19,7 @@
 
 #include <fixedTBoundary.h>
 
+#include <fixedTBoundaryHeating.h>
+
 
 #endif // ENERGY_H

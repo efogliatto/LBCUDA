@@ -92,6 +92,12 @@ int main(int argc, char** argv) {
         // Densidad referencia
 
         scalar Rhor = 0.214;
+
+        // Temperatura calefaccionada
+
+        scalar Theat = Tc;
+
+        int widthbd = 12 ;
        
 
     readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
@@ -184,9 +190,9 @@ int main(int argc, char** argv) {
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
 
-	    rho[i] = Rhoc + (rand() % (3)-1)*0.01* Rhoc;
+	    //rho[i] = Rhoc + (rand() % (3)-1)*0.01* Rhoc;
 
-        /*
+        
 	    if( mesh.points[i][1] < 350 ) { 
 
 	        rho[i] = 0.1610588; 
@@ -197,7 +203,7 @@ int main(int argc, char** argv) {
 
 	         rho[i] = 0.0199722; 
 
-	    } */
+	    }
 
     }
    
@@ -322,6 +328,8 @@ int main(int argc, char** argv) {
         fixedTBoundary( &mesh, field_g, Temp, U, "Y1", (Tc * 0.99), energyRelax.alpha_1, energyRelax.alpha_2);
 
         fixedTBoundary( &mesh, field_g, Temp, U, "Y0", (Tc*Tr), energyRelax.alpha_1, energyRelax.alpha_2);	
+
+        fixedTBoundaryHeating( &mesh, field_g, Temp, U, "Y0", Theat, widthbd, energyRelax.alpha_1, energyRelax.alpha_2);	
 
         energyS( &mesh, heat, rho, Temp, U, &energyRelax, mesh.lattice.cs2, delta_t, b);
 
