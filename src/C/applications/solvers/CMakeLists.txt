@@ -15,3 +15,7 @@ add_subdirectory (maxwellConstruction)
 
 # Columna de fluido VdW estratificado con temperatura 
 add_subdirectory (VdWColumnHT)
+
+# Generación de burbujas en una superficie calefaccionada
+add_subdirectory (bubbleGeneration)
+
