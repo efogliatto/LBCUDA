@@ -22,6 +22,6 @@
 
 #include <basicMesh.h>
 
-void fixedTBoundaryHeating( basicMesh* mesh, scalar* field, scalar* T, scalar* U, char* bdname, scalar bdheat, uint widthbd, scalar alpha_1, scalar alpha_2 )  ;
+void fixedTBoundaryHeating( basicMesh* mesh, scalar* field, scalar* T, scalar* U, char* bdname, scalar bdval, scalar bdheat, uint widthbd, scalar alpha_1, scalar alpha_2 ) ;
 
 #endif // FIXEDTBOUNDARYHEATING_H

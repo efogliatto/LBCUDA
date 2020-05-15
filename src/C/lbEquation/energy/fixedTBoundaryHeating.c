@@ -48,79 +48,80 @@ void fixedTBoundaryHeating( basicMesh* mesh, scalar* field, scalar* T, scalar* U
 	// printf("%d \n", since);
 	// printf("%d \n", until);
 
-   	for( uint i = since ; i < until ; i++ ) {
-    // for( uint i = 0 ; i < mesh->bd.nbdelem[bid] ; i++ ) {
+   	//for( uint i = since ; i < until ; i++ ) {
+    for( uint i = 0 ; i < mesh->bd.nbdelem[bid] ; i++ ) {
 
 
 		// Indice de nodo sobre frontera
 		
 		uint id = mesh->bd.bdPoints[bid][i];
 
-		T [id] = bdheat;
+		// T [id] = bdheat;
 
-		// // Distribucion de equilibrio sobre la frontera
+		// Distribucion de equilibrio sobre la frontera
 
-		// energyEqDistNode( f_eq_bnd, mesh, T, U, id, alpha_1, alpha_2 );
+		energyEqDistNode( f_eq_bnd, mesh, T, U, id, alpha_1, alpha_2 );
 		
 
 
-		// // Update unknowk distributions
+		// Update unknowk distributions
 
-		// for( uint k = 1 ; k < Q ; k++ ) {
+		for( uint k = 1 ; k < Q ; k++ ) {
 			
-		// 	if( mesh->nb[id][k] == -1 ) {
+			if( mesh->nb[id][k] == -1 ) {
 
-		// 		field[id*Q+k] = f_eq_bnd[k];
+				field[id*Q+k] = f_eq_bnd[k];
 
-		// 	}
+			}
 
-		// }
-
-
+		}
 
 
 
-		// // Correction constants
 
-		// scalar beta=0, kn=0, unk=0;
 
-		// for( uint k = 0 ; k < Q ; k++ ) {
+		// Correction constants
+
+		scalar beta=0, kn=0, unk=0;
+
+		for( uint k = 0 ; k < Q ; k++ ) {
 			
-		// 	if( mesh->nb[id][k] == -1 ) {
+			if( mesh->nb[id][k] == -1 ) {
 
-		// 		unk += field[id*Q+k];
+				unk += field[id*Q+k];
 
-		// 	}
+			}
 
-		// 	else {
+			else {
 
-		// 		kn += field[id*Q+k];
+				kn += field[id*Q+k];
 
-		// 	}
+			}
 
-		// }
+		}
 
 		
-		// if( i>=since && i<=until){
+		if( i>=since && i<=until){
 
-		// beta = (bdheat - kn) / unk;
+		beta = (bdheat - kn) / unk;
 
-		// }
-		// else
-		// {
-		// 	beta = (bdval - kn) / unk;
-		// }
+		}
+		
+		else
+		{
+			beta = (bdval - kn) / unk;
+		}
 		
 
-		// for( uint k = 0 ; k < Q ; k++ ) {
+		for( uint k = 0 ; k < Q ; k++ ) {
 			
-		// 	if( mesh->nb[id][k] == -1 ) {
+			if( mesh->nb[id][k] == -1 ) {
 
-		// 		field[id*Q+k] = beta * field[id*Q+k];
+				field[id*Q+k] = beta * field[id*Q+k];
 
-		// 	}
+			}
 
-		// }	
+		}	
 		
 
 		
