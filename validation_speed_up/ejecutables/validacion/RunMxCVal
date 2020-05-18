@@ -14,7 +14,7 @@ cd ../../../validacion_MxC
 
 # Generacion de la grilla
 
-latticeBox2D 100 100 periodicXY
+latticeBox2D 201 201 periodicXY
 
 # inicio de generacion de datos
 {

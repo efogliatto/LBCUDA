@@ -6,7 +6,7 @@ cd ../../valVdW
 
 # Copia de los parámetros para realizar el muestreo
 
-cp -r cuda ../../../validacion_VdW
+cp -r cuda ../../../validacion_cudaVdW
 
 # Ingresando a realizar la estratificación de Maxwell en C
 

@@ -1,77 +1,119 @@
 #!/bin/bash
 
-# generacion de datos para validarlos en C de la Construccion de Maxwell
+#Tamaño de la grilla
 
-cd ../../sUpVdW
+cd ../../../../
 
-# ingresando a la construcción en c
-cd c
+mkdir speedUp_VdW
 
-# inicio de generacion de datos
-{
-    mkdir 16 32 64 128 256 512 1024 2048 4096
+cd speedUp_VdW
 
-    cd 16
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 16 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+cp ../LBCUDA_Test/validation_speed_up/sUpVdW/InitialParameters.txt .
 
-    cd ../32
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 32 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+mkdir 3 4 8 16 32 64 128 256 512 1024
 
-    cd ../64
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 64 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+#--------------------------------------------------------------------
 
-    cd ../128
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 128 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+#Entrar a los bloques
 
-    cd ../256
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 256 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+cd 3
 
-    cd ../512
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 512 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+latticeBox2D 3 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
 
-    cd ../1024
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 1024 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+echo Done 3
 
-    cd ../2048
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 2048 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+cd 4
 
-    cd ../4096
-    ln -s ../../InitialParameters.txt .
-    latticeBox2D 3 4096 periodicX
-    VdWColumnHT 50000 50100 >&datos
-    rm -rf lattice* f* g* h* T* U*  rho* *.case
+latticeBox2D 4 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
 
-    
-}
+echo Done 4
 
-# Posicionamiento en valMxC
-cd ../../
+cd 8
 
-# Copia de datos a una carpeta externa de LBCUDA_Test
+latticeBox2D 8 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
 
-cp -r c ../../../speedUp_VdW
+echo Done 8
+
+cd 16
+
+latticeBox2D 16 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 16
+
+cd 32
+
+latticeBox2D 32 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 32
+
+cd 64
+
+latticeBox2D 64 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 64
+
+cd 128
+
+latticeBox2D 128 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 128
+
+cd 256
+
+latticeBox2D 256 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 256
+
+cd 512
+
+latticeBox2D 512 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 512
+
+cd 1024
+
+latticeBox2D 1024 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 1024
+
 
