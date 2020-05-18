@@ -44,9 +44,9 @@ int main(int argc, char** argv) {
     printf( "                    \n" );
     printf( "     o-----o-----o  \n" );
     printf( "     | -   |   - |  \n" );
-    printf( "     |   - | -   |                            VdWColumnHT\n" );
+    printf( "     |   - | -   |                            bubbleGeneration\n" );
     printf( "     o<----o---->o  \n" );
-    printf( "     |   - | -   |  Estratificación de fluido Van der Waals con ecuación de enrgía en CPU \n" );
+    printf( "     |   - | -   |  Generación de una burbuja de gas mediante una superficie calefaccionada en CPU \n" );
     printf( "     | -   |   - |  \n" );
     printf( "     o-----o-----o  \n\n" );
 
@@ -89,10 +89,7 @@ int main(int argc, char** argv) {
 
         scalar Rhoc ;
 
-        // Temperatura calefaccionada
-
-        uint widthbd = 12 ;
-       
+               
 
     readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
 
