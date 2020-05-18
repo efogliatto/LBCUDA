@@ -1,0 +1,122 @@
+#!/bin/bash
+
+#Tamaño de la grilla
+
+cd ../../../../
+
+mkdir speedUp_MxC
+
+cd speedUp_MxC
+
+cp ../LBCUDA_Test/validation_speed_up/sUpMxC/InitialParameters.txt .
+
+mkdir 16 32 64 128 256 512 1024 2048 4096
+
+#--------------------------------------------------------------------
+
+#Entrar a los bloques
+
+cd 16
+
+latticeBox2D 16 16 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 100000 100100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 16
+
+
+cd 32
+
+latticeBox2D 32 32 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 100000 100100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 32
+
+
+
+cd 64
+
+latticeBox2D 64 64 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 100000 100100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 64
+
+
+
+cd 128
+
+latticeBox2D 128 128 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 2000 2100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 128
+
+
+cd 256
+
+latticeBox2D 256 256 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 2000 2100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 256
+
+
+cd 512
+
+latticeBox2D 512 512 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 2000 2100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 512
+
+
+#______________ pasar a los lapsos de tiempo más cortos
+
+
+cd 1024
+
+latticeBox2D 1024 1024 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 250 200  >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 1024
+
+
+
+cd 2048
+
+latticeBox2D 2048 2048 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 250 200  >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 2048
+
+
+cd 4096
+
+latticeBox2D 4096 4096 periodicXY
+ln -s ../InitialParameters.txt .
+maxwellConstruction 50 100  >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 4096
+

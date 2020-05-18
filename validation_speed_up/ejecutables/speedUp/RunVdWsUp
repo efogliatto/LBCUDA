@@ -1,0 +1,167 @@
+#!/bin/bash
+
+#Tamaño de la grilla
+
+cd ../../../../
+
+mkdir speedUp_VdW
+
+cd speedUp_VdW
+
+cp ../LBCUDA_Test/validation_speed_up/sUpVdW/InitialParameters.txt .
+
+mkdir 3 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768
+
+#--------------------------------------------------------------------
+
+#Entrar a los bloques
+
+cd 3
+
+latticeBox2D 3 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 3
+
+cd 4
+
+latticeBox2D 4 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 4
+
+cd 8
+
+latticeBox2D 8 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 8
+
+cd 16
+
+latticeBox2D 16 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 16
+
+cd 32
+
+latticeBox2D 32 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 32
+
+cd 64
+
+latticeBox2D 64 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 20000 20100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 64
+
+cd 128
+
+latticeBox2D 128 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 5000 5100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 128
+
+cd 256
+
+latticeBox2D 256 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 5000 5100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 256
+
+cd 512
+
+latticeBox2D 512 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 1000 1100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 512
+
+cd 1024
+
+latticeBox2D 1024 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 1000 1100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 1024
+
+cd 2048
+
+latticeBox2D 2048 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 200 250 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 2048
+
+cd 4096
+
+latticeBox2D 4096 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 200 250 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 4096
+
+cd 8192
+
+latticeBox2D 8192 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 200 250 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 4096
+
+cd 16384
+
+latticeBox2D 16384 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 100 150 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 
+
+cd 32768
+
+latticeBox2D 32768 300 periodicXY
+ln -s ../InitialParameters.txt .
+VdWColumnHT 50 100 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+echo Done 

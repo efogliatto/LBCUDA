@@ -17,5 +17,5 @@ add_subdirectory (maxwellConstruction)
 add_subdirectory (VdWColumnHT)
 
 # Generación de burbujas en una superficie calefaccionada
-add_subdirectory (bubbleGeneration)
+#add_subdirectory (bubbleGeneration)
 

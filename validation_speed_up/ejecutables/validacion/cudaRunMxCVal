@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# generacion de datos para validarlos en CUDA de la Construccion de Maxwell
+
+cd ../../valMxC
+
+# Copia de los parámetros para realizar el muestreo
+
+cp -r cuda ../../../validacion_cudaMxC
+
+# Ingresando a realizar la construcción en C
+
+cd ../../../validacion_cudaMxC
+
+# Generacion de la grilla
+
+latticeBox2D 201 201 periodicXY
+# inicio de generacion de datos
+{
+    cd 6
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../625
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../65
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../675
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../7
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../725
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../75
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../775
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../8
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../825
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../85
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../875
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../9
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../925
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../95
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+
+    cd ../975
+    ln -s ../lattice/ .
+    cudaMaxwellConstruction 25000 25000 128 >&datos
+    rm T*  U* f* g* 
+}

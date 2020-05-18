@@ -466,7 +466,7 @@ int main(int argc, char** argv) {
     scalar elap = elapsedTime(&Time);
 
 
-    // writeDebug(field, rho, Temp, U, mesh.nPoints, mesh.Q);
+    writeDebug(field, rho, Temp, U, mesh.nPoints, mesh.Q);
    
 
     
@@ -506,6 +506,7 @@ int main(int argc, char** argv) {
     cudaFree( deviceGravity);
 
 
+    writeTime(elap);
     	
     printf( "\n Fin. Tiempo total = %.4f segundos\n\n", elap );
     

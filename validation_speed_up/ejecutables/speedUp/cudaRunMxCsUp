@@ -1,0 +1,853 @@
+#!/bin/bash
+
+#Tamaño de la grilla
+
+cd ../../../../
+
+mkdir speedUp_cudaMxC
+
+cd speedUp_cudaMxC
+
+cp ../LBCUDA_Test/validation_speed_up/sUpMxC/InitialParameters.txt .
+
+mkdir 16 32 64 128 256 512 1024 2048 4096
+
+#--------------------------------------------------------------------
+
+cd 16
+
+latticeBox2D 16 16 periodicXY
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+
+cd 32
+
+latticeBox2D 32 32 periodicXY
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+
+cd 64
+
+latticeBox2D 64 64 periodicXY
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 100000 100100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+
+cd 128
+
+latticeBox2D 128 128 periodicXY
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+
+cd 256
+
+latticeBox2D 256 256 periodicXY
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+
+cd 512
+
+latticeBox2D 512 512 periodicXY
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 2000 2100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##
+
+
+
+#--------------------------------------------------------------------
+
+cd 1024
+
+latticeBox2D 1024 1024 periodicXY
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 2048
+
+latticeBox2D 2048 2048 periodicXY
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 250 300 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##
+
+#--------------------------------------------------------------------
+cd 4096
+
+latticeBox2D 4096 4096 periodicXY
+
+mkdir 1B 2B 4B 8B 16B 32B 64B 128B 256B 512B
+
+#Entrar a los bloques
+cd 1B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 1 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 2B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 2 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 4B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 4 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 8B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 8 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 16B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 16 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 32B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 32 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 64B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 64 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 128B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 128 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 256B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 256 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+cd 512B
+
+ln -s ../lattice/ .
+ln -s ../../InitialParameters.txt .
+cudaMaxwellConstruction 50 100 512 >&datos
+rm -rf l* f* g* U* r* T*  h* I*
+cd ../
+
+#---##
+rm -rf lattice/
+cd ../
+#---##

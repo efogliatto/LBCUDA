@@ -15,4 +15,7 @@
 
 #include <readInitialParameters.h>
 
+#include <writeTime.h>
+
+
 #endif // BASIC_H
