@@ -41,6 +41,8 @@ extern "C" {
 
 #include <cudaEnergy.h>
 
+#include <cudaFixedTBoundaryHeating.h>
+
 #include <cudaFuerza.h>
 
 #include <math.h>
@@ -149,6 +151,16 @@ int main(int argc, char** argv) {
 
     readInitialParameters( &G, &c, &sigma, &a, &b, g, &Tr, &Tc, &Rhoc);     // Archivo de lectura InitialParameters.txt su forma esta en el .h
 
+    // Temperatura calefaccionada
+
+    scalar Theat = Tc;
+
+    // Ancho de seperficie calefaccionada
+    
+    uint widthbd = 12 ;
+
+
+
     /*        
     printf("\t G = %f\n",G);
     printf("\t c = %f\n",c);
@@ -212,21 +224,21 @@ int main(int argc, char** argv) {
     // Inicializacion de densidad
 
     for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
+        
+        //rho[i] = Rhoc + (rand() % (3)-1)*0.01* Rhoc;
 
-        rho[i] = Rhoc + (rand() % (3)-1)*0.01* Rhoc;
+        
+	    if( mesh.points[i][1] < 350 ) { 
 
-        /*
-        if( mesh.points[i][1] < 3 ) { 
+	        rho[i] = 0.1610588; 
 
-            rho[i] = 0.09; 
+	    } 
 
-        } 
+	    else { 
 
-        else { 
+	         rho[i] = 0.0199722; 
 
-            rho[i] = 0.07; 
-
-        } */
+	    }
 
     }
 
@@ -256,16 +268,16 @@ int main(int argc, char** argv) {
     // Factores de relajacion para colision
 
     momentoModelCoeffs relax;
-
+    
     relax.Tau[0] = 1.0;
-    relax.Tau[1] = 0.8;
-    relax.Tau[2] = 1.1;
+    relax.Tau[1] = 1.25;
+    relax.Tau[2] = 1.0;
     relax.Tau[3] = 1.0;
     relax.Tau[4] = 1.1;
     relax.Tau[5] = 1.0;
     relax.Tau[6] = 1.1;
-    relax.Tau[7] = 0.8;
-    relax.Tau[8] = 0.8;
+    relax.Tau[7] = 1.3;
+    relax.Tau[8] = 1.3;
 
 
     // Factores de relajacion para energia
@@ -275,16 +287,16 @@ int main(int argc, char** argv) {
     energyRelax.Tau[0] = 1.0;
     energyRelax.Tau[1] = 1.0;
     energyRelax.Tau[2] = 1.0;
-    energyRelax.Tau[3] = 0.8;
+    energyRelax.Tau[3] = 1.55;
     energyRelax.Tau[4] = 1.0;
-    energyRelax.Tau[5] = 0.8;
+    energyRelax.Tau[5] = 1.55;
     energyRelax.Tau[6] = 1.0;
     energyRelax.Tau[7] = 1.0;
     energyRelax.Tau[8] = 1.0;
 
-    energyRelax.alpha_1 = 1;
-    energyRelax.alpha_2 = 1;
-    energyRelax.Cv = 1;    
+    energyRelax.alpha_1 = -2;
+    energyRelax.alpha_2 = 2;
+    energyRelax.Cv = 5;  
 
 
 
@@ -469,8 +481,8 @@ int main(int argc, char** argv) {
 
         boundaryIndex(&mesh, "Y0", &bd);
 
-        cudaFixedTBoundary<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
-                                    energyRelax.alpha_1, energyRelax.alpha_2, (Tc*Tr), Tc, bd, cmesh.bd.nbd,
+        cudaFixedTBoundaryHeating<<<ceil(mesh.nPoints/xgrid)+1,xgrid>>>( deviceField_g, deviceT, deviceU, cmesh.bd.bdPoints, cmesh.nb, cmesh.lattice.invM,
+                                    energyRelax.alpha_1, energyRelax.alpha_2, (Tc*Tr), Theat, widthbd, bd, cmesh.bd.nbd,
                                     cmesh.bd.maxCount, cmesh.Q );   cudaDeviceSynchronize();
 
 

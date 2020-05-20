@@ -1,4 +1,4 @@
-#include <cudaFixedTBoundary.h>
+#include <cudaFixedTBoundaryHeating.h>
 
 #include <cudaEnergyEqDistNode.h>
 
@@ -14,18 +14,24 @@ extern "C" __global__ void cudaFixedTBoundaryHeating( cuscalar* field,
 					       cuscalar alpha_2,
 						   cuscalar bdval,
 						   cuscalar bdheat,
+						   uint widthbd,
 					       uint bid,
                            uint nbd,
 					       uint maxNbd,
 					       uint Q ) {
 
     
-    // Thread index
+	// Thread index
+	
+	printf("widthbd : %d\n",widthbd);
+	printf("bid : %d\n",bid);
+	printf("nbd : %d\n",nbd);
+	printf("maxNbd : %d\n",maxNbd);
+    							
     
 	int idx = threadIdx.x + blockIdx.x*blockDim.x;
 	
-	uint widthbd = 12;
-
+	
 	uint since = (nbd/2.0)+1 - (widthbd/2.0);
 	uint until = since + widthbd ;
 
