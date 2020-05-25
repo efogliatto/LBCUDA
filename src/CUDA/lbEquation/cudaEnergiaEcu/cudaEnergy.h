@@ -5,7 +5,7 @@
 
 #include <cudaFixedTBoundary.h>
 
-//#include <cudaFixedTBoundaryHeating.h>
+#include <cudaFixedTBoundaryHeating.h>
 
 #include <cudaEnergySource.h>
 

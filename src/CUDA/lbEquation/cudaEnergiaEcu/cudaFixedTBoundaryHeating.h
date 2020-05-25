@@ -22,19 +22,19 @@
 #include <cudaLatticeMesh.h>
 
 extern "C" __global__ void cudaFixedTBoundaryHeating( cuscalar* field,
-					       cuscalar* T,
-					       cuscalar* U,
-					       int* bdPoints,
-					       int* nb,
-					       cuscalar* invM,
-					       cuscalar alpha_1,
-					       cuscalar alpha_2,
-						   cuscalar bdval,
-						   cuscalar bdheat,
-						   uint widthbd,
-					       uint bid,
-                           uint nbd,
-					       uint maxNbd,
-					       uint Q ) {
+						      cuscalar* T,
+						      cuscalar* U,
+						      int* bdPoints,
+						      int* nb,
+						      cuscalar* invM,
+						      cuscalar alpha_1,
+						      cuscalar alpha_2,
+						      cuscalar bdval,
+						      cuscalar bdheat,
+						      uint widthbd,
+						      uint bid,
+						      uint nbd,
+						      uint maxNbd,
+						      uint Q );
 
 #endif // CUDAFIXEDTBOUNDARYHEATING_H

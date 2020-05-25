@@ -21,6 +21,7 @@ add_library(cudalbequation STATIC
 
   cudaEnergiaEcu/cudaEnergyCollision.cu
   cudaEnergiaEcu/cudaFixedTBoundary.cu
+  cudaEnergiaEcu/cudaFixedTBoundaryHeating.cu
   cudaEnergiaEcu/cudaEnergyEqDistNode.cu
   cudaEnergiaEcu/cudaEnergySource.cu
   cudaEnergiaEcu/cudaEnergyTemp.cu
@@ -57,6 +58,7 @@ add_library(cudalbequationPTX OBJECT
 
   cudaEnergiaEcu/cudaEnergyCollision.cu
   cudaEnergiaEcu/cudaFixedTBoundary.cu
+  cudaEnergiaEcu/cudaFixedTBoundaryHeating.cu
   cudaEnergiaEcu/cudaEnergyEqDistNode.cu
   cudaEnergiaEcu/cudaEnergySource.cu
   cudaEnergiaEcu/cudaEnergyTemp.cu

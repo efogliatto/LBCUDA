@@ -41,7 +41,7 @@ extern "C" {
 
 #include <cudaEnergy.h>
 
-#include <cudaFixedTBoundaryHeating.h>
+/* #include <cudaFixedTBoundaryHeating.h> */
 
 #include <cudaFuerza.h>
 
