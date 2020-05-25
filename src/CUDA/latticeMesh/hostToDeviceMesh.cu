@@ -100,17 +100,17 @@ __host__ void hostToDeviceMesh(cudaBasicMesh* cmesh, basicMesh* hmesh) {
     
     // Matriz de transformacion MRT
     
-    cudaMalloc( (void**)&cmesh->lattice.M, hmesh->Q*hmesh->Q*sizeof(int) );
+    cudaMalloc( (void**)&cmesh->lattice.M, hmesh->Q*hmesh->Q*sizeof(cuscalar) );
 
-    cudaMemcpy( cmesh->lattice.M, hmesh->lattice.M, hmesh->Q*hmesh->Q*sizeof(int), cudaMemcpyHostToDevice );
+    cudaMemcpy( cmesh->lattice.M, hmesh->lattice.M, hmesh->Q*hmesh->Q*sizeof(cuscalar), cudaMemcpyHostToDevice );
 
 
     
     // Inversa de matriz de transformacion MRT
     
-    cudaMalloc( (void**)&cmesh->lattice.invM, hmesh->Q*hmesh->Q*sizeof(int) );
+    cudaMalloc( (void**)&cmesh->lattice.invM, hmesh->Q*hmesh->Q*sizeof(cuscalar) );
 
-    cudaMemcpy( cmesh->lattice.invM, hmesh->lattice.invM, hmesh->Q*hmesh->Q*sizeof(int), cudaMemcpyHostToDevice );        
+    cudaMemcpy( cmesh->lattice.invM, hmesh->lattice.invM, hmesh->Q*hmesh->Q*sizeof(cuscalar), cudaMemcpyHostToDevice );        
     
     
 
