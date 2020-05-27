@@ -12,3 +12,6 @@ add_subdirectory (cudaMaxwellConstruction)
 
 # Construccion de Maxwell
 add_subdirectory (cudaVdWColumnHT)
+
+# Generación de Burbujas
+add_subdirectory (cudaBubbleGeneration)
