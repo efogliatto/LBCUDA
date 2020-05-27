@@ -1,0 +1,25 @@
+-1.0    
+1.0     
+0.125
+1.0
+4.0
+0.0
+-8e-06
+0.0
+0.8
+0.074074074
+0.083333333
+
+// Estan ordenados de la siguiente forma
+
+    G
+    c
+    sigma
+    a
+    b
+    g[0] en x
+    g[1] en y
+    g[2] en z
+    Tr
+    Tc
+    Rhoc
