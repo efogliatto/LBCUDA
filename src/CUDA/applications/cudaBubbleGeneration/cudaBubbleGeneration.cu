@@ -238,8 +238,7 @@
     
         for( uint i = 0 ; i < mesh.nPoints ; i++ ) {
             
-            //rho[i] = Rhoc + (rand() % (3)-1)*0.01* Rhoc;
-    
+                
             
             if( mesh.points[i][1] < 350 ) { 
     
