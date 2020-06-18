@@ -37,19 +37,21 @@ extern "C" __device__ void cudaEnergyEqDistNode( cuscalar* eq,
 	
 	
     // Campo en equilibrio. field = invM * n_eq										       
+    uint i = 0 ;
+    
+    while( i < Q ) {
 
-    for( uint i = 0 ; i < Q ; i++ ) {
+        eq[i] = 0;
 
-	eq[i] = 0;
+        uint j = 0 ;
+        while( j < Q ) {
 
-	for( uint j = 0 ; j < Q ; j++ ) {
+            scalar aux = invM[i*Q + j] * n_eq[j];
 
-	    scalar aux = invM[i*Q + j] * n_eq[j];
-
-	    eq[i] = eq[i] + aux;
-				
-	}
-			
+            eq[i] = eq[i] + aux;
+            j++;        
+        }
+        i++;
     }
 
 }
