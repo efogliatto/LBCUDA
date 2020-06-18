@@ -14,10 +14,12 @@ extern "C" __global__ void cudaSwap(cuscalar* field, cuscalar* swap, int* nb, in
    
     if( idx < np ) {
 
-	for( uint k = 0 ; k < Q ; k++ ) {
+        uint k = 0;
+
+	while( k < Q ) {
 
 	    field[idx*Q+k] = swap[idx*Q+k];
-	    
+	    k++;
 	}
 	
     }

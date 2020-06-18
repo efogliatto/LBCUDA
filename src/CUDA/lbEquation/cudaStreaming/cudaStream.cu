@@ -16,8 +16,9 @@ extern "C" __global__ void cudaStream(cuscalar* field, cuscalar* swap, int* nb, 
 
 	
 	// Copy only neighbours to swap   
+	uint k = 0;
 
-	for( uint k = 0 ; k < Q ; k++ ) {
+	for( k < Q ) {
 
 	    int neighId = nb[idx*Q+k];
 
@@ -32,7 +33,7 @@ extern "C" __global__ void cudaStream(cuscalar* field, cuscalar* swap, int* nb, 
 		swap[idx*Q+k] = field[idx*Q+k];
 
 	    }
-    
+    	k++;
 	}
 
 	
