@@ -12,11 +12,13 @@ extern "C" __global__ void cudaEnergyTemp( cuscalar* T, cuscalar* field, cuscala
     if( id < np ) {
 
 	cuscalar acum = 0;	    
+	uint j = 0 ;
 
-	for( uint j = 0 ; j < Q ; j++ ) {
+	while( j < Q ) {
 
 	    acum += field[ id*Q + j ];
 
+		j++;
 	}
 
 	T[id] = acum + 0.5*gamma_0[id];	
