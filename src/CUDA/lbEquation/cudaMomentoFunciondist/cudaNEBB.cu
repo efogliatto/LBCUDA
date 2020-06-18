@@ -34,9 +34,11 @@ extern "C" __global__ void cudaNEBB( cuscalar* field,
 
 	    cuscalar Ftotal[3] = {0,0,0};
 
-	    for( uint j = 0 ; j < 3 ; j++ )
-		Ftotal[j] = Ft[ id*3 + j ];
-
+		uint j=0;
+	    while( j < 3 ){
+			Ftotal[j] = Ft[ id*3 + j ];
+			j++;	
+		}
 
 	    switch( bndNormal ) {
 
