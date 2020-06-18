@@ -52,8 +52,9 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 	
 	if( noNeigh == 0 ) {
 
+		uint k = 1;
 
-	    for( uint k = 1 ; k < Q ; k++ ) {
+	    while( k < Q ) {
 
 
 	    	// Nodo vecino
@@ -85,7 +86,7 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 	    	for( uint j = 0 ; j < 3 ; j++ )
 	    	    lf[j] +=  alpha * (cuscalar)lvel[k*3+j] ;
 
-
+			k++;
 	    }
 
 
@@ -103,10 +104,13 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 
 
 	    // Suma directamente en arreglo
-	    
-	    for( uint j = 0 ; j < 3 ; j++)	
-		fint[id*3+j] =  lf[j] * (-G) * psi;
-	
+		
+		uint j = 0;
+		
+	    while( j < 3 )	{
+			fint[id*3+j] =  lf[j] * (-G) * psi;
+			j++;
+		}
 	    
 
 	}
@@ -116,9 +120,11 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 	
 	else {
 
-	    for( uint j = 0 ; j < 3 ; j++)	
-		fint[id*3+j] =  0;
-
+		uint j = 3;
+	    while( j < 3 )	{
+			fint[id*3+j] =  0;
+			j++;
+		}
 	}	
 
 
