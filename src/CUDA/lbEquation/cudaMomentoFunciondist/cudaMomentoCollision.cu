@@ -20,171 +20,198 @@ extern "C" __global__ void cudaMomentoCollision( cuscalar* field, cuscalar* rho,
     int id = threadIdx.x + blockIdx.x*blockDim.x;
 
    
-    if( id < np ) {
+	if( id < np ) {
 
 
-	// Distribuciones parciales
-    
-	cuscalar m[9];   // m:  Distribucion en espacio de momentos
-    
-	cuscalar m_eq[9];   // meq: Distribucion de equilibrio en espacio de momentos
-
-
-	// Magnitud de la velocidad
+		// Distribuciones parciales
 		
-	cuscalar ux = U[id*3], uy = U[id*3 + 1], uz = U[id*3 + 2];
-
-	cuscalar umag = ux*ux + uy*uy + uz*uz;
-
-	
-	// Copia de parametros auxiliares para el calculo de S
-
-	cuscalar auxU[3] = {0,0,0};
-	cuscalar auxF[3] = {0,0,0};
-	cuscalar auxFint[3] = {0,0,0};
-	cuscalar s[9] = {0,0,0,0,0,0,0,0,0};
+		cuscalar m[9];   // m:  Distribucion en espacio de momentos
+		
+		cuscalar m_eq[9];   // meq: Distribucion de equilibrio en espacio de momentos
 
 
-	for( uint k = 0 ; k < 3 ; k++ )	{
+		// Magnitud de la velocidad
 			
-	    auxU[k] = U[id*3 + k];
-	    auxF[k] = f[id*3 + k];
-	    auxFint[k] = fint[id*3 + k];
-		
-	}
+		cuscalar ux = U[id*3], uy = U[id*3 + 1], uz = U[id*3 + 2];
 
-	for( uint k = 0 ; k < Q ; k++ )	{
-
-	    s[k] = 0.0 ;
-
-	}	
+		cuscalar umag = ux*ux + uy*uy + uz*uz;
 
 		
-	// Distribucion de equilibrio en espacio de momentos
+		// Copia de parametros auxiliares para el calculo de S
 
-	cuscalar localRho = rho[id];
-		
-	m_eq[0] = localRho;
-	m_eq[1] = localRho * (-2 + 3*umag);
-	m_eq[2] = localRho * (1 - 3*umag);
-	m_eq[3] = localRho * ux;
-	m_eq[4] = localRho * (-ux);
-	m_eq[5] = localRho * uy;
-	m_eq[6] = localRho * (-uy);
-	m_eq[7] = localRho * (ux*ux - uy*uy);
-	m_eq[8] = localRho * ux * uy;
+		cuscalar auxU[3] = {0,0,0};
+		cuscalar auxF[3] = {0,0,0};
+		cuscalar auxFint[3] = {0,0,0};
+		cuscalar s[9] = {0,0,0,0,0,0,0,0,0};
 
 
+		uint k = 0;
 
-	// Distribucion en espacio de momentos. m = M*field[id]
+		while( k < 3 )	{
+				
+			auxU[k] = U[id*3 + k];
+			auxF[k] = f[id*3 + k];
+			auxFint[k] = fint[id*3 + k];
 
-	for( uint i = 0 ; i < Q ; i++ ) {
-
-	    m[i] = 0;
-
-	    for( uint j = 0 ; j < Q ; j++ ) {
-
-		m[i] += M[i*Q + j] * field[ id*Q + j ];
-
-	    }
-
-	}
-	
-	/* // Distribucion en espacio de momentos. m = M*field[id] */
-
-	/* uint i = 0 ; */
-
-	/* while ( i < Q ) { */
-
-	/*     m[i] = 0; */
+			k++;
 			
-	/*     uint j = 0 ;		 */
+		}
 
-	/*     while ( j < Q ) { */
+		k = 0;
 
-	/* 	m[i] += M[i*Q + j] * field[ id*Q + j ]; */
+		while( k < Q )	{
+
+			s[k] = 0.0 ;
+
+			k++;
+
+		}	
+
+			
+		// Distribucion de equilibrio en espacio de momentos
+
+		cuscalar localRho = rho[id];
+			
+		m_eq[0] = localRho;
+		m_eq[1] = localRho * (-2 + 3*umag);
+		m_eq[2] = localRho * (1 - 3*umag);
+		m_eq[3] = localRho * ux;
+		m_eq[4] = localRho * (-ux);
+		m_eq[5] = localRho * uy;
+		m_eq[6] = localRho * (-uy);
+		m_eq[7] = localRho * (ux*ux - uy*uy);
+		m_eq[8] = localRho * ux * uy;
+
+
+
+		// Distribucion en espacio de momentos. m = M*field[id]
+
+		uint i = 0;
+
+		while( i < Q ) {
+
+			m[i] = 0;
+
+			uint j = 0 ;
+
+			while( j < Q ) {
+
+				m[i] += M[i*Q + j] * field[ id*Q + j ];
+
+				j++;
+			}
+
+			i++;
+
+		}
+		
+		/* // Distribucion en espacio de momentos. m = M*field[id] */
+
+		/* uint i = 0 ; */
+
+		/* while ( i < Q ) { */
+
+		/*     m[i] = 0; */
+				
+		/*     uint j = 0 ;		 */
+
+		/*     while ( j < Q ) { */
+
+		/* 	m[i] += M[i*Q + j] * field[ id*Q + j ]; */
+					
+
+		/* 	j++;	 */
+		/*     } */
 				
 
-	/* 	j++;	 */
-	/*     } */
-			
-
-	/*     i++;	 */
-	/* } */
+		/*     i++;	 */
+		/* } */
 
 
-	// Calculo de S termino de fuente
-	
-	cuscalar p_EOS = 0.0;
-			
-	cuscalar psi = 0.0;
-
-	cudaFuerzaPresionEOS( &p_EOS, rho[id] , T[id], a, b); 
-
-	cudaFuerzaPsi( &psi, p_EOS, rho[id], c, cs_2, G);
-
-	cudaFuerzaS(s, auxF, auxFint, auxU, psi, sigma, Tau, delta_t_cu) ;
-
-
-
-	
-	// Collision in momentum space
-
-	for( uint k = 0 ; k < Q ; k++ )
-	    m[k] = ( m[k]  -  Tau[k]*( m[k] - m_eq[k] ) ) + ( ( 1 - 0.5 * Tau[k] ) * s[k] );
-	
-	
-	/* uint k = 0 ;	 */
-
-	/* while ( k < Q ){ */
-
-	/*     m[k] = ( m[k]  -  Tau[k]*( m[k] - m_eq[k] ) ) + ( delta_t_cu * ( 1 - 0.5 * Tau[k] ) * s[k] ); */
-			
-	/*     k++;	 */
-			
-	/* } */
-
-
-	
+		// Calculo de S termino de fuente
 		
-	// Vuelta al espacio de fases. field = invM * m
+		cuscalar p_EOS = 0.0;
+				
+		cuscalar psi = 0.0;
 
-	for( uint i = 0 ; i < Q ; i++ ) {
+		cudaFuerzaPresionEOS( &p_EOS, rho[id] , T[id], a, b); 
 
-	    field[id*Q + i] = 0;
+		cudaFuerzaPsi( &psi, p_EOS, rho[id], c, cs_2, G);
 
-	    for( uint j = 0 ; j < Q ; j++ ) {
+		cudaFuerzaS(s, auxF, auxFint, auxU, psi, sigma, Tau, delta_t_cu) ;
 
-		field[id*Q + i] += invM[i*Q + j] * m[j];
 
-	    }
 
+		
+		// Collision in momentum space
+
+		k = 0;
+
+		while( k < Q ){
+
+			m[k] = ( m[k]  -  Tau[k]*( m[k] - m_eq[k] ) ) + ( ( 1 - 0.5 * Tau[k] ) * s[k] );
+			
+			k++;
+
+		}
+		
+		/* uint k = 0 ;	 */
+
+		/* while ( k < Q ){ */
+
+		/*     m[k] = ( m[k]  -  Tau[k]*( m[k] - m_eq[k] ) ) + ( delta_t_cu * ( 1 - 0.5 * Tau[k] ) * s[k] ); */
+				
+		/*     k++;	 */
+				
+		/* } */
+
+
+		
+			
+		// Vuelta al espacio de fases. field = invM * m
+
+		i = 0;
+
+		while( i < Q ) {
+
+			field[id*Q + i] = 0;
+
+			uint j = 0;
+
+			while( j < Q ) {
+
+				field[id*Q + i] += invM[i*Q + j] * m[j];
+
+				j++;
+			}
+
+			i++;
+		}
+		
+		
+		/* i=0; */
+		/* while ( i < Q ) { */
+
+		/*     field[id*Q + i] = 0; */
+
+		/*     uint j = 0 ; */
+
+		/*     while ( j < Q ) { */
+
+		/* 	cuscalar aux = invM[i*Q + j] * m[j]; */
+
+		/* 	field[id*Q + i] = field[id*Q + i] + aux; */
+				
+		/* 	j++;	 */
+		
+		/*     } */
+		/*     i++;		 */
+				
+
+		/* } */
+
+		
+			
 	}
-	
-	
-	/* i=0; */
-	/* while ( i < Q ) { */
-
-	/*     field[id*Q + i] = 0; */
-
-	/*     uint j = 0 ; */
-
-	/*     while ( j < Q ) { */
-
-	/* 	cuscalar aux = invM[i*Q + j] * m[j]; */
-
-	/* 	field[id*Q + i] = field[id*Q + i] + aux; */
-			
-	/* 	j++;	 */
-	
-	/*     } */
-	/*     i++;		 */
-			
-
-	/* } */
-
-	
-		
-    }
 
 }

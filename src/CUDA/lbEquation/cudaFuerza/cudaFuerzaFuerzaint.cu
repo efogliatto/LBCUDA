@@ -37,11 +37,15 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 
 	uint noNeigh = 0;
 
-	for( uint k = 1 ; k < Q ; k++ ) {
+	uint h = 1;
 
-	    if( nb[id*Q+k] == -1 )
-		noNeigh = 1;
+	while( h < Q ) {
 
+	    if( nb[id*Q+h] == -1 ){
+			noNeigh = 1;
+		}
+
+		h++;
 	}
 
 
