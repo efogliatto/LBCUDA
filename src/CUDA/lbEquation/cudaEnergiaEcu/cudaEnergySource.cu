@@ -58,10 +58,13 @@ extern "C" __global__ void cudaEnergySource( cuscalar* s,
 
 	
 	cuscalar first = 0;
+	uint j = 0;
 
-	for(uint j = 0 ; j < 3 ; j++)
+	while( j < 3 ){
 	    first += gradT[j] * gradRho[j];
-
+		j++;
+	}
+	
 	first = first * chi / _rho;
 
 	
