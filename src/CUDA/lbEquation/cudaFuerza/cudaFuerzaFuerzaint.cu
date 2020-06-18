@@ -82,10 +82,11 @@ extern "C" __global__ void cudaFuerzaFuerzaint(cuscalar* fint, cuscalar* rho, cu
 	    
 	    	cuscalar alpha = weight[k] * psi;
 
-	    
-	    	for( uint j = 0 ; j < 3 ; j++ )
+			uint j = 0;
+	    	while( j < 3 ){
 	    	    lf[j] +=  alpha * (cuscalar)lvel[k*3+j] ;
-
+				j++;
+			}
 			k++;
 	    }
 
