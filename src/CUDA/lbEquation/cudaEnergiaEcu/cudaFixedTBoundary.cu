@@ -42,7 +42,7 @@ extern "C" __global__ void cudaFixedTBoundary( cuscalar* field,
 
 	if( id != -1 ) {
 
-
+		uint k;
 
 	    // Distribucion de equilibrio sobre la frontera
 
@@ -50,9 +50,11 @@ extern "C" __global__ void cudaFixedTBoundary( cuscalar* field,
 	
 
 
-	    // Update unknowk distributions
+		// Update unknowk distributions
+		
+		k = 1;
 
-	    for( uint k = 1 ; k < Q ; k++ ) {
+	    while( k < Q ) {
 			
 	        if( nb[id*Q+k] == -1 ) {
 
@@ -60,6 +62,7 @@ extern "C" __global__ void cudaFixedTBoundary( cuscalar* field,
 
 	        }
 
+			k++;
 	    }
 
 
@@ -69,8 +72,10 @@ extern "C" __global__ void cudaFixedTBoundary( cuscalar* field,
 	    // Correction constants
 
 	    scalar beta=0, kn=0, unk=0;
+		
+		k = 0;
 
-	    for( uint k = 0 ; k < Q ; k++ ) {
+	    while( k < Q ) {
 			
 	        if( nb[id*Q+k] == -1 ) {
 
@@ -83,20 +88,22 @@ extern "C" __global__ void cudaFixedTBoundary( cuscalar* field,
 		    kn += field[id*Q+k];
 		
 	        }
-
+			k++;
 	    }
 
 
 	    beta = (bdval - kn) / unk;
+		
+		k = 0;
 
-	    for( uint k = 0 ; k < Q ; k++ ) {
+	    while( k < Q ) {
 			
 	        if( nb[id*Q+k] == -1 ) {
 
 		    field[id*Q+k] = beta * field[id*Q+k];
 
 	        }
-
+			k++;
 	    }
 
 	    

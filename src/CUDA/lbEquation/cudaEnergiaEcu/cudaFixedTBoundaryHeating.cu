@@ -65,7 +65,7 @@ extern "C" __global__ void cudaFixedTBoundaryHeating( cuscalar* field,
 
     	if( id != -1 ) {
 
-
+			uint k;
 
     		// Distribucion de equilibrio sobre la frontera
 
@@ -75,15 +75,18 @@ extern "C" __global__ void cudaFixedTBoundaryHeating( cuscalar* field,
 
     		// Update unknowk distributions
 
-    		for( uint k = 1 ; k < Q ; k++ ) {
+			k = 1;
+
+			while( k < Q ) {
 				
-    			if( nb[id*Q+k] == -1 ) {
-
-    				field[id*Q+k] = f_eq_bnd[k];
-
-    			}
-
-    		}
+				if( nb[id*Q+k] == -1 ) {
+	
+				field[id*Q+k] = f_eq_bnd[k];
+	
+				}
+	
+				k++;
+			}
 
 
 
@@ -93,21 +96,21 @@ extern "C" __global__ void cudaFixedTBoundaryHeating( cuscalar* field,
 
     		scalar beta=0, kn=0, unk=0;
 
-    		for( uint k = 0 ; k < Q ; k++ ) {
-				
-    			if( nb[id*Q+k] == -1 ) {
-
-    				unk += field[id*Q+k];
-
-    			}
-
-    			else {
-
-    				kn += field[id*Q+k];
+			while( k < Q ) {
 			
-    			}
-
-    		}
+				if( nb[id*Q+k] == -1 ) {
+	
+				unk += field[id*Q+k];
+	
+				}
+	
+				else {
+	
+				kn += field[id*Q+k];
+			
+				}
+				k++;
+			}
 
 
     		if( idx>=since && idx<=until){
@@ -122,15 +125,17 @@ extern "C" __global__ void cudaFixedTBoundaryHeating( cuscalar* field,
 			
     		}
 
-    		for( uint k = 0 ; k < Q ; k++ ) {
+			k = 0;
+
+			while( k < Q ) {
 				
-    			if( nb[id*Q+k] == -1 ) {
-
-    				field[id*Q+k] = beta * field[id*Q+k];
-
-    			}
-
-    		}
+				if( nb[id*Q+k] == -1 ) {
+	
+				field[id*Q+k] = beta * field[id*Q+k];
+	
+				}
+				k++;
+			}
 
 			
 
